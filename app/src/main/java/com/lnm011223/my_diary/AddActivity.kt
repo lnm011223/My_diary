@@ -1,5 +1,6 @@
 package com.lnm011223.my_diary
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
@@ -7,13 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.WindowCompat
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
+import kotlinx.android.synthetic.main.activity_add.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
@@ -32,6 +38,10 @@ class AddActivity : AppCompatActivity() {
 
             }
 
+        }
+        binding.completeButton.setOnClickListener {
+            val mood = mood_edit.text.toString()
+            val diary_text = diarytext_edit.text.toString()
         }
     }
     private fun isDarkTheme(context: Context): Boolean {
