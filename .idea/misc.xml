@@ -5,9 +5,16 @@
       <map>
         <entry key="app/src/main/res/drawable/button_drawable.xml" value="0.40520833333333334" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.19479166666666667" />
-        <entry key="app/src/main/res/layout/activity_add.xml" value="0.2203125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.34270833333333334" />
+        <entry key="app/src/main/res/drawable/mood_1.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/mood_2.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/mood_3.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/activity_add.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3123262279888786" />
+        <entry key="app/src/main/res/layout/activity_revise.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/content_add.xml" value="0.2203125" />
+        <entry key="app/src/main/res/layout/diary_card.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.2463768115942029" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/test.xml" value="0.1793478260869565" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2203125" />
@@ -19,5 +26,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
   </component>
 </project>

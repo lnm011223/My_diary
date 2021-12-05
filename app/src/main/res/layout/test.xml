@@ -23,7 +23,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_mood"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="10dp"
         android:elevation="0dp"
@@ -33,103 +33,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:text="今天的心情"
+            android:textColor="#707070"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mood_edit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:text="今天的心情"
-                android:textColor="#707070"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:id="@+id/mood1_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:backgroundTint="#00000000"
-                android:src="@drawable/mood_1_last"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/mood2_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#00000000"
-                android:src="@drawable/mood_2_last"
-                app:layout_constraintStart_toEndOf="@+id/mood1_image"
-                tools:layout_editor_absoluteY="37dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0"/>
-
-
-            <ImageView
-                android:id="@+id/mood3_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="#00000000"
-                android:src="@drawable/mood_3_last"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/mood4_image"
-                app:layout_constraintHorizontal_bias="0.512"
-                app:layout_constraintStart_toEndOf="@+id/mood2_image"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/mood4_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginEnd="15dp"
-                android:backgroundTint="#00000000"
-                android:src="@drawable/mood_4_last"
-                app:layout_constraintEnd_toStartOf="@+id/mood5_image"
-                tools:layout_editor_absoluteY="37dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0"/>
-
-            <ImageView
-                android:id="@+id/mood5_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:backgroundTint="#00000000"
-                android:src="@drawable/mood_5_last"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:layout_editor_absoluteY="37dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/button_drawable"
+            android:backgroundTint="#eeeeee"
+            android:hint="请输入内容"
+            android:paddingStart="10dp" />
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -173,8 +97,8 @@
                 <ImageView
                     android:id="@+id/image_show"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:scaleType="center"
+                    android:layout_height="match_parent"
+
 
 
                     android:src="@drawable/ic_baseline_camera_alt_24"
@@ -223,7 +147,6 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/button_drawable"
             android:backgroundTint="#eeeeee"
-            android:maxLines="2"
             android:hint="请输入内容"
             android:paddingStart="10dp" />
     </com.google.android.material.card.MaterialCardView>
@@ -231,7 +154,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/complete_Button"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="#3EB06A"
         android:insetTop="0dp"
         android:insetBottom="0dp"

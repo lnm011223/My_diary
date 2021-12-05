@@ -3,12 +3,18 @@
     package="com.lnm011223.my_diary">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.My_diary">
+
+
+        <activity
+            android:name=".ReviseActivity"
+            android:exported="false" />
         <activity
             android:name=".AddActivity"
             android:exported="false"

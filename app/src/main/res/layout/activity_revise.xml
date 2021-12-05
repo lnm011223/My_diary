@@ -7,7 +7,7 @@
     android:background="#F3F3EC"
 
     android:fitsSystemWindows="true"
-    tools:context=".AddActivity">
+    tools:context=".ReviseActivity">
 
     <TextView
         android:id="@+id/date_text"
@@ -235,7 +235,7 @@
         android:backgroundTint="#3EB06A"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="制作完成"
+        android:text="修改完成"
         android:textSize="18dp"
         android:textStyle="bold"
         app:cornerRadius="0dp"

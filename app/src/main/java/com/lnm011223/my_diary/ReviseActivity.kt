@@ -6,23 +6,21 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-
+import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.lnm011223.my_diary.databinding.ActivityAddBinding
 
+import com.lnm011223.my_diary.databinding.ActivityReviseBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAddBinding
+class ReviseActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityReviseBinding
     var mood_flag:Int = R.drawable.mood_1
     var uri1: String = ""
     @SuppressLint("SimpleDateFormat")
@@ -35,9 +33,10 @@ class AddActivity : AppCompatActivity() {
     var flag5 = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddBinding.inflate(layoutInflater)
+        binding = ActivityReviseBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
+        val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
+        val db = dbHelper.writableDatabase
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
@@ -47,19 +46,37 @@ class AddActivity : AppCompatActivity() {
         insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
 
-            //insetsController?.isAppearanceLightStatusBars = true
-            //insetsController?.isAppearanceLightNavigationBars = true
+
             insetsController?.apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
 
 
+
             }
 
         }
-        val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
-        dbHelper.writableDatabase
+        val datetext = intent.getStringExtra("datetext")
+        var diarytext = intent.getStringExtra("diarytext")
+        var imageuri = intent.getStringExtra("imageuri")?.toUri()
+        //val moodid = intent.getIntExtra("moodid",R.drawable.mood_1)
+        binding.dateText.text = datetext
+        binding.diarytextEdit.setText(diarytext)
+        binding.imageShow.setImageURI(imageuri)
+        val diarytext_backup = intent.getStringExtra("diarytext")
 
+        binding.completeButton.setOnClickListener {
+            diarytext = binding.diarytextEdit.text.toString()
+
+            val diary_value = ContentValues().apply {
+                put("imageuri",uri1)
+                put("moodid",mood_flag)
+
+                put("diarytext",diarytext)
+            }
+            db.update("diarydata",diary_value,"diarytext = ?", arrayOf(diarytext_backup))
+            finish()
+        }
         binding.imageShow.setOnClickListener {
 
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -122,58 +139,13 @@ class AddActivity : AppCompatActivity() {
                 flag5 = false
             }
         }
-        binding.completeButton.setOnClickListener {
 
-            val diary_text = binding.diarytextEdit.text.toString()
-
-
-            val intent = Intent()
-            val db = dbHelper.writableDatabase
-            val diary_value = ContentValues().apply {
-                put("imageuri",uri1)
-                put("moodid",mood_flag)
-                put("datetext",SimpleDateFormat("MM 月 dd 日 E").format(Date()))
-                put("diarytext",diary_text)
-            }
-            db.insert("diarydata",null,diary_value)
-
-            intent.apply {
-                putExtra("image_uri",uri1)
-                putExtra("mood_id",mood_flag)
-                putExtra("date_text",SimpleDateFormat("dd E").format(Date()))
-                putExtra("diary_text1",diary_text)
-
-            }
-
-            setResult(RESULT_OK,intent)
-            finish()
-
-        }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            formAlbum -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    data.data?.let { uri ->
-                        uri1 = uri.toString()
-                        val bitmap = getBitmapFromuri(uri)
-                        binding.imageShow.setImageURI(uri)
-                        binding.imageShow.setPadding(0,0,0,0)
-
-
-                    }
-                }
-            }
-        }
-    }
-    private fun getBitmapFromuri(uri: Uri) = contentResolver.openFileDescriptor(uri,"r")?.use { BitmapFactory.decodeFileDescriptor(it.fileDescriptor) }
     private fun isDarkTheme(context: Context): Boolean {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
-    private fun changeOther(imageView: ImageView,flag:Boolean){
+    private fun changeOther(imageView: ImageView, flag:Boolean){
 
         if (flag==true){
             when (imageView) {
@@ -246,6 +218,23 @@ class AddActivity : AppCompatActivity() {
                     flag4 = false
                     flag1 = false
 
+                }
+            }
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            formAlbum -> {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    data.data?.let { uri ->
+                        uri1 = uri.toString()
+
+                        binding.imageShow.setImageURI(uri)
+                        binding.imageShow.setPadding(0,0,0,0)
+
+
+                    }
                 }
             }
         }
