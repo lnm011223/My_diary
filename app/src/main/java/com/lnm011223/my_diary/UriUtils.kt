@@ -1,7 +1,9 @@
 package com.lnm011223.my_diary
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentUris
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
@@ -14,10 +16,41 @@ import android.provider.OpenableColumns
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import java.io.*
-import java.lang.Exception
 
 
 object UriUtils {
+
+    /**
+     * path转uri
+     * @param context
+     * @param imageFile
+     * @return
+     */
+    @SuppressLint("Range")
+    fun getImageContentUri(context: Context, imageFile: File): Uri? {
+        val filePath = imageFile.absolutePath
+        val cursor = context.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            arrayOf(MediaStore.Images.Media._ID),
+            MediaStore.Images.Media.DATA + "=? ",
+            arrayOf(filePath),
+            null
+        )
+        return if (cursor != null && cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID))
+            val baseUri = Uri.parse("content://media/external/images/media")
+            Uri.withAppendedPath(baseUri, "" + id)
+        } else {
+            if (imageFile.exists()) {
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.DATA, filePath)
+                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            } else {
+                null
+            }
+        }
+    }
+
     fun getFilePathFromURI(context: Context, contentUri: Uri?): String? {
         val rootDataDir = context.getExternalFilesDir(null)
         //        MyApplication.getMyContext().getExternalFilesDir(null).getPath();

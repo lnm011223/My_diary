@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
@@ -21,7 +22,8 @@ import java.util.*
 
 class ReviseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding
-    var mood_flag:Int = R.drawable.mood_1
+
+    var mood_flag:Int = 1
     var uri1: String = ""
     @SuppressLint("SimpleDateFormat")
     val formAlbum = 2
@@ -33,6 +35,7 @@ class ReviseActivity : AppCompatActivity() {
     var flag5 = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityReviseBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
@@ -59,7 +62,21 @@ class ReviseActivity : AppCompatActivity() {
         val datetext = intent.getStringExtra("datetext")
         var diarytext = intent.getStringExtra("diarytext")
         var imageuri = intent.getStringExtra("imageuri")?.toUri()
-        //val moodid = intent.getIntExtra("moodid",R.drawable.mood_1)
+
+        var diary = intent.getParcelableExtra<Diary>("test") as Diary
+        Log.d("aaa",diary.moon.toString())
+        mood_flag = diary.moon
+        uri1 = diary.diary_image
+        diarytext = diary.diary_text
+        
+        when (diary.moon) {
+            R.drawable.mood_1 -> binding.mood1Image.setImageResource(R.drawable.mood_1)
+            R.drawable.mood_2 -> binding.mood2Image.setImageResource(R.drawable.mood_2)
+            R.drawable.mood_3 -> binding.mood3Image.setImageResource(R.drawable.mood_3)
+            R.drawable.mood_4 -> binding.mood4Image.setImageResource(R.drawable.mood_4)
+            R.drawable.mood_5 -> binding.mood5Image.setImageResource(R.drawable.mood_5)
+        }
+
         binding.dateText.text = datetext
         binding.diarytextEdit.setText(diarytext)
         binding.imageShow.setImageURI(imageuri)
@@ -228,7 +245,7 @@ class ReviseActivity : AppCompatActivity() {
             formAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
-                        uri1 = uri.toString()
+                        uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
 
                         binding.imageShow.setImageURI(uri)
                         binding.imageShow.setPadding(0,0,0,0)

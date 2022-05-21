@@ -12,8 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import android.graphics.Bitmap
-
-
+import android.util.Log
+import androidx.core.net.toUri
+import java.io.File
 
 
 class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapter.ViewHolder>(){
@@ -47,7 +48,9 @@ class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapt
                 }
                 setPositiveButton("是") { _, _ ->
                     db.delete("diarydata", "diarytext = ?", arrayOf(diary.diary_text))
+                    val intent = Intent("DiaryDataChangeReceiver")
 
+                    context.sendBroadcast(intent)
 
                 }
 
@@ -64,8 +67,9 @@ class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapt
             intent.apply {
                 putExtra("datetext",diary.date_text)
                 putExtra("diarytext",diary.diary_text)
-                putExtra("imageuri",diary.diary_image.toString())
-                putExtra("moonid",diary.moon)
+                putExtra("imageuri",diary.diary_image)
+                putExtra("moodid",diary.moon)
+                putExtra("test",diary)
 
             }
             parent.context.startActivity(intent)
@@ -79,9 +83,9 @@ class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapt
         holder.diarycard_mood.setImageResource(diary.moon)
         holder.diarycard_date.text = diary.date_text.substring(5,7)+" "+diary.date_text.substring(10,12)
         holder.diarycard_text.text = diary.diary_text
+        Log.d("aaa",diary.diary_image)
 
-
-        holder.diarycard_image.setImageURI(diary.diary_image)
+        holder.diarycard_image.setImageURI(Uri.fromFile(File(diary.diary_image)))
     }
 
 }

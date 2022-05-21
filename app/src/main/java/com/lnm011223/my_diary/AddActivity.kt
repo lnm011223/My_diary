@@ -157,8 +157,9 @@ class AddActivity : AppCompatActivity() {
             formAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
-                        uri1 = uri.toString()
-                        val bitmap = getBitmapFromuri(uri)
+                        uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
+                        //val bitmap = getBitmapFromuri(uri)
+                        //val path = UriUtils.getFilePathFromURI(MyApplication.context,uri)
                         binding.imageShow.setImageURI(uri)
                         binding.imageShow.setPadding(0,0,0,0)
 
