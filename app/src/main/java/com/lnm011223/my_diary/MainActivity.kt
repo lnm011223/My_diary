@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -13,7 +14,9 @@ import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
             //insetsController?.isAppearanceLightStatusBars = true
             //insetsController?.isAppearanceLightNavigationBars = true
-            insetsController?.apply {
+            insetsController.apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
 
@@ -72,6 +75,13 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             val intent = Intent(this,AddActivity::class.java)
             startActivityForResult(intent,1)
+        }
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id) {
+                R.id.navigation_home -> {
+
+                }
+            }
         }
 
     }

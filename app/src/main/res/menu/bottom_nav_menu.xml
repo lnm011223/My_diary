@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_baseline_done_24"
-        android:title="代办" />
+        android:icon="@drawable/selector_todo"
+        android:title="待办" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_baseline_calendar_view_day_24"
+        android:icon="@drawable/selector_diary"
         android:title="日记" />
 
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/selector_settings"
         android:title="设置" />
 
 </menu>
