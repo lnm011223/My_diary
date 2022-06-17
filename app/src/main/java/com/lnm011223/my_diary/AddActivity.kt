@@ -12,10 +12,12 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.lnm011223.my_diary.MyApplication.Companion.context
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
 
 import java.text.SimpleDateFormat
@@ -41,8 +43,9 @@ class AddActivity : AppCompatActivity() {
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        window.statusBarColor = Color.parseColor("#F3F3EC")
-        window.navigationBarColor = Color.parseColor("#F3F3EC")
+        //window.statusBarColor = Color.parseColor("#F3F3EC")
+        window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
+        window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         insetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){

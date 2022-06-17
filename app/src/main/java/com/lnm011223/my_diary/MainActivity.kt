@@ -1,5 +1,6 @@
 package com.lnm011223.my_diary
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -7,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     var datetext:String = ""
     var diarytext:String = ""
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,8 +52,9 @@ class MainActivity : AppCompatActivity() {
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        window.statusBarColor = Color.parseColor("#F3F3EC")
-        window.navigationBarColor = Color.parseColor("#ffffff")
+
+        window.statusBarColor = ContextCompat.getColor(MyApplication.context,R.color.backgroundcolor)
+        window.navigationBarColor = ContextCompat.getColor(MyApplication.context,R.color.backgroundcolor)
         insetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){

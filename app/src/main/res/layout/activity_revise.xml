@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F3EC"
+    android:background="@color/backgroundcolor"
 
     android:fitsSystemWindows="true"
     tools:context=".ReviseActivity">
@@ -13,7 +13,7 @@
         android:id="@+id/date_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#707070"
+        android:textColor="@color/cardtext"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/card_mood"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
+        android:backgroundTint="@color/cardcolor"
         android:id="@+id/card_mood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +45,7 @@
 
                 android:layout_height="wrap_content"
                 android:text="今天的心情"
-                android:textColor="#707070"
+                android:textColor="@color/cardtext"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +144,8 @@
         app:cardElevation="0dp"
         app:layout_constraintBottom_toTopOf="@+id/card_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/cardcolor">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,7 +158,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:text="今天的照片"
-                android:textColor="#707070"
+                android:textColor="@color/cardtext"
                 android:textSize="16sp"
                 android:textStyle="bold"
 
@@ -164,12 +166,13 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#eeeeee"
+                android:backgroundTint="@color/cardinlinecolor"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginBottom="15dp"
                 app:cardElevation="0dp"
-                app:cardCornerRadius="10dp">
+                app:cardCornerRadius="10dp"
+                >
                 <ImageView
                     android:id="@+id/image_show"
                     android:layout_width="match_parent"
@@ -192,6 +195,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
+        android:backgroundTint="@color/cardcolor"
         android:id="@+id/card_text"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -210,7 +214,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:text="一行日记"
-            android:textColor="#707070"
+            android:textColor="@color/cardtext"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -222,8 +226,9 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/button_drawable"
-            android:backgroundTint="#eeeeee"
+            android:backgroundTint="@color/cardinlinecolor"
             android:maxLines="2"
+            android:textColor="@color/titletextcolor"
             android:hint="请输入内容"
             android:paddingStart="10dp" />
     </com.google.android.material.card.MaterialCardView>

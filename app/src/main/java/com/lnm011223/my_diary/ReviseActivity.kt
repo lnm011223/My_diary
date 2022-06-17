@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.lnm011223.my_diary.MyApplication.Companion.context
 
 import com.lnm011223.my_diary.databinding.ActivityReviseBinding
 import java.text.SimpleDateFormat
@@ -43,8 +45,8 @@ class ReviseActivity : AppCompatActivity() {
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        window.statusBarColor = Color.parseColor("#F3F3EC")
-        window.navigationBarColor = Color.parseColor("#F3F3EC")
+        window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
+        window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         insetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
@@ -68,7 +70,7 @@ class ReviseActivity : AppCompatActivity() {
         mood_flag = diary.moon
         uri1 = diary.diary_image
         diarytext = diary.diary_text
-        
+
         when (diary.moon) {
             R.drawable.mood_1 -> binding.mood1Image.setImageResource(R.drawable.mood_1)
             R.drawable.mood_2 -> binding.mood2Image.setImageResource(R.drawable.mood_2)
