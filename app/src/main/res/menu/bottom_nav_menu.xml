@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="主页" />
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="代办" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="归档" />
+        android:icon="@drawable/ic_baseline_calendar_view_day_24"
+        android:title="日记" />
 
     <item
         android:id="@+id/navigation_settings"

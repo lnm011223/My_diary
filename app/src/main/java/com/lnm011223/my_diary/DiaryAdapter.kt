@@ -52,7 +52,7 @@ class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapt
 
                 }
                 setPositiveButton("是") { _, _ ->
-                    db.delete("diarydata", "diarytext = ?", arrayOf(diary.diary_text))
+                    db.delete("diarydata", "id = ?", arrayOf(diary.id.toString()))
                     val intent = Intent("DiaryDataChangeReceiver")
 
                     context.sendBroadcast(intent)
@@ -93,7 +93,7 @@ class DiaryAdapter(val diaryList: List<Diary>) : RecyclerView.Adapter<DiaryAdapt
         if (diary.diary_image == ""){
             Log.d("image-url","null")
 
-            holder.diarycard_image_background.setVisibility(View.INVISIBLE)
+            holder.diarycard_image_background.setVisibility(View.GONE)
         }
 
         holder.diarycard_image.setImageURI(Uri.fromFile(File(diary.diary_image)))

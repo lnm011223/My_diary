@@ -10,7 +10,7 @@
     <com.google.android.material.card.MaterialCardView
         android:backgroundTint="@color/cardcolor"
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="270dp"
         android:layout_marginHorizontal="15dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
@@ -68,7 +68,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="2dp"
-                android:layout_height="234dp"
+                android:layout_height="0dp"
                 android:layout_marginStart="10dp"
 
                 android:background="@drawable/button_drawable"

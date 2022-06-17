@@ -196,16 +196,17 @@ class DashboardFragment : Fragment() {
 
             if (cursor.moveToFirst()) {
                 do {
+                    val id = cursor.getString(cursor.getColumnIndex("id")).toInt()
                     val datetext = cursor.getString(cursor.getColumnIndex("datetext"))
                     val imageuri = cursor.getString(cursor.getColumnIndex("imageuri"))
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
                     if (selectflag){
                         if (selectid==moodid){
-                            diaryList.add(Diary(datetext,moodid,imageuri,diarytext))
+                            diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
                         }
                     }else{
-                        diaryList.add(Diary(datetext,moodid,imageuri,diarytext))
+                        diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
                     }
 
                 }while (cursor.moveToNext())
