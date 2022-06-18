@@ -9,6 +9,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -93,15 +94,23 @@ class ReviseActivity : AppCompatActivity() {
 
                 put("diarytext",diarytext)
             }
-            db.update("diarydata",diary_value,"diarytext = ?", arrayOf(diarytext_backup))
-            finish()
+            db.update("diarydata",diary_value,"id = ?", arrayOf(diary.id.toString()))
+            onBackPressed()
         }
         binding.imageShow.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "image/*"
-            startActivityForResult(intent,formAlbum)
+            //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            //intent.addCategory(Intent.CATEGORY_OPENABLE)
+            //intent.type = "image/*"
+            //startActivityForResult(intent,formAlbum)
+            val intent = Intent(Intent.ACTION_PICK) // 打开相册
+
+
+            intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
+
+
+
+            startActivityForResult(intent, formAlbum)
         }
         binding.mood1Image.setOnClickListener {
             if (flag1 == false) {

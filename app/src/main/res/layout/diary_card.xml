@@ -8,6 +8,7 @@
     >
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/diary_card"
         android:backgroundTint="@color/cardcolor"
         android:layout_width="match_parent"
         android:layout_height="270dp"
@@ -95,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="190dp"
                 android:layout_marginStart="10dp"
-
+                android:transitionName="sharedcard"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/cardinlinecolor"
                 android:scaleType="center"

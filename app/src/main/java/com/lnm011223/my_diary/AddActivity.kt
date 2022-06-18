@@ -2,19 +2,16 @@ package com.lnm011223.my_diary
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.BroadcastReceiver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -22,9 +19,9 @@ import androidx.core.view.doOnAttach
 import com.lnm011223.my_diary.MyApplication.Companion.context
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
 import com.xiaofeidev.appreveal.base.BaseActivity
-
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AddActivity : BaseActivity() {
     private lateinit var binding: ActivityAddBinding
@@ -68,10 +65,18 @@ class AddActivity : BaseActivity() {
 
         binding.imageShow.setOnClickListener {
 
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "image/*"
-            startActivityForResult(intent,formAlbum)
+            //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            //intent.addCategory(Intent.CATEGORY_OPENABLE)
+            //intent.type = "image/*"
+            //startActivityForResult(intent,formAlbum)
+            val intent = Intent(Intent.ACTION_PICK) // 打开相册
+
+
+            intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
+
+
+
+            startActivityForResult(intent, formAlbum)
         }
         binding.mood1Image.setOnClickListener {
             if (flag1 == false) {

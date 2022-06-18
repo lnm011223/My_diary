@@ -1,24 +1,23 @@
 package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
-import android.app.Application
+
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.database.Cursor
-import android.graphics.Color
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.net.toUri
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+
 import com.lnm011223.my_diary.*
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
 import kotlin.concurrent.thread
@@ -70,8 +69,9 @@ class DashboardFragment : Fragment() {
         initDiary()
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
-        val adapter = DiaryAdapter(diaryList)
+        val adapter = DiaryAdapter(diaryList, requireActivity())
         binding.diaryRecycle.adapter = adapter
+
         Log.d("广播","更改")
     }
 
@@ -88,9 +88,9 @@ class DashboardFragment : Fragment() {
         initDiary()
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
-        val adapter = DiaryAdapter(diaryList)
+        val adapter = DiaryAdapter(diaryList, requireActivity())
         binding.diaryRecycle.adapter = adapter
-
+        
 
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -105,7 +105,7 @@ class DashboardFragment : Fragment() {
                 initDiary()
                 val layoutManager = LinearLayoutManager(context)
                 binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList)
+                val adapter = DiaryAdapter(diaryList, requireActivity())
                 binding.diaryRecycle.adapter = adapter
             }else{
                 binding.selectMood1.setImageResource(R.drawable.mood_1_last)
@@ -123,7 +123,7 @@ class DashboardFragment : Fragment() {
                 initDiary()
                 val layoutManager = LinearLayoutManager(context)
                 binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList)
+                val adapter = DiaryAdapter(diaryList, requireActivity())
                 binding.diaryRecycle.adapter = adapter
             }else{
                 binding.selectMood2.setImageResource(R.drawable.mood_2_last)
@@ -140,7 +140,7 @@ class DashboardFragment : Fragment() {
                 initDiary()
                 val layoutManager = LinearLayoutManager(context)
                 binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList)
+                val adapter = DiaryAdapter(diaryList, requireActivity())
                 binding.diaryRecycle.adapter = adapter
             }else{
                 binding.selectMood3.setImageResource(R.drawable.mood_3_last)
@@ -157,7 +157,7 @@ class DashboardFragment : Fragment() {
                 initDiary()
                 val layoutManager = LinearLayoutManager(context)
                 binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList)
+                val adapter = DiaryAdapter(diaryList, requireActivity())
                 binding.diaryRecycle.adapter = adapter
             }else{
                 binding.selectMood4.setImageResource(R.drawable.mood_4_last)
@@ -174,7 +174,7 @@ class DashboardFragment : Fragment() {
                 initDiary()
                 val layoutManager = LinearLayoutManager(context)
                 binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList)
+                val adapter = DiaryAdapter(diaryList, requireActivity())
                 binding.diaryRecycle.adapter = adapter
             }else{
                 binding.selectMood5.setImageResource(R.drawable.mood_5_last)
@@ -186,7 +186,7 @@ class DashboardFragment : Fragment() {
             initDiary()
             val layoutManager = LinearLayoutManager(context)
             binding.diaryRecycle.layoutManager = layoutManager
-            val adapter = DiaryAdapter(diaryList)
+            val adapter = DiaryAdapter(diaryList, requireActivity())
             binding.diaryRecycle.adapter = adapter
         }
 
@@ -226,7 +226,7 @@ class DashboardFragment : Fragment() {
             initDiary()
             val layoutManager = LinearLayoutManager(context)
             binding.diaryRecycle.layoutManager = layoutManager
-            val adapter = DiaryAdapter(diaryList)
+            val adapter = DiaryAdapter(diaryList, requireActivity())
             binding.diaryRecycle.adapter = adapter
         }
     }
