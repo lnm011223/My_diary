@@ -20,7 +20,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+
 import com.lnm011223.my_diary.databinding.ActivityMainBinding
+import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_X
+import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_Y
 
 
 class MainActivity : AppCompatActivity() {
@@ -72,8 +75,14 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-        binding.fab.setOnClickListener {
-            val intent = Intent(this,AddActivity::class.java)
+        binding.fab.setOnClickListener { view ->
+            val intent = Intent(this, AddActivity::class.java)
+            val location = IntArray(2)
+            view.getLocationInWindow(location)
+            //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
+            intent.putExtra(CLICK_X, location[0] + view.width/2)
+            intent.putExtra(CLICK_Y, location[1] + view.height/2)
+
             startActivityForResult(intent,1)
         }
         navController.addOnDestinationChangedListener { controller, destination, arguments ->

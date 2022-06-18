@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_diary">
 
-
         <activity
             android:name=".ReviseActivity"
             android:exported="false" />
@@ -20,9 +19,7 @@
             android:name=".AddActivity"
             android:exported="false"
             android:label="@string/title_activity_add"
-            android:theme="@style/Theme.My_diary.NoActionBar" >
-
-        </activity>
+            android:theme="@style/Theme.My_diary.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"

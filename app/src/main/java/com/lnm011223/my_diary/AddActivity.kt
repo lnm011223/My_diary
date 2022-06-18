@@ -2,6 +2,7 @@ package com.lnm011223.my_diary
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -17,13 +18,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.doOnAttach
 import com.lnm011223.my_diary.MyApplication.Companion.context
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
+import com.xiaofeidev.appreveal.base.BaseActivity
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddActivity : AppCompatActivity() {
+class AddActivity : BaseActivity() {
     private lateinit var binding: ActivityAddBinding
     var mood_flag:Int = R.drawable.mood_1
     var uri1: String = ""
@@ -125,7 +128,8 @@ class AddActivity : AppCompatActivity() {
                 flag5 = false
             }
         }
-        binding.completeButton.setOnClickListener {
+        binding.completeButton.doOnAttach {  }
+        binding.completeButton.setOnClickListener { view ->
 
             val diary_text = binding.diarytextEdit.text.toString()
 
@@ -147,12 +151,27 @@ class AddActivity : AppCompatActivity() {
                 putExtra("diary_text1",diary_text)
 
             }
+            val Broadcastintent = Intent("DiaryDataChangeReceiver")
 
-            setResult(RESULT_OK,intent)
-            finish()
+            sendBroadcast(Broadcastintent)
+            val location = IntArray(2)
+            view.getLocationInWindow(location)
+            //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
+            intent.putExtra(CLICK_X, location[0] + view.width/2)
+            intent.putExtra(CLICK_Y, location[1] + view.height/2)
+
+            //circularReveal(intent)
+            super.onBackPressed()
+            //setResult(RESULT_OK,intent)
+
+            //finish()
 
         }
     }
+
+
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

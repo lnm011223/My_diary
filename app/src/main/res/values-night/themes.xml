@@ -12,6 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <color name="cardcolor">#414141</color>
     <color name="cardinlinecolor">#282828</color>
@@ -21,4 +25,5 @@
     <color name="titletextcolor">#b9b9b9</color>
     <color name="smallcardtext">#202020</color>
     <color name="linecolor">#292929</color>
+
 </resources>

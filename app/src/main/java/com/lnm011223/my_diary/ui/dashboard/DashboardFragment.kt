@@ -67,6 +67,12 @@ class DashboardFragment : Fragment() {
         intentFilter.addAction("DiaryDataChangeReceiver")
         receiver = DiaryDataChangeReceiver()
         activity?.registerReceiver(receiver,intentFilter)
+        initDiary()
+        val layoutManager = LinearLayoutManager(context)
+        binding.diaryRecycle.layoutManager = layoutManager
+        val adapter = DiaryAdapter(diaryList)
+        binding.diaryRecycle.adapter = adapter
+        Log.d("广播","更改")
     }
 
     override fun onPause() {
@@ -84,6 +90,7 @@ class DashboardFragment : Fragment() {
         binding.diaryRecycle.layoutManager = layoutManager
         val adapter = DiaryAdapter(diaryList)
         binding.diaryRecycle.adapter = adapter
+
 
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
