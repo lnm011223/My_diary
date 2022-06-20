@@ -61,7 +61,7 @@ class AddActivity : BaseActivity() {
         }
         val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
         dbHelper.writableDatabase
-        binding.imageShow.setPadding(65)
+        binding.imageShow.setPadding(DensityUtil.dip2px(context,60f))
         binding.imageShow.setOnClickListener {
 
             //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)

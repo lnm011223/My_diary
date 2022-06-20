@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -18,7 +19,7 @@ import kotlin.concurrent.thread
 
 // TODO: 优化recycleview的屎山代码
 class DashboardFragment : Fragment() {
-    
+    lateinit var dialog: AlertDialog
     private lateinit var diaryViewModel: DiaryViewModel
     private var _binding: FragmentDashboardBinding? = null
 

@@ -3,17 +3,17 @@ package com.lnm011223.my_diary
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -23,6 +23,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
+import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_END
+import com.lnm011223.my_diary.MyApplication.Companion.context
 
 import com.lnm011223.my_diary.databinding.ActivityMainBinding
 import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_X
@@ -89,10 +93,26 @@ class MainActivity : AppCompatActivity() {
 
             startActivityForResult(intent,1)
         }
+
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when(destination.id) {
                 R.id.navigation_home -> {
-
+                    binding.navView.setPadding(0)
+                    //binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
+                    //binding.fab.show()
+                    //binding.navView.itemTextColor = ContextCompat.getColorStateList(this,R.color.black)
+                    //binding.navView.itemIconTintList = ContextCompat.getColorStateList(this,R.color.black)
+                    //binding.navView.itemRippleColor = ContextCompat.getColorStateList(this,R.color.black)
+                    binding.fab.hide()
+                }
+                R.id.navigation_dashboard -> {
+                    binding.navView.updatePadding(right = DensityUtil.dip2px(context,100f))
+                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_END
+                    binding.fab.show()
+                }
+                R.id.navigation_settings -> {
+                    binding.navView.setPadding(0)
+                    binding.fab.hide()
                 }
             }
         }

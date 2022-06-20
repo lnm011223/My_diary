@@ -97,7 +97,7 @@ class ReviseActivity : AppCompatActivity() {
 
 
         }else{
-            binding.imageShow.setPadding(65)
+            binding.imageShow.setPadding(DensityUtil.dip2px(context,60f))
         }
 
 
