@@ -6,16 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginVertical="5dp"
     >
-
+    
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/diary_card"
-        android:backgroundTint="@color/cardcolor"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="wrap_content"
+
         android:layout_marginHorizontal="15dp"
+        android:backgroundTint="@color/cardcolor"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -23,27 +26,27 @@
             android:layout_margin="15dp">
 
             <ImageView
+
                 android:id="@+id/diarycard_mood"
                 android:layout_width="50dp"
                 android:layout_height="57dp"
-                android:layout_marginStart="5dp"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintBottom_toTopOf="@+id/materialCardView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView"
-                android:layout_width="63dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
 
-                android:layout_marginBottom="140dp"
                 android:backgroundTint="@color/smallcardcolor"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/diarycard_mood">
 
                 <TextView
                     android:id="@+id/diarycard_date"
@@ -53,29 +56,46 @@
                     android:layout_marginVertical="5dp"
                     android:text="01 周五"
                     android:textColor="@color/smallcardtext"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
 
             <ImageView
                 android:id="@+id/delete_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="24dp"
+
+                android:layout_marginTop="10dp"
+
                 android:src="@drawable/ic_delete"
+
+
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
+            <androidx.constraintlayout.widget.Barrier
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                app:barrierDirection="end"
+                android:id="@+id/barrier1"
+                app:constraint_referenced_ids="delete_image,diarycard_mood,materialCardView"/>
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                app:barrierDirection="bottom"
+                app:layout_constraintEnd_toStartOf="@id/imageView2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:constraint_referenced_ids="diarycard_mood,materialCardView"/>
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-
                 android:background="@drawable/button_drawable"
                 android:backgroundTint="@color/linecolor"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/materialCardView"
+                app:layout_constraintStart_toEndOf="@+id/barrier1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -93,21 +113,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/diarycard_image_background"
                 android:layout_width="0dp"
-                android:layout_height="190dp"
+                android:layout_height="200dp"
                 android:layout_marginStart="10dp"
-                android:transitionName="sharedcard"
                 android:layout_marginTop="10dp"
+
                 android:backgroundTint="@color/cardinlinecolor"
                 android:scaleType="center"
+                android:transitionName="sharedcard"
+                android:visibility="gone"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/diarycard_text"
-                app:layout_constraintVertical_bias="1.0"
-                android:id="@+id/diarycard_image_background">
+                app:layout_constraintVertical_bias="1.0">
 
                 <ImageView
                     android:id="@+id/diarycard_image"
