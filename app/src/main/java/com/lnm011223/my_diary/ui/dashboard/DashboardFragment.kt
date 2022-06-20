@@ -90,7 +90,12 @@ class DashboardFragment : Fragment() {
                             adapter.notifyItemInserted(diaryViewModel.diaryList.value!!.size-1)
                             binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
                         }
-
+                        !diaryViewModel.selectflag -> {
+                            Log.d("livedatayyy","wohu")
+                            diaryViewModel.addDiary(diaryViewModel.addDiaryItem)
+                            adapter.notifyItemInserted(diaryViewModel.diaryList.value!!.size-1)
+                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
+                        }
                         else -> diaryViewModel.addPosition.value = -1
                     }
 

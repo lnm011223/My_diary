@@ -12,10 +12,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.doOnAttach
+import androidx.core.net.toUri
+import androidx.core.view.*
 import com.lnm011223.my_diary.MyApplication.Companion.context
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
 import com.xiaofeidev.appreveal.base.BaseActivity
@@ -63,7 +61,7 @@ class AddActivity : BaseActivity() {
         }
         val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
         dbHelper.writableDatabase
-
+        binding.imageShow.setPadding(65)
         binding.imageShow.setOnClickListener {
 
             //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -166,7 +164,7 @@ class AddActivity : BaseActivity() {
             intent.putExtra(CLICK_X, location[0] + view.width/2)
             intent.putExtra(CLICK_Y, location[1] + view.height/2)
             intent.putExtra("addDiary",Diary(id!!,datetext!!,mood_flag,uri1,diary_text))
-            //circularReveal(intent)
+
             setResult(RESULT_OK,intent)
             super.onBackPressed()
 
@@ -187,9 +185,13 @@ class AddActivity : BaseActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
                         uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
-                        //val bitmap = getBitmapFromuri(uri)
-                        //val path = UriUtils.getFilePathFromURI(MyApplication.context,uri)
-                        binding.imageShow.setImageURI(uri)
+
+                        binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
+
+
+                        binding.imageShow.setImageURI(uri1.toUri())
+
+                        //binding.imageShow.setImageMatrix()
                         binding.imageShow.setPadding(0,0,0,0)
 
 

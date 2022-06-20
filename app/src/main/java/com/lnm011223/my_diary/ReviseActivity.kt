@@ -6,12 +6,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
@@ -20,11 +20,10 @@ import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.setPadding
 import com.lnm011223.my_diary.MyApplication.Companion.context
 
 import com.lnm011223.my_diary.databinding.ActivityReviseBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ReviseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding
@@ -39,6 +38,7 @@ class ReviseActivity : AppCompatActivity() {
     var flag3 = false
     var flag4 = false
     var flag5 = false
+    var imageflag = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -86,7 +86,21 @@ class ReviseActivity : AppCompatActivity() {
 
         binding.dateText.text = datetext
         binding.diarytextEdit.setText(diarytext)
-        binding.imageShow.setImageURI(imageuri)
+        Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
+        if (imageuri?.toString() != "" && !imageflag){
+            Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
+            Log.d("imageuriyes","no")
+            binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
+            binding.imageShow.setImageURI(imageuri)
+            Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
+
+
+
+        }else{
+            binding.imageShow.setPadding(65)
+        }
+
+
         val diarytext_backup = intent.getStringExtra("diarytext")
 
         binding.completeButton.setOnClickListener {
@@ -265,6 +279,7 @@ class ReviseActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -273,13 +288,22 @@ class ReviseActivity : AppCompatActivity() {
                     data.data?.let { uri ->
                         uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
 
-                        binding.imageShow.setImageURI(uri)
-                        binding.imageShow.setPadding(0,0,0,0)
 
+                        Log.d("imageuriyes", uri.toString())
+
+                        //binding.imageShow.scaleType = ImageView.ScaleType.MATRIX
+
+                        binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
+                        binding.imageShow.setImageURI(uri1.toUri())
+                        //binding.imageShow.resetRefreshStatus()
+                        //binding.imageShow.setImageMatrix()
+                        binding.imageShow.setPadding(0,0,0,0)
+                        Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
 
                     }
                 }
             }
         }
     }
+
 }

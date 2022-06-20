@@ -143,7 +143,7 @@
                     android:id="@+id/diarycard_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center" />
+                    android:scaleType="centerCrop" />
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,7 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
         val delete_button : ImageView = view.findViewById(R.id.delete_image)
         val diarycard_image_background : View = view.findViewById(R.id.diarycard_image_background)
         val diary_card : View = view.findViewById(R.id.diary_card)
+        val edit_button : ImageView = view.findViewById(R.id.edit_image)
     }
 
     override fun getItemCount() = diaryList.size
@@ -72,7 +73,7 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
             }
 
         }
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.edit_button.setOnClickListener {
             val position = viewHolder.adapterPosition
             val diary = diaryList[position]
             itemListenter?.reviseItemClick(position)
@@ -92,6 +93,9 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
             activity.startActivityForResult(intent,2,ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                 viewHolder.diary_card,"sharedcard").toBundle())
             Log.d("livedata",activity.toString())
+
+        }
+        viewHolder.itemView.setOnClickListener {
 
 
         }

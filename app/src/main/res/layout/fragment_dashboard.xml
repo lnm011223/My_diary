@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:id="@+id/select_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/diary_recycle"
