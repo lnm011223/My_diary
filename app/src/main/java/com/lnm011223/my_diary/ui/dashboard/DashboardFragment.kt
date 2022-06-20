@@ -1,204 +1,237 @@
 package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
-
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.lnm011223.my_diary.*
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
 import kotlin.concurrent.thread
 
 
+// TODO: 优化recycleview的屎山代码
 class DashboardFragment : Fragment() {
-    var selectid = R.drawable.mood_1
-    var flag1 = false
-    var flag2 = false
-    var flag3 = false
-    var flag4 = false
-    var flag5 = false
-    private lateinit var dashboardViewModel: DashboardViewModel
+    
+    private lateinit var diaryViewModel: DiaryViewModel
     private var _binding: FragmentDashboardBinding? = null
-    private val diaryList = ArrayList<Diary>()
+
     val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
-    lateinit var receiver: DiaryDataChangeReceiver
-    var selectflag = false
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+    ): View {
+        diaryViewModel =
+            ViewModelProvider(requireActivity()).get(DiaryViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onResume() {
         super.onResume()
-        Log.d("aaa","resume")
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("DiaryDataChangeReceiver")
-        receiver = DiaryDataChangeReceiver()
-        activity?.registerReceiver(receiver,intentFilter)
-        initDiary()
-        val layoutManager = LinearLayoutManager(context)
-        binding.diaryRecycle.layoutManager = layoutManager
-        val adapter = DiaryAdapter(diaryList, requireActivity())
-        binding.diaryRecycle.adapter = adapter
-
-        Log.d("广播","更改")
+        if (diaryViewModel.selectflag) {
+            Log.d("yes","yes")
+            when {
+                diaryViewModel.flag1 -> { binding.selectMood1.setImageResource(R.drawable.mood_1) }
+                diaryViewModel.flag2 -> { binding.selectMood2.setImageResource(R.drawable.mood_2) }
+                diaryViewModel.flag3 -> { binding.selectMood3.setImageResource(R.drawable.mood_3) }
+                diaryViewModel.flag4 -> { binding.selectMood4.setImageResource(R.drawable.mood_4) }
+                diaryViewModel.flag5 -> { binding.selectMood5.setImageResource(R.drawable.mood_5) }
+            }
+        }
     }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("aaa","pause")
-        activity?.unregisterReceiver(receiver)
-
-    }
-
+    @Deprecated("Deprecated in Java")
     @SuppressLint("NotifyDataSetChanged")
-    override fun onStart() {
-        super.onStart()
-        initDiary()
-        val layoutManager = LinearLayoutManager(context)
-        binding.diaryRecycle.layoutManager = layoutManager
-        val adapter = DiaryAdapter(diaryList, requireActivity())
-        binding.diaryRecycle.adapter = adapter
-        
-
-    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initDiary()
+        //recyclerview动画
+        //val itemAnimator = DefaultItemAnimator()
+        //itemAnimator.addDuration = 700
+        //itemAnimator.removeDuration = 700
+        //itemAnimator.moveDuration = 700
+//
+        //binding.diaryRecycle.itemAnimator = itemAnimator
+
+        val layoutManager = LinearLayoutManager(context)
+        binding.diaryRecycle.layoutManager = layoutManager
+        val adapter = DiaryAdapter(diaryViewModel.diaryList.value!!, requireActivity())
+        binding.diaryRecycle.adapter = adapter
+        //diaryViewModel.diaryList.observe(viewLifecycleOwner) {
+        //    adapter.notifyDataSetChanged()
+//
+//
+//
+        //}
+
+        diaryViewModel.addPosition.observe(viewLifecycleOwner) { add ->
+            when (add) {
+                -1 -> {}
+                1 -> {
+                    when {
+                        diaryViewModel.addDiaryItem.moon == diaryViewModel.selectid && diaryViewModel.selectflag -> {
+                            diaryViewModel.addDiary(diaryViewModel.addDiaryItem)
+                            adapter.notifyItemInserted(diaryViewModel.diaryList.value!!.size-1)
+                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
+                        }
+
+                        else -> diaryViewModel.addPosition.value = -1
+                    }
+
+
+
+                }
+            }
+        }
+        diaryViewModel.revisePosition.observe(viewLifecycleOwner) { revisePosition ->
+            when (revisePosition) {
+                -1 -> { }
+                else -> {
+                    Log.d("livedateyesh", diaryViewModel.reviseDiaryItem.diary_text)
+                    diaryViewModel.changeDiary(revisePosition,diaryViewModel.reviseDiaryItem)
+                    Log.d("livedateyesh", diaryViewModel.reviseDiaryItem.diary_text)
+
+
+                    adapter.notifyItemChanged(revisePosition)
+                    binding.diaryRecycle.scrollToPosition(revisePosition)
+                    diaryViewModel.revisePosition.value = -1
+                }
+            }
+
+
+        }
+        adapter.setOnItemClickListener(object : DiaryAdapter.ItemListenter {
+            override fun deleteItemClick(position: Int) {
+                diaryViewModel.deleteDiary(position)
+                Log.d("livedata","succeed")
+
+
+                adapter.notifyItemRemoved(position)
+
+            }
+
+            override fun reviseItemClick(position: Int) {
+
+                Log.d("livedata","revise")
+            }
+
+
+        })
+
         binding.selectMood1.setOnClickListener {
-            if (flag1 == false) {
+            if (!diaryViewModel.flag1) {
                 binding.selectMood1.setImageResource(R.drawable.mood_1)
-                flag1 = true
-                changeOther(binding.selectMood1,flag1)
-                selectid = R.drawable.mood_1
-                selectflag = true
+                diaryViewModel.flag1 = true
+                changeOther(binding.selectMood1,diaryViewModel.flag1)
+                diaryViewModel.selectid = R.drawable.mood_1
+                diaryViewModel.selectflag = true
                 initDiary()
-                val layoutManager = LinearLayoutManager(context)
-                binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList, requireActivity())
-                binding.diaryRecycle.adapter = adapter
+                adapter.notifyDataSetChanged()
             }else{
                 binding.selectMood1.setImageResource(R.drawable.mood_1_last)
-                flag1 = false
+                diaryViewModel.flag1 = false
 
             }
         }
         binding.selectMood2.setOnClickListener {
-            if (flag2 == false) {
+            if (!diaryViewModel.flag2) {
                 binding.selectMood2.setImageResource(R.drawable.mood_2)
-                flag2 = true
-                changeOther(binding.selectMood2,flag2)
-                selectid = R.drawable.mood_2
-                selectflag = true
+                diaryViewModel.flag2 = true
+                changeOther(binding.selectMood2,diaryViewModel.flag2)
+                diaryViewModel.selectid = R.drawable.mood_2
+                diaryViewModel.selectflag = true
                 initDiary()
-                val layoutManager = LinearLayoutManager(context)
-                binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList, requireActivity())
-                binding.diaryRecycle.adapter = adapter
+                adapter.notifyDataSetChanged()
             }else{
                 binding.selectMood2.setImageResource(R.drawable.mood_2_last)
-                flag2 = false
+                diaryViewModel.flag2 = false
             }
         }
         binding.selectMood3.setOnClickListener {
-            if (flag3 == false) {
+            if (!diaryViewModel.flag3) {
                 binding.selectMood3.setImageResource(R.drawable.mood_3)
-                flag3 = true
-                changeOther(binding.selectMood3,flag3)
-                selectid = R.drawable.mood_3
-                selectflag = true
+                diaryViewModel.flag3 = true
+                changeOther(binding.selectMood3,diaryViewModel.flag3)
+                diaryViewModel.selectid = R.drawable.mood_3
+                diaryViewModel.selectflag = true
                 initDiary()
-                val layoutManager = LinearLayoutManager(context)
-                binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList, requireActivity())
-                binding.diaryRecycle.adapter = adapter
+                adapter.notifyDataSetChanged()
             }else{
                 binding.selectMood3.setImageResource(R.drawable.mood_3_last)
-                flag3 = false
+                diaryViewModel.flag3 = false
             }
         }
         binding.selectMood4.setOnClickListener {
-            if (flag4 == false) {
+            if (!diaryViewModel.flag4) {
                 binding.selectMood4.setImageResource(R.drawable.mood_4)
-                flag4 = true
-                changeOther(binding.selectMood4,flag4)
-                selectid = R.drawable.mood_4
-                selectflag = true
+                diaryViewModel.flag4 = true
+                changeOther(binding.selectMood4,diaryViewModel.flag4)
+                diaryViewModel.selectid = R.drawable.mood_4
+                diaryViewModel.selectflag = true
                 initDiary()
-                val layoutManager = LinearLayoutManager(context)
-                binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList, requireActivity())
-                binding.diaryRecycle.adapter = adapter
+                adapter.notifyDataSetChanged()
+                Log.d("livedata",diaryViewModel.diaryList.toString())
             }else{
                 binding.selectMood4.setImageResource(R.drawable.mood_4_last)
-                flag4 = false
+                diaryViewModel.flag4 = false
             }
         }
         binding.selectMood5.setOnClickListener {
-            if (flag5 == false) {
+            if (!diaryViewModel.flag5) {
                 binding.selectMood5.setImageResource(R.drawable.mood_5)
-                flag5 = true
-                changeOther(binding.selectMood5,flag5)
-                selectid = R.drawable.mood_5
-                selectflag = true
+                diaryViewModel.flag5 = true
+                changeOther(binding.selectMood5,diaryViewModel.flag5)
+                diaryViewModel.selectid = R.drawable.mood_5
+                diaryViewModel.selectflag = true
                 initDiary()
-                val layoutManager = LinearLayoutManager(context)
-                binding.diaryRecycle.layoutManager = layoutManager
-                val adapter = DiaryAdapter(diaryList, requireActivity())
-                binding.diaryRecycle.adapter = adapter
+                adapter.notifyDataSetChanged()
             }else{
                 binding.selectMood5.setImageResource(R.drawable.mood_5_last)
-                flag5 = false
+                diaryViewModel.flag5 = false
             }
         }
         binding.cancelselectBtn.setOnClickListener {
-            selectflag = false
+            diaryViewModel.selectflag = false
+            binding.apply {
+                selectMood1.setImageResource(R.drawable.mood_1_last)
+                selectMood2.setImageResource(R.drawable.mood_2_last)
+                selectMood3.setImageResource(R.drawable.mood_3_last)
+                selectMood4.setImageResource(R.drawable.mood_4_last)
+                selectMood5.setImageResource(R.drawable.mood_5_last)
+
+            }
             initDiary()
-            val layoutManager = LinearLayoutManager(context)
-            binding.diaryRecycle.layoutManager = layoutManager
-            val adapter = DiaryAdapter(diaryList, requireActivity())
-            binding.diaryRecycle.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
 
 
 
     }
+
     @SuppressLint("Range")
     private fun initDiary(){
         thread {
-            diaryList.clear()
+            //diaryViewModel.clearAll()
+            //diaryList.clear()
+            var diaryList = ArrayList<Diary>()
             val db = dbHelper.writableDatabase
-            var cursor = db.rawQuery("select * from diarydata ", null)
+            val cursor = db.rawQuery("select * from diarydata ", null)
 
 
             if (cursor.moveToFirst()) {
@@ -208,8 +241,8 @@ class DashboardFragment : Fragment() {
                     val imageuri = cursor.getString(cursor.getColumnIndex("imageuri"))
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
-                    if (selectflag){
-                        if (selectid==moodid){
+                    if (diaryViewModel.selectflag){
+                        if (diaryViewModel.selectid==moodid){
                             diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
                         }
                     }else{
@@ -219,21 +252,15 @@ class DashboardFragment : Fragment() {
                 }while (cursor.moveToNext())
             }
             cursor.close()
+            diaryViewModel.diaryList.value?.clear()
+            diaryViewModel.setAll(diaryList)
         }
     }
-    inner class DiaryDataChangeReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            initDiary()
-            val layoutManager = LinearLayoutManager(context)
-            binding.diaryRecycle.layoutManager = layoutManager
-            val adapter = DiaryAdapter(diaryList, requireActivity())
-            binding.diaryRecycle.adapter = adapter
-        }
-    }
+
 
     private fun changeOther(imageView: ImageView, flag:Boolean){
 
-        if (flag==true){
+        if (diaryViewModel.selectflag){
             when (imageView) {
                 binding.selectMood1 -> {
                     binding.apply {
@@ -243,10 +270,10 @@ class DashboardFragment : Fragment() {
                         selectMood5.setImageResource(R.drawable.mood_5_last)
 
                     }
-                    flag2 = false
-                    flag3 = false
-                    flag4 = false
-                    flag5 = false
+                    diaryViewModel.flag2 = false
+                    diaryViewModel.flag3 = false
+                    diaryViewModel.flag4 = false
+                    diaryViewModel.flag5 = false
 
                 }
                 binding.selectMood2 -> {
@@ -257,10 +284,10 @@ class DashboardFragment : Fragment() {
                         selectMood5.setImageResource(R.drawable.mood_5_last)
 
                     }
-                    flag1 = false
-                    flag3 = false
-                    flag4 = false
-                    flag5 = false
+                    diaryViewModel.flag1 = false
+                    diaryViewModel.flag3 = false
+                    diaryViewModel.flag4 = false
+                    diaryViewModel.flag5 = false
 
                 }
                 binding.selectMood3 -> {
@@ -271,10 +298,10 @@ class DashboardFragment : Fragment() {
                         selectMood5.setImageResource(R.drawable.mood_5_last)
 
                     }
-                    flag2 = false
-                    flag1 = false
-                    flag4 = false
-                    flag5 = false
+                    diaryViewModel.flag2 = false
+                    diaryViewModel.flag1 = false
+                    diaryViewModel.flag4 = false
+                    diaryViewModel.flag5 = false
 
                 }
                 binding.selectMood4 -> {
@@ -285,10 +312,10 @@ class DashboardFragment : Fragment() {
                         selectMood5.setImageResource(R.drawable.mood_5_last)
 
                     }
-                    flag2 = false
-                    flag3 = false
-                    flag1 = false
-                    flag5 = false
+                    diaryViewModel.flag2 = false
+                    diaryViewModel.flag3 = false
+                    diaryViewModel.flag1 = false
+                    diaryViewModel.flag5 = false
 
                 }
                 binding.selectMood5 -> {
@@ -299,10 +326,10 @@ class DashboardFragment : Fragment() {
                         selectMood1.setImageResource(R.drawable.mood_1_last)
 
                     }
-                    flag2 = false
-                    flag3 = false
-                    flag4 = false
-                    flag1 = false
+                    diaryViewModel.flag2 = false
+                    diaryViewModel.flag3 = false
+                    diaryViewModel.flag4 = false
+                    diaryViewModel.flag1 = false
 
                 }
             }

@@ -14,6 +14,9 @@ import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -27,7 +30,7 @@ import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_Y
 
 
 class MainActivity : AppCompatActivity() {
-
+    lateinit var diaryViewModel: DiaryViewModel
     private lateinit var binding: ActivityMainBinding
     var image_uri = ""
     var mood_id:Int = R.drawable.mood_1
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        diaryViewModel = ViewModelProvider(this).get(DiaryViewModel::class.java)
         val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
         dbHelper.writableDatabase
 
@@ -99,10 +103,19 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             1 -> if (resultCode == RESULT_OK) {
-                image_uri = data?.getStringExtra("image_uri").toString()
-                mood_id = data?.getIntExtra("mood_id",R.drawable.mood_1)!!
-                datetext = data.getStringExtra("date_text").toString()
-                diarytext = data.getStringExtra("diary_text1").toString()
+                diaryViewModel.addDiaryItem = data?.getParcelableExtra<Diary>("addDiary")!!
+                diaryViewModel.addPosition.value = 1
+
+            }
+            2 ->  {
+                Log.d("livedatayyy",data?.getStringExtra("position").toString())
+                if (data?.getStringExtra("position").toString() != "null"){
+                    diaryViewModel.reviseDiaryItem = data?.getParcelableExtra<Diary>("reviseDiary")!! as Diary
+                    diaryViewModel.setPosition(position = data?.getStringExtra("position")?.toInt() ?: -1)
+
+                    Log.d("livedatayyy", data.getParcelableExtra<Diary>("reviseDiary")!!.diary_text)
+                    Log.d("livedatayyy", diaryViewModel.reviseDiaryItem.diary_text)
+                }
 
             }
         }

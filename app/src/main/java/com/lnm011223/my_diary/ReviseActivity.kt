@@ -9,6 +9,9 @@ import android.content.res.Configuration
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
@@ -65,8 +68,9 @@ class ReviseActivity : AppCompatActivity() {
         val datetext = intent.getStringExtra("datetext")
         var diarytext = intent.getStringExtra("diarytext")
         var imageuri = intent.getStringExtra("imageuri")?.toUri()
-
-        var diary = intent.getParcelableExtra<Diary>("test") as Diary
+        val position = intent.getStringExtra("position")
+        Log.d("livedata",position.toString())
+        var diary = intent.getParcelableExtra<Diary>("diary") as Diary
         Log.d("aaa",diary.moon.toString())
         mood_flag = diary.moon
         uri1 = diary.diary_image
@@ -95,7 +99,18 @@ class ReviseActivity : AppCompatActivity() {
                 put("diarytext",diarytext)
             }
             db.update("diarydata",diary_value,"id = ?", arrayOf(diary.id.toString()))
+            val intentResult = Intent()
+            val reviseItem = Diary(diary.id,diary.date_text,mood_flag,uri1,binding.diarytextEdit.text.toString())
+            intentResult.apply {
+                putExtra("position",position)
+
+                putExtra("reviseDiary",reviseItem)
+            }
+
+            Log.d("livedata",reviseItem.toString())
+            setResult(RESULT_OK,intentResult)
             onBackPressed()
+
         }
         binding.imageShow.setOnClickListener {
 

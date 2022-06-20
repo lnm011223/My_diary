@@ -35,6 +35,7 @@ class AddActivity : BaseActivity() {
     var flag3 = false
     var flag4 = false
     var flag5 = false
+    @SuppressLint("SimpleDateFormat", "Recycle", "Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
@@ -46,8 +47,8 @@ class AddActivity : BaseActivity() {
         //window.statusBarColor = Color.parseColor("#F3F3EC")
         window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
-        insetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
+        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
 
             //insetsController?.isAppearanceLightStatusBars = true
@@ -148,26 +149,27 @@ class AddActivity : BaseActivity() {
                 put("diarytext",diary_text)
             }
             db.insert("diarydata",null,diary_value)
+            var id: Int? = null
+            var datetext: String? = null
+            val cursor = db.rawQuery("select * from diarydata ", null)
+            if (cursor.moveToLast()) {
 
-            intent.apply {
-                putExtra("image_uri",uri1)
-                putExtra("mood_id",mood_flag)
-                putExtra("date_text",SimpleDateFormat("dd E").format(Date()))
-                putExtra("diary_text1",diary_text)
+                id = cursor.getString(cursor.getColumnIndex("id")).toInt()
+                datetext = cursor.getString(cursor.getColumnIndex("datetext"))
 
             }
-            val Broadcastintent = Intent("DiaryDataChangeReceiver")
+            cursor.close()
 
-            sendBroadcast(Broadcastintent)
             val location = IntArray(2)
             view.getLocationInWindow(location)
             //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
             intent.putExtra(CLICK_X, location[0] + view.width/2)
             intent.putExtra(CLICK_Y, location[1] + view.height/2)
-
+            intent.putExtra("addDiary",Diary(id!!,datetext!!,mood_flag,uri1,diary_text))
             //circularReveal(intent)
+            setResult(RESULT_OK,intent)
             super.onBackPressed()
-            //setResult(RESULT_OK,intent)
+
 
             //finish()
 

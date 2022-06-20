@@ -2,20 +2,20 @@ package com.lnm011223.my_diary
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ActivityOptions
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.diary_card.view.*
+
 import java.io.File
 
 
@@ -31,7 +31,15 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
     }
 
     override fun getItemCount() = diaryList.size
+    interface ItemListenter {
+        fun deleteItemClick(position: Int)
+        fun reviseItemClick(position: Int)
+    }
 
+    private var itemListenter: ItemListenter? = null
+    fun setOnItemClickListener(itemListenter: ItemListenter?) {
+        this.itemListenter = itemListenter
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,19 +51,20 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
             val db = dbHelper.writableDatabase
             val position = viewHolder.adapterPosition
             val diary = diaryList[position]
+
             AlertDialog.Builder(parent.context).apply {
                 setTitle("确认：")
                 setMessage("真的要删除这条记录吗？")
                 setNegativeButton("否") { _, _ ->
 
 
+
+
+
                 }
                 setPositiveButton("是") { _, _ ->
                     db.delete("diarydata", "id = ?", arrayOf(diary.id.toString()))
-                    val intent = Intent("DiaryDataChangeReceiver")
-
-                    context.sendBroadcast(intent)
-
+                    itemListenter?.deleteItemClick(position)
                 }
 
 
@@ -66,7 +75,7 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val diary = diaryList[position]
-
+            itemListenter?.reviseItemClick(position)
             val intent = Intent(parent.context,ReviseActivity::class.java)
             intent.apply {
                 putExtra("id",diary.id)
@@ -74,12 +83,16 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
                 putExtra("diarytext",diary.diary_text)
                 putExtra("imageuri",diary.diary_image)
                 putExtra("moodid",diary.moon)
-                putExtra("test",diary)
+                putExtra("diary",diary)
+                putExtra("position",position.toString())
+
 
             }
-
-            parent.context.startActivity(intent,ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+            Log.d("livedata",position.toString())
+            activity.startActivityForResult(intent,2,ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                 viewHolder.diary_card,"sharedcard").toBundle())
+            Log.d("livedata",activity.toString())
+
 
         }
         return viewHolder
@@ -88,14 +101,16 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary = diaryList[position]
+        holder.itemView.animation = AnimationUtils.loadAnimation(holder.itemView.context,R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(diary.moon)
         holder.diarycard_date.text = diary.date_text.substring(5,7)+" "+diary.date_text.substring(10,12)
         holder.diarycard_text.text = diary.diary_text
         Log.d("image-url",diary.diary_image)
         if (diary.diary_image == ""){
             Log.d("image-url","null")
-
-            holder.diarycard_image_background.setVisibility(View.GONE)
+            holder.diarycard_image_background.visibility = View.GONE
+        }else{
+            holder.diarycard_image_background.visibility = View.VISIBLE
         }
 
         holder.diarycard_image.setImageURI(Uri.fromFile(File(diary.diary_image)))
