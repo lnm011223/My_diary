@@ -55,7 +55,7 @@ abstract class BaseActivity : AppCompatActivity(){
                 mAnimReveal?.addListener(onEnd = {
                     onGlobalLayout?.let {
                         //我们需要在揭露动画进行完后及时移除回调
-                        v?.viewTreeObserver?.removeOnGlobalLayoutListener(it)
+                        v.viewTreeObserver?.removeOnGlobalLayoutListener(it)
                     }
                 })
                 mAnimReveal?.start()

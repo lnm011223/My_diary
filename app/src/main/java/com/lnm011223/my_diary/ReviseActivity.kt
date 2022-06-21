@@ -6,10 +6,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -42,7 +38,7 @@ class ReviseActivity : AppCompatActivity() {
 
         binding = ActivityReviseBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
+        val dbHelper = MyDatabaseHelper(context,"DiaryData.db",1)
         val db = dbHelper.writableDatabase
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
@@ -53,7 +49,7 @@ class ReviseActivity : AppCompatActivity() {
         insetsController.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
 
-            insetsController?.apply {
+            insetsController.apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
 
@@ -61,11 +57,11 @@ class ReviseActivity : AppCompatActivity() {
 
         }
         val datetext = intent.getStringExtra("datetext")
-        var diarytext = intent.getStringExtra("diarytext")
-        var imageuri = intent.getStringExtra("imageuri")?.toUri()
+        var diarytext: String?
+        val imageuri = intent.getStringExtra("imageuri")?.toUri()
         val position = intent.getStringExtra("position")
         Log.d("livedata",position.toString())
-        var diary = intent.getParcelableExtra<Diary>("diary") as Diary
+        val diary = intent.getParcelableExtra<Diary>("diary") as Diary
         Log.d("aaa",diary.moon.toString())
         mood_flag = diary.moon
         uri1 = diary.diary_image
@@ -253,13 +249,14 @@ class ReviseActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             formAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
-                        uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
+                        uri1 = UriUtils.getFilePathFromURI(context,uri).toString()
                         binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
                         binding.imageShow.setImageURI(uri1.toUri())
                         binding.imageShow.setPadding(0,0,0,0)

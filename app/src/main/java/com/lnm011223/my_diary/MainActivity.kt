@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         //控制BottomNavigationView和fab的效果
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when(destination.id) {
                 R.id.navigation_home -> {
                     binding.navView.updatePadding(right = DensityUtil.dip2px(context,50f))
@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
             2 ->  {
                 if (data?.getStringExtra("position").toString() != "null"){
-                    diaryViewModel.reviseDiaryItem = data?.getParcelableExtra<Diary>("reviseDiary")!!
+                    diaryViewModel.reviseDiaryItem = data?.getParcelableExtra("reviseDiary")!!
                     diaryViewModel.setPosition(position = data.getStringExtra("position")?.toInt() ?: -1)
                 }
 

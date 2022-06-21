@@ -1,5 +1,6 @@
 package com.totoro.basemodule.utils
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.graphics.Color
@@ -7,6 +8,7 @@ import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import com.readystatesoftware.systembartint.SystemBarTintManager
 
 /**
@@ -17,8 +19,8 @@ object StatusBarUtilKt {
      * 修改状态栏为全透明
      * @param activity
      */
-    @TargetApi(19)
-    fun transparencyBar(activity: Activity) {
+    @SuppressLint("ObsoleteSdkInt")
+    private fun transparencyBar(activity: Activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -37,6 +39,7 @@ object StatusBarUtilKt {
      * @param activity
      * @param colorId
      */
+    @SuppressLint("ObsoleteSdkInt")
     fun setStatusBarColor(activity: Activity, colorId: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
@@ -55,6 +58,7 @@ object StatusBarUtilKt {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     fun setStatusBarColor1(activity: Activity, colorId: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
@@ -79,6 +83,7 @@ object StatusBarUtilKt {
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
      */
+    @SuppressLint("ObsoleteSdkInt")
     fun StatusBarLightMode(activity: Activity): Int {
         var result = 0
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -100,6 +105,7 @@ object StatusBarUtilKt {
      * @param activity
      * @param type 1:MIUUI 2:Flyme 3:android6.0
      */
+    @RequiresApi(Build.VERSION_CODES.M)
     fun StatusBarLightMode(activity: Activity, type: Int) {
         if (type == 1) {
             MIUISetStatusBarLightMode(activity, true)
@@ -168,6 +174,7 @@ object StatusBarUtilKt {
      * @param dark 是否把状态栏文字及图标颜色设置为深色
      * @return  boolean 成功执行返回true
      */
+    @SuppressLint("PrivateApi")
     fun MIUISetStatusBarLightMode(activity: Activity, dark: Boolean): Boolean {
         var result = false
         val window = activity.window
