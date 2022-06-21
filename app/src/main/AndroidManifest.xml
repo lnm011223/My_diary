@@ -19,7 +19,7 @@
             android:name=".AddActivity"
             android:exported="false"
             android:label="@string/title_activity_add"
-            android:theme="@style/Theme.My_diary.NoActionBar"></activity>
+            android:theme="@style/Theme.My_diary.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

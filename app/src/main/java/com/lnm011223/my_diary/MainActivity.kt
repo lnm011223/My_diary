@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     var datetext:String = ""
     var diarytext:String = ""
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         dbHelper.writableDatabase
 
         val navView: BottomNavigationView = binding.navView
+        val navView2 : BottomNavigationView = binding.navView2
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
@@ -64,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         val insetsController = WindowCompat.getInsetsController(
+            window, window.decorView
+        )
+        navView2.setupWithNavController(navController)
+        val insetsController2 = WindowCompat.getInsetsController(
             window, window.decorView
         )
 
@@ -84,34 +89,55 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.fab.setOnClickListener { view ->
-            val intent = Intent(this, AddActivity::class.java)
-            val location = IntArray(2)
-            view.getLocationInWindow(location)
-            //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
-            intent.putExtra(CLICK_X, location[0] + view.width/2)
-            intent.putExtra(CLICK_Y, location[1] + view.height/2)
+            when (navController.currentDestination?.id) {
+                R.id.navigation_dashboard -> {
+                    val intent = Intent(this, AddActivity::class.java)
+                    val location = IntArray(2)
+                    view.getLocationInWindow(location)
+                    //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
+                    intent.putExtra(CLICK_X, location[0] + view.width/2)
+                    intent.putExtra(CLICK_Y, location[1] + view.height/2)
+                    startActivityForResult(intent,1)
+                }
+            }
 
-            startActivityForResult(intent,1)
         }
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when(destination.id) {
                 R.id.navigation_home -> {
-                    binding.navView.setPadding(0)
-                    //binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
+                    binding.navView.updatePadding(right = DensityUtil.dip2px(context,50f))
+                    binding.navView2.updatePadding(left = DensityUtil.dip2px(context,50f))
+                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
+                    binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
+                    binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_done_all_24))
                     //binding.fab.show()
                     //binding.navView.itemTextColor = ContextCompat.getColorStateList(this,R.color.black)
                     //binding.navView.itemIconTintList = ContextCompat.getColorStateList(this,R.color.black)
                     //binding.navView.itemRippleColor = ContextCompat.getColorStateList(this,R.color.black)
-                    binding.fab.hide()
-                }
-                R.id.navigation_dashboard -> {
-                    binding.navView.updatePadding(right = DensityUtil.dip2px(context,100f))
-                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_END
                     binding.fab.show()
                 }
+                R.id.navigation_dashboard -> {
+                    binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_add_24))
+                    binding.navView.updatePadding(right = DensityUtil.dip2px(context,50f))
+                    binding.navView2.updatePadding(left = DensityUtil.dip2px(context,50f))
+                    binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
+                    //binding.navView.menu.findItem(R.id.uncheckedItem).isVisible = false
+
+                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
+                    binding.fab.show()
+                }
+                R.id.navigation_charts -> {
+                    binding.navView.setPadding(0)
+                    binding.navView2.setPadding(0)
+                    binding.navView.menu.findItem(R.id.uncheckedItem).isChecked = true
+                    binding.fab.hide()
+                }
+
                 R.id.navigation_settings -> {
                     binding.navView.setPadding(0)
+                    binding.navView2.setPadding(0)
+                    binding.navView.menu.findItem(R.id.uncheckedItem).isChecked = true
                     binding.fab.hide()
                 }
             }

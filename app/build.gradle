@@ -49,6 +49,8 @@ dependencies {
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 //    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:2.0.5'
 //    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:2.0.5'
     kapt 'androidx.room:room-compiler:2.3.0'

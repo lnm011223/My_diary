@@ -22,40 +22,72 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
-        app:hideOnScroll="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:backgroundTint="@color/cardcolor"
-
         app:contentInsetEnd="0dp"
+
         app:contentInsetStart="0dp"
         app:elevation="0dp"
-        app:fabAlignmentMode="end"
+        app:fabAlignmentMode="center"
         app:fabAnimationMode="slide"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        >
+        app:hideOnScroll="true"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:layout_gravity="bottom"
-
-            app:labelVisibilityMode="selected"
-            android:id="@+id/nav_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:paddingEnd="100dp"
-            android:elevation="0dp"
-            app:elevation="0dp"
-            app:backgroundTint="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu"
-            app:itemIconTint="@color/selector_color"
-            app:itemTextColor="@color/selector_color"
-            />
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/nav_view"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+
+                android:elevation="0dp"
+
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:itemIconTint="@color/selector_color"
+                app:itemTextColor="@color/selector_color"
+                app:labelVisibilityMode="selected"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/bottom_nav_menu" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/nav_view2"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:elevation="0dp"
+
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:itemIconTint="@color/selector_color"
+                app:itemTextColor="@color/selector_color"
+                app:labelVisibilityMode="selected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:menu="@menu/bottom_nav_menu_2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,11 +95,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#B8D68A"
-        app:borderWidth="0dp"
         android:src="@drawable/ic_baseline_add_24"
-
-        app:tint="#000000"
+        app:borderWidth="0dp"
 
         app:elevation="0dp"
-        app:layout_anchor="@id/bottomAppBar" />
+
+        app:layout_anchor="@id/bottomAppBar"
+        app:tint="#000000" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
