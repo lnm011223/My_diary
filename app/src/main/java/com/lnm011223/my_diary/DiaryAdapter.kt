@@ -12,10 +12,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
+
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
-
 import java.io.File
 
 
@@ -32,6 +31,7 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
     }
 
     override fun getItemCount() = diaryList.size
+    //点击事件接口
     interface ItemListenter {
         fun deleteItemClick(position: Int)
         fun reviseItemClick(position: Int)
@@ -57,9 +57,6 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
                 setTitle("确认：")
                 setMessage("真的要删除这条记录吗？")
                 setNegativeButton("否") { _, _ ->
-
-
-
 
 
                 }

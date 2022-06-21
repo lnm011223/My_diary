@@ -27,12 +27,10 @@ import com.lnm011223.my_diary.databinding.ActivityReviseBinding
 
 class ReviseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding
-
     var mood_flag:Int = 1
     var uri1: String = ""
     @SuppressLint("SimpleDateFormat")
     val formAlbum = 2
-
     var flag1 = false
     var flag2 = false
     var flag3 = false
@@ -51,16 +49,13 @@ class ReviseActivity : AppCompatActivity() {
         )
         window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
-        insetsController?.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController?.hide(WindowInsetsCompat.Type.navigationBars())
+        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
-
 
             insetsController?.apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
-
-
 
             }
 
@@ -75,7 +70,7 @@ class ReviseActivity : AppCompatActivity() {
         mood_flag = diary.moon
         uri1 = diary.diary_image
         diarytext = diary.diary_text
-
+        //设置初始展示效果
         when (diary.moon) {
             R.drawable.mood_1 -> binding.mood1Image.setImageResource(R.drawable.mood_1)
             R.drawable.mood_2 -> binding.mood2Image.setImageResource(R.drawable.mood_2)
@@ -83,33 +78,22 @@ class ReviseActivity : AppCompatActivity() {
             R.drawable.mood_4 -> binding.mood4Image.setImageResource(R.drawable.mood_4)
             R.drawable.mood_5 -> binding.mood5Image.setImageResource(R.drawable.mood_5)
         }
-
         binding.dateText.text = datetext
         binding.diarytextEdit.setText(diarytext)
-        Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
+
         if (imageuri?.toString() != "" && !imageflag){
-            Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
-            Log.d("imageuriyes","no")
             binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
             binding.imageShow.setImageURI(imageuri)
-            Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
-
-
-
         }else{
             binding.imageShow.setPadding(DensityUtil.dip2px(context,60f))
         }
 
 
-        val diarytext_backup = intent.getStringExtra("diarytext")
-
         binding.completeButton.setOnClickListener {
             diarytext = binding.diarytextEdit.text.toString()
-
             val diary_value = ContentValues().apply {
                 put("imageuri",uri1)
                 put("moodid",mood_flag)
-
                 put("diarytext",diarytext)
             }
             db.update("diarydata",diary_value,"id = ?", arrayOf(diary.id.toString()))
@@ -117,28 +101,16 @@ class ReviseActivity : AppCompatActivity() {
             val reviseItem = Diary(diary.id,diary.date_text,mood_flag,uri1,binding.diarytextEdit.text.toString())
             intentResult.apply {
                 putExtra("position",position)
-
                 putExtra("reviseDiary",reviseItem)
             }
-
-            Log.d("livedata",reviseItem.toString())
             setResult(RESULT_OK,intentResult)
             onBackPressed()
 
         }
         binding.imageShow.setOnClickListener {
 
-            //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            //intent.addCategory(Intent.CATEGORY_OPENABLE)
-            //intent.type = "image/*"
-            //startActivityForResult(intent,formAlbum)
             val intent = Intent(Intent.ACTION_PICK) // 打开相册
-
-
             intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
-
-
-
             startActivityForResult(intent, formAlbum)
         }
         binding.mood1Image.setOnClickListener {
@@ -202,6 +174,7 @@ class ReviseActivity : AppCompatActivity() {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
+    //切换mood选择效果
     private fun changeOther(imageView: ImageView, flag:Boolean){
 
         if (flag==true){
@@ -287,19 +260,9 @@ class ReviseActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
                         uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
-
-
-                        Log.d("imageuriyes", uri.toString())
-
-                        //binding.imageShow.scaleType = ImageView.ScaleType.MATRIX
-
                         binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
                         binding.imageShow.setImageURI(uri1.toUri())
-                        //binding.imageShow.resetRefreshStatus()
-                        //binding.imageShow.setImageMatrix()
                         binding.imageShow.setPadding(0,0,0,0)
-                        Log.d("imageuriyes","${binding.imageShow.width} ${binding.imageShow.height}")
-
                     }
                 }
             }

@@ -6,8 +6,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
@@ -42,43 +40,27 @@ class AddActivity : BaseActivity() {
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        //window.statusBarColor = Color.parseColor("#F3F3EC")
         window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
         insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.navigationBars())
         if (!isDarkTheme(this)){
-
-            //insetsController?.isAppearanceLightStatusBars = true
-            //insetsController?.isAppearanceLightNavigationBars = true
-            insetsController?.apply {
+            insetsController.apply {
                 isAppearanceLightStatusBars = true
                 isAppearanceLightNavigationBars = true
-
-
             }
 
         }
-        val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
+        val dbHelper = MyDatabaseHelper(context,"DiaryData.db",1)
         dbHelper.writableDatabase
         binding.imageShow.setPadding(DensityUtil.dip2px(context,60f))
         binding.imageShow.setOnClickListener {
-
-            //val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            //intent.addCategory(Intent.CATEGORY_OPENABLE)
-            //intent.type = "image/*"
-            //startActivityForResult(intent,formAlbum)
             val intent = Intent(Intent.ACTION_PICK) // 打开相册
-
-
             intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
-
-
-
             startActivityForResult(intent, formAlbum)
         }
         binding.mood1Image.setOnClickListener {
-            if (flag1 == false) {
+            if (!flag1) {
                 binding.mood1Image.setImageResource(R.drawable.mood_1)
                 flag1 = true
                 changeOther(binding.mood1Image,flag1)
@@ -89,7 +71,7 @@ class AddActivity : BaseActivity() {
             }
         }
         binding.mood2Image.setOnClickListener {
-            if (flag2 == false) {
+            if (!flag2) {
                 binding.mood2Image.setImageResource(R.drawable.mood_2)
                 flag2 = true
                 changeOther(binding.mood2Image,flag2)
@@ -100,7 +82,7 @@ class AddActivity : BaseActivity() {
             }
         }
         binding.mood3Image.setOnClickListener {
-            if (flag3 == false) {
+            if (!flag3) {
                 binding.mood3Image.setImageResource(R.drawable.mood_3)
                 flag3 = true
                 changeOther(binding.mood3Image,flag3)
@@ -111,7 +93,7 @@ class AddActivity : BaseActivity() {
             }
         }
         binding.mood4Image.setOnClickListener {
-            if (flag4 == false) {
+            if (!flag4) {
                 binding.mood4Image.setImageResource(R.drawable.mood_4)
                 flag4 = true
                 changeOther(binding.mood4Image,flag4)
@@ -122,7 +104,7 @@ class AddActivity : BaseActivity() {
             }
         }
         binding.mood5Image.setOnClickListener {
-            if (flag5 == false) {
+            if (!flag5) {
                 binding.mood5Image.setImageResource(R.drawable.mood_5)
                 flag5 = true
                 changeOther(binding.mood5Image,flag5)
@@ -149,6 +131,7 @@ class AddActivity : BaseActivity() {
             db.insert("diarydata",null,diary_value)
             var id: Int? = null
             var datetext: String? = null
+            //直接返回数据库里的最后一行数据的id，即新添加的id
             val cursor = db.rawQuery("select * from diarydata ", null)
             if (cursor.moveToLast()) {
 
@@ -178,20 +161,16 @@ class AddActivity : BaseActivity() {
 
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             formAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
-                        uri1 = UriUtils.getFilePathFromURI(MyApplication.context,uri).toString()
-
+                        uri1 = UriUtils.getFilePathFromURI(context,uri).toString()
                         binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
-
-
                         binding.imageShow.setImageURI(uri1.toUri())
-
-                        //binding.imageShow.setImageMatrix()
                         binding.imageShow.setPadding(0,0,0,0)
 
 
@@ -200,7 +179,6 @@ class AddActivity : BaseActivity() {
             }
         }
     }
-    private fun getBitmapFromuri(uri: Uri) = contentResolver.openFileDescriptor(uri,"r")?.use { BitmapFactory.decodeFileDescriptor(it.fileDescriptor) }
     private fun isDarkTheme(context: Context): Boolean {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES

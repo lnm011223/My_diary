@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lnm011223.my_diary.*
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
@@ -19,14 +18,10 @@ import kotlin.concurrent.thread
 
 // TODO: 优化recycleview的屎山代码
 class DashboardFragment : Fragment() {
-    lateinit var dialog: AlertDialog
     private lateinit var diaryViewModel: DiaryViewModel
     private var _binding: FragmentDashboardBinding? = null
-
     val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
-    
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,41 +57,28 @@ class DashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initDiary()
-        //recyclerview动画
-        //val itemAnimator = DefaultItemAnimator()
-        //itemAnimator.addDuration = 700
-        //itemAnimator.removeDuration = 700
-        //itemAnimator.moveDuration = 700
-//
-        //binding.diaryRecycle.itemAnimator = itemAnimator
-
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
         val adapter = DiaryAdapter(diaryViewModel.diaryList.value!!, requireActivity())
         binding.diaryRecycle.adapter = adapter
-        //diaryViewModel.diaryList.observe(viewLifecycleOwner) {
-        //    adapter.notifyDataSetChanged()
-//
-//
-//
-        //}
-
         diaryViewModel.addPosition.observe(viewLifecycleOwner) { add ->
             when (add) {
                 -1 -> {}
                 1 -> {
                     when {
+                        //当新的mood和当前筛选的一样才加进recyclerview
                         diaryViewModel.addDiaryItem.moon == diaryViewModel.selectid && diaryViewModel.selectflag -> {
                             diaryViewModel.addDiary(diaryViewModel.addDiaryItem)
                             adapter.notifyItemInserted(diaryViewModel.diaryList.value!!.size-1)
                             binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
                         }
+                        //当前没筛选才添加
                         !diaryViewModel.selectflag -> {
-                            Log.d("livedatayyy","wohu")
                             diaryViewModel.addDiary(diaryViewModel.addDiaryItem)
                             adapter.notifyItemInserted(diaryViewModel.diaryList.value!!.size-1)
                             binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
                         }
+                        //重置flag值
                         else -> diaryViewModel.addPosition.value = -1
                     }
 
@@ -109,11 +91,8 @@ class DashboardFragment : Fragment() {
             when (revisePosition) {
                 -1 -> { }
                 else -> {
-                    Log.d("livedateyesh", diaryViewModel.reviseDiaryItem.diary_text)
+                    //当检测到有变化才改变
                     diaryViewModel.changeDiary(revisePosition,diaryViewModel.reviseDiaryItem)
-                    Log.d("livedateyesh", diaryViewModel.reviseDiaryItem.diary_text)
-
-
                     adapter.notifyItemChanged(revisePosition)
                     binding.diaryRecycle.scrollToPosition(revisePosition)
                     diaryViewModel.revisePosition.value = -1
@@ -122,24 +101,20 @@ class DashboardFragment : Fragment() {
 
 
         }
+        //recyclerview点击接口回调
         adapter.setOnItemClickListener(object : DiaryAdapter.ItemListenter {
             override fun deleteItemClick(position: Int) {
                 diaryViewModel.deleteDiary(position)
-                Log.d("livedata","succeed")
-
-
                 adapter.notifyItemRemoved(position)
-
             }
 
             override fun reviseItemClick(position: Int) {
 
-                Log.d("livedata","revise")
             }
 
 
         })
-
+        //筛选逻辑
         binding.selectMood1.setOnClickListener {
             if (!diaryViewModel.flag1) {
                 binding.selectMood1.setImageResource(R.drawable.mood_1)

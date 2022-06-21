@@ -10,6 +10,7 @@
         android:id="@+id/navigation_settings"
         android:icon="@drawable/selector_settings"
         android:title="设置" />
+    <!--利用一个空的不可见item来达到取消selected的效果-->
     <item
         android:id="@+id/uncheckedItem"
         android:title=""
