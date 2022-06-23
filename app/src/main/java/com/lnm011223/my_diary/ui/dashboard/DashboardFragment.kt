@@ -16,7 +16,7 @@ import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
 import kotlin.concurrent.thread
 
 
-// TODO: 优化recycleview的屎山代码
+// TODO: 优化recyclerview的滑动卡顿
 class DashboardFragment : Fragment() {
     private lateinit var diaryViewModel: DiaryViewModel
     private var _binding: FragmentDashboardBinding? = null

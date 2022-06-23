@@ -10,7 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lnm011223.my_diary.databinding.FragmentSettingsBinding
 
-
+// TODO: 添加深色模式开关按钮
+// TODO: 可以考虑适配material3样式
 class SettingsFragment : Fragment() {
 
     private lateinit var settingsViewModel: SettingsViewModel

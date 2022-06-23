@@ -18,7 +18,7 @@ import com.xiaofeidev.appreveal.base.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+// TODO: 重写mood添加进数据库的逻辑 
 class AddActivity : BaseActivity() {
     private lateinit var binding: ActivityAddBinding
     var mood_flag:Int = R.drawable.mood_1
