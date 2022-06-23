@@ -7,14 +7,25 @@ import android.widget.Toast
 
 class MyDatabaseHelper(val context: Context, name: String, version: Int): SQLiteOpenHelper(context,name,null,version) {
 
-    private val account_creat = "create table diarydata (" +
+    private val diray_create = "create table diarydata (" +
             "id integer primary key autoincrement," +
-            "datetext text," +
+            "datetext text unique," +
             "moodid integer," +
             "imageuri text," +
             "diarytext text)"
+
+    private val todo_create = "create table tododata (" +
+            "id integer primary key autoincrement," +
+            "todotext text," +
+            "classification text," +
+            "startdate text," +
+            "deadline text," +
+            "isTop text," +
+            "isDone text)"
+
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(account_creat)
+        db.execSQL(diray_create)
+        db.execSQL(todo_create)
         Toast.makeText(context,"Create succeeded",Toast.LENGTH_SHORT).show()
     }
 

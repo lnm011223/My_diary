@@ -1,17 +1,25 @@
 package com.lnm011223.my_diary.ui.home
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
-import android.location.GnssAntennaInfo
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.haibin.calendarview.CalendarView
-import com.haibin.calendarview.CalendarView.OnCalendarSelectListener
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.lnm011223.my_diary.AdapterFragmentPager
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.FragmentHomeBinding
 
@@ -46,8 +54,88 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+       val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
+
+//
+//        animMap.keys.forEach { s ->
+//            val tab = binding.tabLayout.newTab()
+//            val view = LayoutInflater.from(context).inflate(R.layout.item_tab, null)
+//            val imageView = view.findViewById<ImageView>(R.id.item_icon)
+//            val textView = view.findViewById<TextView>(R.id.item_title)
+//            imageView.setImageResource(animMap[s]!!)
+//            imageView.imageTintList = resources.getColorStateList(R.color.selector_color)
+//            textView.text = s
+//
+//            tab.customView = view
+//            binding.tabLayout.addTab(tab)
+//        }
+//
+//        binding.tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                tab?.customView.let {
+//
+//                }
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//
+//            }
+//        })
+        binding.viewPager.adapter = AdapterFragmentPager(requireActivity())
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+//            val view = LayoutInflater.from(context).inflate(R.layout.item_tab, null)
+//            val imageView = view.findViewById<ImageView>(R.id.item_icon)
+//            val textView = view.findViewById<TextView>(R.id.item_title)
+//            //val badgetext = view.findViewById<TextView>(R.id.item_badge)
+//            tab.customView = view
+            when (position){
+                0 -> {
+//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_24)
+//                    textView.text = "未完成"
+                    //badgetext.text = "999"
+
+                    tab.text = "未完成"
+                    //tab.setIcon(R.drawable.ic_twotone_library_add_24)
+
+
+                }
+                1 -> {
+//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_check_24)
+//                    textView.text = "已完成"
+                    //badgetext.text = "999"
+//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_check_24)
+//                    textView.text = "已完成"
+//                    badgetext.visibility = View.GONE
+                    tab.text = "已完成"
+                    //tab.setIcon(R.drawable.ic_twotone_library_add_check_24)
+                }
+            }
+        }.attach()
+        binding.tabLayout.getTabAt(0)?.let { tab ->
+
+            tab.orCreateBadge.apply {
+                backgroundColor = Color.parseColor("#61AE72")
+                maxCharacterCount = 4
+                number = 9999
+                badgeTextColor = Color.WHITE
+
+
+            }
+        }
+
+
 
     }
+
+
+
+
 }

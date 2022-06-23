@@ -29,10 +29,14 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3123262279888786" />
         <entry key="app/src/main/res/layout/activity_revise.xml" value="0.22760416666666666" />
         <entry key="app/src/main/res/layout/content_add.xml" value="0.2203125" />
+        <entry key="app/src/main/res/layout/dialog_my_bottom_sheet.xml" value="0.375" />
         <entry key="app/src/main/res/layout/diary_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_chart.xml" value="0.21822916666666667" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3234567901234568" />
+        <entry key="app/src/main/res/layout/fragment_finished.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/fragment_un_finished.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/item_tab.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/test.xml" value="0.335" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2203125" />
         <entry key="app/src/main/res/menu/bottom_nav_menu_2.xml" value="0.4036458333333333" />

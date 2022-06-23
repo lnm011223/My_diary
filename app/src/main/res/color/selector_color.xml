@@ -2,4 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="#61AE72" android:state_checked="true" />
     <item android:color="#B2B2B2" android:state_checked="false"/>
+    <item android:color="#61AE72" android:state_selected="true" />
+    <item android:color="#B2B2B2" android:state_selected="false" />
+    <item android:color="@color/titletextcolor"/>
 </selector>

@@ -8,7 +8,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.*
@@ -119,37 +121,54 @@ class AddActivity : BaseActivity() {
 
             val diary_text = binding.diarytextEdit.text.toString()
 
-
+            val datetext: String? = SimpleDateFormat("MM 月 dd 日 E").format(Date())
             val intent = Intent()
             val db = dbHelper.writableDatabase
             val diary_value = ContentValues().apply {
                 put("imageuri",uri1)
                 put("moodid",mood_flag)
-                put("datetext",SimpleDateFormat("MM 月 dd 日 E").format(Date()))
+                put("datetext",datetext)
                 put("diarytext",diary_text)
             }
-            db.insert("diarydata",null,diary_value)
-            var id: Int? = null
-            var datetext: String? = null
+            val success = db.insert("diarydata",null,diary_value)
+            Log.d("successtest",success.toString())
+            val id = success.toString().toInt()
+
             //直接返回数据库里的最后一行数据的id，即新添加的id
-            val cursor = db.rawQuery("select * from diarydata ", null)
-            if (cursor.moveToLast()) {
-
-                id = cursor.getString(cursor.getColumnIndex("id")).toInt()
-                datetext = cursor.getString(cursor.getColumnIndex("datetext"))
-
-            }
-            cursor.close()
+//            val cursor = db.rawQuery("select * from diarydata ", null)
+//            if (cursor.moveToLast()) {
+//
+//                id = cursor.getString(cursor.getColumnIndex("id")).toInt()
+//                datetext = cursor.getString(cursor.getColumnIndex("datetext"))
+//
+//            }
+//            cursor.close()
 
             val location = IntArray(2)
             view.getLocationInWindow(location)
             //把点击按钮的中心位置坐标传过去作为 AddActivity 的揭露动画圆心
             intent.putExtra(CLICK_X, location[0] + view.width/2)
             intent.putExtra(CLICK_Y, location[1] + view.height/2)
-            intent.putExtra("addDiary",Diary(id!!,datetext!!,mood_flag,uri1,diary_text))
 
-            setResult(RESULT_OK,intent)
-            super.onBackPressed()
+            if (id != -1) {
+                Log.d("successtest",success.toString())
+                intent.putExtra("addDiary",Diary(id,datetext!!,mood_flag,uri1,diary_text))
+                setResult(RESULT_OK, intent)
+            }else{
+                AlertDialog.Builder(this).apply {
+                    setTitle("提醒：")
+                    setMessage("您今天已创建过日记，如有需要请修改或删除该日记。")
+
+                    setPositiveButton("是") { _, _ ->
+                        super.onBackPressed()
+
+                    }
+
+
+                    show()
+                }
+            }
+
 
 
             //finish()

@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
@@ -35,6 +36,7 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
     interface ItemListenter {
         fun deleteItemClick(position: Int)
         fun reviseItemClick(position: Int)
+        fun showItemImageClick(position: Int)
     }
 
     private var itemListenter: ItemListenter? = null
@@ -69,6 +71,11 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
                 show()
             }
 
+        }
+        viewHolder.diarycard_image.setOnClickListener {
+            val position = viewHolder.adapterPosition
+            val diary = diaryList[position]
+            itemListenter?.showItemImageClick(position)
         }
         viewHolder.edit_button.setOnClickListener {
             val position = viewHolder.adapterPosition
@@ -114,7 +121,8 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
             holder.diarycard_image_background.visibility = View.VISIBLE
         }
 
-        holder.diarycard_image.setImageURI(Uri.fromFile(File(diary.diary_image)))
+        //holder.diarycard_image.setImageURI(Uri.fromFile(File(diary.diary_image)))
+        holder.diarycard_image.setImageURI(diary.diary_image.toUri())
     }
 
 }

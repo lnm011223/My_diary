@@ -1,13 +1,14 @@
 package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -112,6 +113,14 @@ class DashboardFragment : Fragment() {
 
             }
 
+            override fun showItemImageClick(position: Int) {
+
+                ImageBottomSheet(adapter.diaryList[position].diary_image,adapter.diaryList[position].date_text).show(fragmentManager!!,"ImageBottomSheet")
+                Log.d("111",adapter.diaryList[position].diary_image)
+                //ImageBottomSheet().setImageShow(adapter.diaryList[position].diary_image)
+
+            }
+
 
         })
         //筛选逻辑
@@ -187,6 +196,8 @@ class DashboardFragment : Fragment() {
                 diaryViewModel.flag5 = false
             }
         }
+
+        //binding.cancelselectBtn.paintFlags = (binding.cancelselectBtn.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         binding.cancelselectBtn.setOnClickListener {
             diaryViewModel.selectflag = false
             binding.apply {
