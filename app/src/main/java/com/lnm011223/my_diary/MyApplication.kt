@@ -3,6 +3,8 @@ package com.lnm011223.my_diary
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
+
 import com.google.android.material.color.DynamicColors
 
 class MyApplication : Application() {
@@ -16,5 +18,16 @@ class MyApplication : Application() {
         context = applicationContext
         // apply dynamic color
         DynamicColors.applyToActivitiesIfAvailable(this)
+        // 打开darkmode
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        // 关闭darkmode
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        // darkmode跟随系统
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
     }
+
+
 }

@@ -5,11 +5,16 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.ScaleAnimation
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+
 
 /**
 
@@ -54,14 +59,33 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         viewHolder.isTopButton.setOnClickListener {
             val position = viewHolder.adapterPosition
             val unFinished = unFinishedList[position]
+
+            val scaleAnimation= ScaleAnimation(
+                0.5f, 1.6f, 0.5f, 1.6f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
+            )
+            //scaleAnimation.duration = 300
+            val alphaAnimation = AlphaAnimation(0.0f, 1.0f)
+
+            val animationSet = AnimationSet(true)
+            animationSet.apply {
+                addAnimation(scaleAnimation)
+                addAnimation(alphaAnimation)
+                duration = 300
+            }
+
             when (unFinished.isTop) {
                 0 -> {
+
                     unFinished.isTop = 1
+
+                    viewHolder.isTopButton.startAnimation(animationSet)
                     viewHolder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
                     viewHolder.isTopButton.imageTintList = activity.getColorStateList(R.color.green)
                 }
                 1 -> {
                     unFinished.isTop = 0
+                    viewHolder.isTopButton.startAnimation(animationSet)
                     viewHolder.isTopButton.setImageResource(R.drawable.ic_twotone_grade_24)
                     viewHolder.isTopButton.imageTintList =
                         activity.getColorStateList(R.color.selector_color)

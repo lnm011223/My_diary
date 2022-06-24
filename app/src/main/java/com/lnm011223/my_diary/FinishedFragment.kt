@@ -32,18 +32,12 @@ class FinishedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
-        initFinishedList()
+        //initFinishedList()
         binding.finishedRecyclerView.layoutManager = layoutManager
         val adapter = FinishedAdapter(mainViewModel.finishedList.value!!, requireActivity())
         binding.finishedRecyclerView.adapter = adapter
 
     }
 
-    private fun initFinishedList(){
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
-    }
+
 }
