@@ -1,6 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/cardcolor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/isDoneChecked_F"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/selector_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/todoText_F"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
+                android:text="今天做完Todo功能"
+
+                android:textColor="@color/titletextcolor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/startText_F"
+                app:layout_constraintEnd_toStartOf="@+id/isTopButton_F"
+                app:layout_constraintStart_toEndOf="@id/isDoneChecked_F"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="todoText_F" />
+
+            <com.google.android.material.textview.MaterialTextView
+
+                android:id="@+id/startText_F"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="bottom"
+                android:textColor="#61AE72"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_constraintStart_toEndOf="@+id/isDoneChecked_F"
+                 />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/splitText_F"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text=" · "
+                android:textColor="#61AE72"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/startText_F"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/endText_F"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textColor="#61AE72"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/splitText_F"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/splitText2_F"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text=" · "
+                android:textColor="#61AE72"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/endText_F"
+                />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/classificationText_F"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textColor="#61AE72"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/splitText2_F"
+                />
+
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/isTopButton_F"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00000000"
+                android:src="@drawable/ic_twotone_grade_24"
+                android:tint="@color/selector_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

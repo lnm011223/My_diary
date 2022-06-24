@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -20,13 +23,14 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lnm011223.my_diary.AdapterFragmentPager
+import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.FragmentHomeBinding
 
 // TODO: 待办界面 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -38,8 +42,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        mainViewModel =
+            ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -58,7 +62,7 @@ class HomeFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
+       //val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
 
 //
 //        animMap.keys.forEach { s ->
@@ -119,17 +123,28 @@ class HomeFragment : Fragment() {
                 }
             }
         }.attach()
-        binding.tabLayout.getTabAt(0)?.let { tab ->
+        val linearLayout = binding.tabLayout.getChildAt(0) as? LinearLayout
+        linearLayout?.let {
+            it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
+            it.dividerDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.shape_tab_divider)
+            it.dividerPadding = 30
+        }
 
-            tab.orCreateBadge.apply {
-                backgroundColor = Color.parseColor("#61AE72")
-                maxCharacterCount = 4
-                number = 9999
-                badgeTextColor = Color.WHITE
+        mainViewModel.unFinishedList.observe(viewLifecycleOwner) {
+            Log.d("dddtest",mainViewModel.unFinishedList.value!!.size.toString())
+            binding.tabLayout.getTabAt(0)?.let { tab ->
 
-
+//                tab.orCreateBadge.apply {
+//                    backgroundColor = Color.parseColor("#61AE72")
+//                    maxCharacterCount = 3
+//                    number = mainViewModel.unFinishedList.value!!.size
+//                    badgeTextColor = Color.WHITE
+//
+//
+//                }
             }
         }
+
 
 
 

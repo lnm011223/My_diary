@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp"
+        android:backgroundTint="@color/cardcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +22,7 @@
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/isDoneChecked"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/selector_color"
@@ -33,10 +35,11 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/todoText"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:gravity="top"
+                android:layout_height="wrap_content"
+
+                android:gravity="center_vertical"
                 android:text="今天做完Todo功能"
+
                 android:textColor="@color/titletextcolor"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/deadLineText"
@@ -51,14 +54,16 @@
                 app:constraint_referenced_ids="todoText" />
 
             <com.google.android.material.textview.MaterialTextView
+
                 android:id="@+id/deadLineText"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="20dp"
                 android:gravity="bottom"
                 android:textColor="#61AE72"
                 app:layout_constraintBottom_toBottomOf="parent"
+
                 app:layout_constraintStart_toEndOf="@+id/isDoneChecked"
-                app:layout_constraintTop_toTopOf="parent" />
+                 />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/splitText"
@@ -69,7 +74,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/deadLineText"
-                app:layout_constraintTop_toBottomOf="@+id/todoText" />
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/classificationText"
@@ -79,7 +84,7 @@
                 android:textColor="#61AE72"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/splitText"
-                app:layout_constraintTop_toBottomOf="@+id/todoText" />
+                />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/isTopButton"

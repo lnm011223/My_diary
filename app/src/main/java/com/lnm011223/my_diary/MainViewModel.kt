@@ -14,6 +14,7 @@ class MainViewModel() : ViewModel() {
     init {
 
     }
+    var finishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
     var unFinishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
     var selectid = R.drawable.mood_1
     var flag1 = false
