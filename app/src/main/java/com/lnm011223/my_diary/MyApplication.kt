@@ -6,7 +6,7 @@ import android.content.Context
 import com.google.android.material.color.DynamicColors
 
 class MyApplication : Application() {
-    companion object{
+    companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }

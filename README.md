@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-> 2.AddActivity.kt
+> 2.AddDiaryActivity.kt
 
 ```kotlin
 package com.lnm011223.my_diary
@@ -408,7 +408,7 @@ class AddActivity : AppCompatActivity() {
 }
 ```
 
-> 3.ReviseActivity.kt
+> 3.ReviseDiaryActivity.kt
 
 ```kotlin
 package com.lnm011223.my_diary

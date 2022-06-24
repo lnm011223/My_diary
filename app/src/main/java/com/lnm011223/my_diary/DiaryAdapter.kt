@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,22 +15,23 @@ import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import java.io.File
 
 
-class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : RecyclerView.Adapter<DiaryAdapter.ViewHolder>(){
+class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
+    RecyclerView.Adapter<DiaryAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val diarycard_mood : ImageView = view.findViewById(R.id.diarycard_mood)
-        val diarycard_image : ImageView = view.findViewById(R.id.diarycard_image)
-        val diarycard_date : TextView = view.findViewById(R.id.diarycard_date)
-        val diarycard_text : TextView = view.findViewById(R.id.diarycard_text)
-        val delete_button : ImageView = view.findViewById(R.id.delete_image)
-        val diarycard_image_background : View = view.findViewById(R.id.diarycard_image_background)
-        val diary_card : View = view.findViewById(R.id.diary_card)
-        val edit_button : ImageView = view.findViewById(R.id.edit_image)
+        val diarycard_mood: ImageView = view.findViewById(R.id.diarycard_mood)
+        val diarycard_image: ImageView = view.findViewById(R.id.diarycard_image)
+        val diarycard_date: TextView = view.findViewById(R.id.diarycard_date)
+        val diarycard_text: TextView = view.findViewById(R.id.diarycard_text)
+        val delete_button: ImageView = view.findViewById(R.id.delete_image)
+        val diarycard_image_background: View = view.findViewById(R.id.diarycard_image_background)
+        val diary_card: View = view.findViewById(R.id.diary_card)
+        val edit_button: ImageView = view.findViewById(R.id.edit_image)
     }
 
     override fun getItemCount() = diaryList.size
+
     //点击事件接口
     interface ItemListenter {
         fun deleteItemClick(position: Int)
@@ -47,10 +47,10 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.diary_card,parent,false)
+            .inflate(R.layout.diary_card, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.delete_button.setOnClickListener {
-            val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
+            val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
             val db = dbHelper.writableDatabase
             val position = viewHolder.adapterPosition
             val diary = diaryList[position]
@@ -81,22 +81,26 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
             val position = viewHolder.adapterPosition
             val diary = diaryList[position]
             itemListenter?.reviseItemClick(position)
-            val intent = Intent(parent.context,ReviseActivity::class.java)
+            val intent = Intent(parent.context, ReviseDiaryActivity::class.java)
             intent.apply {
-                putExtra("id",diary.id)
-                putExtra("datetext",diary.date_text)
-                putExtra("diarytext",diary.diary_text)
-                putExtra("imageuri",diary.diary_image)
-                putExtra("moodid",diary.moon)
-                putExtra("diary",diary)
-                putExtra("position",position.toString())
+                putExtra("id", diary.id)
+                putExtra("datetext", diary.date_text)
+                putExtra("diarytext", diary.diary_text)
+                putExtra("imageuri", diary.diary_image)
+                putExtra("moodid", diary.moon)
+                putExtra("diary", diary)
+                putExtra("position", position.toString())
 
 
             }
-            Log.d("livedata",position.toString())
-            activity.startActivityForResult(intent,2,ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                viewHolder.diary_card,"sharedcard").toBundle())
-            Log.d("livedata",activity.toString())
+            Log.d("livedata", position.toString())
+            activity.startActivityForResult(
+                intent, 2, ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    viewHolder.diary_card, "sharedcard"
+                ).toBundle()
+            )
+            Log.d("livedata", activity.toString())
 
         }
         viewHolder.itemView.setOnClickListener {
@@ -109,15 +113,17 @@ class DiaryAdapter(val diaryList: List<Diary>,val activity: Activity) : Recycler
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary = diaryList[position]
-        holder.itemView.animation = AnimationUtils.loadAnimation(holder.itemView.context,R.anim.recyclerviewshow)
+        holder.itemView.animation =
+            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(diary.moon)
-        holder.diarycard_date.text = diary.date_text.substring(5,7)+" "+diary.date_text.substring(10,12)
+        holder.diarycard_date.text =
+            diary.date_text.substring(5, 7) + " " + diary.date_text.substring(10, 12)
         holder.diarycard_text.text = diary.diary_text
-        Log.d("image-url",diary.diary_image)
-        if (diary.diary_image == ""){
-            Log.d("image-url","null")
+        Log.d("image-url", diary.diary_image)
+        if (diary.diary_image == "") {
+            Log.d("image-url", "null")
             holder.diarycard_image_background.visibility = View.GONE
-        }else{
+        } else {
             holder.diarycard_image_background.visibility = View.VISIBLE
         }
 

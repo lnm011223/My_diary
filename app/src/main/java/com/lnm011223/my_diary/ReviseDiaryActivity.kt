@@ -6,11 +6,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.WindowCompat
@@ -18,13 +18,13 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.setPadding
 import com.lnm011223.my_diary.MyApplication.Companion.context
-
 import com.lnm011223.my_diary.databinding.ActivityReviseBinding
 
-class ReviseActivity : AppCompatActivity() {
+class ReviseDiaryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding
-    var mood_flag:Int = 1
+    var mood_flag: Int = 1
     var uri1: String = ""
+
     @SuppressLint("SimpleDateFormat")
     val formAlbum = 2
     var flag1 = false
@@ -38,16 +38,17 @@ class ReviseActivity : AppCompatActivity() {
 
         binding = ActivityReviseBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val dbHelper = MyDatabaseHelper(context,"DiaryData.db",1)
+        val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         val db = dbHelper.writableDatabase
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        window.statusBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
-        window.navigationBarColor = ContextCompat.getColor(context,R.color.backgroundcolor)
-        insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+        window.navigationBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+        insetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-        if (!isDarkTheme(this)){
+        if (!isDarkTheme(this)) {
 
             insetsController.apply {
                 isAppearanceLightStatusBars = true
@@ -60,9 +61,9 @@ class ReviseActivity : AppCompatActivity() {
         var diarytext: String?
         val imageuri = intent.getStringExtra("imageuri")?.toUri()
         val position = intent.getStringExtra("position")
-        Log.d("livedata",position.toString())
+        Log.d("livedata", position.toString())
         val diary = intent.getParcelableExtra<Diary>("diary") as Diary
-        Log.d("aaa",diary.moon.toString())
+        Log.d("aaa", diary.moon.toString())
         mood_flag = diary.moon
         uri1 = diary.diary_image
         diarytext = diary.diary_text
@@ -77,29 +78,35 @@ class ReviseActivity : AppCompatActivity() {
         binding.dateText.text = datetext
         binding.diarytextEdit.setText(diarytext)
 
-        if (imageuri?.toString() != "" && !imageflag){
+        if (imageuri?.toString() != "" && !imageflag) {
             binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
             binding.imageShow.setImageURI(imageuri)
-        }else{
-            binding.imageShow.setPadding(DensityUtil.dip2px(context,60f))
+        } else {
+            binding.imageShow.setPadding(DensityUtil.dip2px(context, 60f))
         }
 
 
         binding.completeButton.setOnClickListener {
             diarytext = binding.diarytextEdit.text.toString()
             val diary_value = ContentValues().apply {
-                put("imageuri",uri1)
-                put("moodid",mood_flag)
-                put("diarytext",diarytext)
+                put("imageuri", uri1)
+                put("moodid", mood_flag)
+                put("diarytext", diarytext)
             }
-            db.update("diarydata",diary_value,"id = ?", arrayOf(diary.id.toString()))
+            db.update("diarydata", diary_value, "id = ?", arrayOf(diary.id.toString()))
             val intentResult = Intent()
-            val reviseItem = Diary(diary.id,diary.date_text,mood_flag,uri1,binding.diarytextEdit.text.toString())
+            val reviseItem = Diary(
+                diary.id,
+                diary.date_text,
+                mood_flag,
+                uri1,
+                binding.diarytextEdit.text.toString()
+            )
             intentResult.apply {
-                putExtra("position",position)
-                putExtra("reviseDiary",reviseItem)
+                putExtra("position", position)
+                putExtra("reviseDiary", reviseItem)
             }
-            setResult(RESULT_OK,intentResult)
+            setResult(RESULT_OK, intentResult)
             onBackPressed()
 
         }
@@ -113,9 +120,9 @@ class ReviseActivity : AppCompatActivity() {
             if (flag1 == false) {
                 binding.mood1Image.setImageResource(R.drawable.mood_1)
                 flag1 = true
-                changeOther(binding.mood1Image,flag1)
+                changeOther(binding.mood1Image, flag1)
                 mood_flag = R.drawable.mood_1
-            }else{
+            } else {
                 binding.mood1Image.setImageResource(R.drawable.mood_1_last)
                 flag1 = false
             }
@@ -124,9 +131,9 @@ class ReviseActivity : AppCompatActivity() {
             if (flag2 == false) {
                 binding.mood2Image.setImageResource(R.drawable.mood_2)
                 flag2 = true
-                changeOther(binding.mood2Image,flag2)
+                changeOther(binding.mood2Image, flag2)
                 mood_flag = R.drawable.mood_2
-            }else{
+            } else {
                 binding.mood2Image.setImageResource(R.drawable.mood_2_last)
                 flag2 = false
             }
@@ -135,9 +142,9 @@ class ReviseActivity : AppCompatActivity() {
             if (flag3 == false) {
                 binding.mood3Image.setImageResource(R.drawable.mood_3)
                 flag3 = true
-                changeOther(binding.mood3Image,flag3)
+                changeOther(binding.mood3Image, flag3)
                 mood_flag = R.drawable.mood_3
-            }else{
+            } else {
                 binding.mood3Image.setImageResource(R.drawable.mood_3_last)
                 flag3 = false
             }
@@ -146,9 +153,9 @@ class ReviseActivity : AppCompatActivity() {
             if (flag4 == false) {
                 binding.mood4Image.setImageResource(R.drawable.mood_4)
                 flag4 = true
-                changeOther(binding.mood4Image,flag4)
+                changeOther(binding.mood4Image, flag4)
                 mood_flag = R.drawable.mood_4
-            }else{
+            } else {
                 binding.mood4Image.setImageResource(R.drawable.mood_4_last)
                 flag4 = false
             }
@@ -157,23 +164,25 @@ class ReviseActivity : AppCompatActivity() {
             if (flag5 == false) {
                 binding.mood5Image.setImageResource(R.drawable.mood_5)
                 flag5 = true
-                changeOther(binding.mood5Image,flag5)
+                changeOther(binding.mood5Image, flag5)
                 mood_flag = R.drawable.mood_5
-            }else{
+            } else {
                 binding.mood5Image.setImageResource(R.drawable.mood_5_last)
                 flag5 = false
             }
         }
 
     }
+
     private fun isDarkTheme(context: Context): Boolean {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
-    //切换mood选择效果
-    private fun changeOther(imageView: ImageView, flag:Boolean){
 
-        if (flag==true){
+    //切换mood选择效果
+    private fun changeOther(imageView: ImageView, flag: Boolean) {
+
+        if (flag == true) {
             when (imageView) {
                 binding.mood1Image -> {
                     binding.apply {
@@ -256,10 +265,10 @@ class ReviseActivity : AppCompatActivity() {
             formAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     data.data?.let { uri ->
-                        uri1 = UriUtils.getFilePathFromURI(context,uri).toString()
+                        uri1 = UriUtils.getFilePathFromURI(context, uri).toString()
                         binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
                         binding.imageShow.setImageURI(uri1.toUri())
-                        binding.imageShow.setPadding(0,0,0,0)
+                        binding.imageShow.setPadding(0, 0, 0, 0)
                     }
                 }
             }
