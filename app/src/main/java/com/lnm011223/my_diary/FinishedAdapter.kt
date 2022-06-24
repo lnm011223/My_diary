@@ -1,6 +1,7 @@
 package com.lnm011223.my_diary
 
 import android.app.Activity
+import android.graphics.Paint
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         holder.startText.text = finished.startDate
         holder.endText.text = finished.endDate
         holder.todoText.text = finished.todoText
+        holder.todoText.paintFlags = (holder.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         holder.classificationText.text = finished.classification
 
         when (finished.isTop) {
