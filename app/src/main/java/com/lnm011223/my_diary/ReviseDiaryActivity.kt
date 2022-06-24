@@ -33,6 +33,20 @@ class ReviseDiaryActivity : AppCompatActivity() {
     var flag4 = false
     var flag5 = false
     var imageflag = false
+    val moodMap = mapOf(
+        R.drawable.mood_1 to 1,
+        R.drawable.mood_2 to 2,
+        R.drawable.mood_3 to 3,
+        R.drawable.mood_4 to 4,
+        R.drawable.mood_5 to 5,
+    )
+    val moodMapR = mapOf(
+        1 to R.drawable.mood_1,
+        2 to R.drawable.mood_2,
+        3 to R.drawable.mood_3,
+        4 to R.drawable.mood_4,
+        5 to R.drawable.mood_5,
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,7 +82,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
         uri1 = diary.diary_image
         diarytext = diary.diary_text
         //设置初始展示效果
-        when (diary.moon) {
+        when (moodMapR[diary.moon]) {
             R.drawable.mood_1 -> binding.mood1Image.setImageResource(R.drawable.mood_1)
             R.drawable.mood_2 -> binding.mood2Image.setImageResource(R.drawable.mood_2)
             R.drawable.mood_3 -> binding.mood3Image.setImageResource(R.drawable.mood_3)
@@ -90,7 +104,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
             diarytext = binding.diarytextEdit.text.toString()
             val diary_value = ContentValues().apply {
                 put("imageuri", uri1)
-                put("moodid", mood_flag)
+                put("moodid", moodMap[mood_flag])
                 put("diarytext", diarytext)
             }
             db.update("diarydata", diary_value, "id = ?", arrayOf(diary.id.toString()))
@@ -98,7 +112,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
             val reviseItem = Diary(
                 diary.id,
                 diary.date_text,
-                mood_flag,
+                moodMap[mood_flag]!!,
                 uri1,
                 binding.diarytextEdit.text.toString()
             )

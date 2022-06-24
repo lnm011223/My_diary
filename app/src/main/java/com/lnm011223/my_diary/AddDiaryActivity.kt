@@ -25,6 +25,13 @@ class AddDiaryActivity : BaseActivity() {
     private lateinit var binding: ActivityAddBinding
     var mood_flag: Int = R.drawable.mood_1
     var uri1: String = ""
+    val moodMap = mapOf(
+        R.drawable.mood_1 to 1,
+        R.drawable.mood_2 to 2,
+        R.drawable.mood_3 to 3,
+        R.drawable.mood_4 to 4,
+        R.drawable.mood_5 to 5,
+    )
 
     @SuppressLint("SimpleDateFormat")
     val formAlbum = 2
@@ -129,7 +136,7 @@ class AddDiaryActivity : BaseActivity() {
             val db = dbHelper.writableDatabase
             val diary_value = ContentValues().apply {
                 put("imageuri", uri1)
-                put("moodid", mood_flag)
+                put("moodid", moodMap[mood_flag])
                 put("datetext", datetext)
                 put("diarytext", diary_text)
             }
@@ -155,7 +162,12 @@ class AddDiaryActivity : BaseActivity() {
 
             if (id != -1) {
                 Log.d("successtest", success.toString())
-                intent.putExtra("addDiary", Diary(id, datetext!!, mood_flag, uri1, diary_text))
+                intent.putExtra(
+                    "addDiary", Diary(
+                        id, datetext!!,
+                        moodMap[mood_flag]!!, uri1, diary_text
+                    )
+                )
                 setResult(RESULT_OK, intent)
                 super.onBackPressed()
             } else {

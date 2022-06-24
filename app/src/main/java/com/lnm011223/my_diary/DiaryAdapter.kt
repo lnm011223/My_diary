@@ -44,6 +44,13 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         this.itemListenter = itemListenter
     }
 
+    val moodMap = mapOf(
+        1 to R.drawable.mood_1,
+        2 to R.drawable.mood_2,
+        3 to R.drawable.mood_3,
+        4 to R.drawable.mood_4,
+        5 to R.drawable.mood_5,
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -115,7 +122,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         val diary = diaryList[position]
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
-        holder.diarycard_mood.setImageResource(diary.moon)
+        holder.diarycard_mood.setImageResource(moodMap[diary.moon]!!)
         holder.diarycard_date.text =
             diary.date_text.substring(5, 7) + " " + diary.date_text.substring(10, 12)
         holder.diarycard_text.text = diary.diary_text

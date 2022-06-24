@@ -21,6 +21,13 @@ class DashboardFragment : Fragment() {
     private var _binding: FragmentDashboardBinding? = null
     val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
     private val binding get() = _binding!!
+    val moodMap = mapOf(
+        R.drawable.mood_1 to 1,
+        R.drawable.mood_2 to 2,
+        R.drawable.mood_3 to 3,
+        R.drawable.mood_4 to 4,
+        R.drawable.mood_5 to 5,
+    )
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -232,7 +239,7 @@ class DashboardFragment : Fragment() {
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
                     if (mainViewModel.selectflag){
-                        if (mainViewModel.selectid==moodid){
+                        if (moodMap[mainViewModel.selectid]==moodid){
                             diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
                         }
                     }else{
