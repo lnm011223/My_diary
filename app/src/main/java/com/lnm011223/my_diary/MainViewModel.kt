@@ -27,6 +27,9 @@ class MainViewModel() : ViewModel() {
     var revisePosition = MutableLiveData<Int>(-1)
     var addDiaryItem = Diary(-1, "", -1, "", "")
     var addPosition = MutableLiveData<Int>(-1)
+
+
+
     fun setPosition(position: Int) {
         revisePosition.value = position
     }

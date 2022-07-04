@@ -78,7 +78,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
         Log.d("livedata", position.toString())
         val diary = intent.getParcelableExtra<Diary>("diary") as Diary
         Log.d("aaa", diary.moon.toString())
-        mood_flag = diary.moon
+        mood_flag = moodMapR[diary.moon]!!
         uri1 = diary.diary_image
         diarytext = diary.diary_text
         //设置初始展示效果

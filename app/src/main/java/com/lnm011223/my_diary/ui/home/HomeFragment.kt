@@ -132,33 +132,33 @@ class HomeFragment : Fragment() {
         }
         initFinishedList()
         initUnFinishedList()
-        mainViewModel.unFinishedList.observe(viewLifecycleOwner) {
-            Log.d("dddtest",mainViewModel.unFinishedList.value!!.size.toString())
-            binding.tabLayout.getTabAt(0)?.let { tab ->
-
-                tab.orCreateBadge.apply {
-                    backgroundColor = Color.parseColor("#61AE72")
-                    maxCharacterCount = 3
-                    badgeGravity = BadgeDrawable.TOP_START
-                    number = mainViewModel.unFinishedList.value!!.size
-                    badgeTextColor = Color.WHITE
-
-
-                }
-            }
-
-            binding.tabLayout.getTabAt(1)?.let { tab ->
-
-                tab.orCreateBadge.apply {
-                    backgroundColor = Color.parseColor("#61AE72")
-                    maxCharacterCount = 3
-                    number = mainViewModel.finishedList.value!!.size
-                    badgeTextColor = Color.WHITE
-
-
-                }
-            }
-        }
+//        mainViewModel.unFinishedList.observe(viewLifecycleOwner) {
+//            Log.d("dddtest",mainViewModel.unFinishedList.value!!.size.toString())
+//            binding.tabLayout.getTabAt(0)?.let { tab ->
+//
+//                tab.orCreateBadge.apply {
+//                    backgroundColor = Color.parseColor("#61AE72")
+//                    maxCharacterCount = 3
+//                    badgeGravity = BadgeDrawable.TOP_START
+//                    number = mainViewModel.unFinishedList.value!!.size
+//                    badgeTextColor = Color.WHITE
+//
+//
+//                }
+//            }
+//
+//            binding.tabLayout.getTabAt(1)?.let { tab ->
+//
+//                tab.orCreateBadge.apply {
+//                    backgroundColor = Color.parseColor("#61AE72")
+//                    maxCharacterCount = 3
+//                    number = mainViewModel.finishedList.value!!.size
+//                    badgeTextColor = Color.WHITE
+//
+//
+//                }
+//            }
+//        }
 
 
 

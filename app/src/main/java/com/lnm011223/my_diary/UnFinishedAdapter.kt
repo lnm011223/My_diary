@@ -61,7 +61,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
             val unFinished = unFinishedList[position]
 
             val scaleAnimation= ScaleAnimation(
-                0.5f, 1.6f, 0.5f, 1.6f,
+                0.5f, 1.2f, 0.5f, 1.2f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
             )
             //scaleAnimation.duration = 300

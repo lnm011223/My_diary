@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lnm011223.my_diary.*
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
@@ -66,7 +67,10 @@ class DashboardFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
         val adapter = DiaryAdapter(mainViewModel.diaryList.value!!, requireActivity())
+//        val mDividerItemDecoration = DividerItemDecoration(requireActivity(),DividerItemDecoration.VERTICAL)
+//        binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
         binding.diaryRecycle.adapter = adapter
+
         mainViewModel.addPosition.observe(viewLifecycleOwner) { add ->
             when (add) {
                 -1 -> {}
