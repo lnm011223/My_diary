@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.todo
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

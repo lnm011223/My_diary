@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import com.lnm011223.my_diary.databinding.DialogMyBottomSheetBinding
 
  * @Author liangnuoming
  * @Date 2022/6/23-6:36 下午
+ * 日记图片详情预览
 
  */
 class ImageBottomSheet(private val imageUrl: String, private val date: String) :

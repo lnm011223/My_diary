@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.util
 
 import android.content.Context
 

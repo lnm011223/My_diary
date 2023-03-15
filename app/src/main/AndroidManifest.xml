@@ -4,7 +4,7 @@
     package="com.lnm011223.my_diary" >
 
     <application
-        android:name=".MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_diary" >
         <activity
-            android:name=".AddTodoActivity"
+            android:name=".ui.add.AddTodoActivity"
             android:exported="false" />
         <activity
-            android:name=".ReviseDiaryActivity"
+            android:name=".ui.revise.ReviseDiaryActivity"
             android:exported="false" />
         <activity
-            android:name=".AddDiaryActivity"
+            android:name=".ui.add.AddDiaryActivity"
             android:exported="false"
             android:label="@string/title_activity_add"
             android:theme="@style/Theme.My_diary.NoActionBar" />

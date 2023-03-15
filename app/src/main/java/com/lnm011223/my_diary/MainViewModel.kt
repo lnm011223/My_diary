@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.logic.model.Todo
 
 class MainViewModel() : ViewModel() {
     val diaryList: LiveData<ArrayList<Diary>>

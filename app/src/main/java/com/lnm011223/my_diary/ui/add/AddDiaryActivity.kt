@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.add
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,8 +14,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.*
-import com.lnm011223.my_diary.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyDatabaseHelper
+import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
+import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.DensityUtil
+import com.lnm011223.my_diary.util.UriUtils
 import com.xiaofeidev.appreveal.base.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.*

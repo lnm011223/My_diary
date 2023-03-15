@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.revise
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -17,8 +17,13 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.setPadding
-import com.lnm011223.my_diary.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyDatabaseHelper
+import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.ActivityReviseBinding
+import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.DensityUtil
+import com.lnm011223.my_diary.util.UriUtils
 
 class ReviseDiaryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReviseBinding

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.lnm011223.my_diary.ui.home.HomeFragment"
+        android:name="com.lnm011223.my_diary.ui.todo.TodoFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_todo" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

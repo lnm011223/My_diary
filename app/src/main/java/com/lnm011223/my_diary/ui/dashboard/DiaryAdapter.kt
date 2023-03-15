@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,6 +15,11 @@ import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
+import com.lnm011223.my_diary.R
+import com.lnm011223.my_diary.ui.revise.ReviseDiaryActivity
+import com.lnm011223.my_diary.logic.model.Diary
 
 
 class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :

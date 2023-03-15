@@ -7,7 +7,7 @@
     android:background="@color/backgroundcolor"
 
 
-    tools:context=".AddDiaryActivity">
+    tools:context=".ui.add.AddDiaryActivity">
 
     <ScrollView
         android:layout_width="match_parent"

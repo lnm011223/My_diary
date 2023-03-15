@@ -1,9 +1,8 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.base
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import androidx.appcompat.app.AppCompatDelegate
 
 import com.google.android.material.color.DynamicColors
 

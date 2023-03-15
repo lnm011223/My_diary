@@ -1,10 +1,12 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.ui.add
 
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.R
 import com.xiaofeidev.appreveal.base.BaseActivity
 
 class AddTodoActivity : BaseActivity() {

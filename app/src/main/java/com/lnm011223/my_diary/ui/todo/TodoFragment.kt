@@ -1,38 +1,25 @@
-package com.lnm011223.my_diary.ui.home
+package com.lnm011223.my_diary.ui.todo
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.lnm011223.my_diary.AdapterFragmentPager
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
-import com.lnm011223.my_diary.Todo
-import com.lnm011223.my_diary.databinding.FragmentHomeBinding
+import com.lnm011223.my_diary.logic.model.Todo
+import com.lnm011223.my_diary.databinding.FragmentTodoBinding
 
 // TODO: 待办界面 
-class HomeFragment : Fragment() {
+class TodoFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentTodoBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -46,7 +33,7 @@ class HomeFragment : Fragment() {
         mainViewModel =
             ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentTodoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
 

@@ -1,4 +1,4 @@
-package com.lnm011223.my_diary
+package com.lnm011223.my_diary.base
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

@@ -13,8 +13,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.lnm011223.my_diary.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyApplication.Companion.context
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.ActivityMainBinding
+import com.lnm011223.my_diary.ui.add.AddDiaryActivity
+import com.lnm011223.my_diary.ui.add.AddTodoActivity
+import com.lnm011223.my_diary.util.DensityUtil
 import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_X
 import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_Y
 
