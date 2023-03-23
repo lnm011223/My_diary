@@ -154,6 +154,7 @@ class TodoFragment : Fragment() {
     }
 
     private fun initUnFinishedList(){
+        mainViewModel.unFinishedList.value?.clear()
         mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
         mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
         mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
@@ -163,6 +164,7 @@ class TodoFragment : Fragment() {
 
 
     private fun initFinishedList(){
+        mainViewModel.finishedList.value?.clear()
         mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
         mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
         mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))

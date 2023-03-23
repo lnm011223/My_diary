@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cardcolor">
+    android:background="@drawable/shape_sheet_dialog_bg"
+    >
 
 
     <com.google.android.material.appbar.MaterialToolbar

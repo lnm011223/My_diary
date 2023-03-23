@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.DialogMyBottomSheetBinding
 
 /**
@@ -21,6 +22,7 @@ class ImageBottomSheet(private val imageUrl: String, private val date: String) :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.BottomSheetDialog)
     }
 
     override fun onCreateView(
