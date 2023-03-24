@@ -45,6 +45,21 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.App.SplashScreen" parent="Theme.SplashScreen">
+        <!--背景颜色-->
+        <item name="windowSplashScreenBackground">@color/backgroundcolor</item>
+        <!--设置动画或图片,注意动画在Android12 以下不生效 很难受...-->
+        <item name="windowSplashScreenAnimatedIcon">
+            @drawable/mood_1
+        </item>
+        <!--动画执行时间-->
+        <!--        <item name="windowSplashScreenAnimationDuration">1000</item>-->
+
+        <!--设置闪屏也后启动页面的主题 说白了 就是app本来的主题-->
+        <item name="postSplashScreenTheme">@style/Theme.My_diary</item>
+
+    </style>
+
 
 
 </resources>

@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -29,10 +32,16 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+
+
+
+
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
