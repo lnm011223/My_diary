@@ -59,7 +59,11 @@
         <item name="postSplashScreenTheme">@style/Theme.My_diary</item>
 
     </style>
-
+    <!--ShapeableImageView 圆 -->
+    <style name="CircleStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
 
 </resources>

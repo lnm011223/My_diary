@@ -19,6 +19,7 @@ import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.ActivityAddBinding
 import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.BaseUtil
 import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
 import com.xiaofeidev.appreveal.base.BaseActivity
@@ -53,21 +54,7 @@ class AddDiaryActivity : BaseActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
-        val insetsController = WindowCompat.getInsetsController(
-            window, window.decorView
-        )
-        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        window.navigationBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        insetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-        if (!isDarkTheme(this)) {
-            insetsController.apply {
-                isAppearanceLightStatusBars = true
-                isAppearanceLightNavigationBars = true
-            }
-
-        }
+        BaseUtil.rightColor(window, this)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
         binding.imageShow.setPadding(DensityUtil.dip2px(context, 60f))
@@ -216,10 +203,6 @@ class AddDiaryActivity : BaseActivity() {
         }
     }
 
-    private fun isDarkTheme(context: Context): Boolean {
-        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return flag == Configuration.UI_MODE_NIGHT_YES
-    }
 
     private fun changeOther(imageView: ImageView, flag: Boolean) {
 

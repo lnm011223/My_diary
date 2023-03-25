@@ -10,6 +10,7 @@ import androidx.core.view.WindowCompat
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.databinding.ActivityAddTodoBinding
+import com.lnm011223.my_diary.util.BaseUtil
 import com.xiaofeidev.appreveal.base.BaseActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,37 +25,8 @@ class AddTodoActivity : BaseActivity() {
         binding = ActivityAddTodoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val insetsController = WindowCompat.getInsetsController(
-            window, window.decorView
-        )
-        window.statusBarColor =
-            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
-        window.navigationBarColor =
-            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
-        if (!isDarkTheme(this)) {
-            insetsController.apply {
-                isAppearanceLightStatusBars = true
-                isAppearanceLightNavigationBars = true
-            }
-
-        }
+        BaseUtil.rightColor(window,this)
         binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
-//        binding.dateText.setOnClickListener {
-//            CardDatePickerDialog.builder(it.context)
-//                .setTitle("CARD DATE PICKER DIALOG")
-//
-//                .showBackNow(true)
-//
-//
-//                .showDateLabel(true)
-//                .showFocusDateInfo(true)
-//                .setTouchHideable(true)
-//                .setLabelText("年","月","日","时","分")
-//                .setOnChoose("选择"){millisecond->}
-//                .setOnCancel("关闭") {}
-//                .build().show()
-//        }
-
         binding.picker.setOnDateTimeChangedListener {
             millisecond ->
             secondNum = millisecond
@@ -71,8 +43,5 @@ class AddTodoActivity : BaseActivity() {
         }
     }
 
-    private fun isDarkTheme(context: Context): Boolean {
-        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return flag == Configuration.UI_MODE_NIGHT_YES
-    }
+
 }

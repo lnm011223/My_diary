@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -21,6 +22,7 @@ import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.ActivityMainBinding
 import com.lnm011223.my_diary.ui.add.AddDiaryActivity
 import com.lnm011223.my_diary.ui.add.AddTodoActivity
+import com.lnm011223.my_diary.util.BaseUtil
 import com.lnm011223.my_diary.util.DensityUtil
 import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_X
 import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_Y
@@ -39,9 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
-
-
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
@@ -51,48 +50,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
         navView2.setupWithNavController(navController)
-        val insetsController = WindowCompat.getInsetsController(
-            window, window.decorView
-        )
-        navView2.setupWithNavController(navController)
 
-        //状态栏和导航栏沉浸
-        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        window.navigationBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        insetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-        if (!isDarkTheme(this)) {
-
-            //insetsController?.isAppearanceLightStatusBars = true
-            //insetsController?.isAppearanceLightNavigationBars = true
-            insetsController.apply {
-                isAppearanceLightStatusBars = true
-                isAppearanceLightNavigationBars = true
-
-
-            }
-
-        }
+        BaseUtil.rightColor(window, this)
         //控制不同fragment时fab的点击
         binding.fab.setOnClickListener { view ->
             when (navController.currentDestination?.id) {
                 R.id.navigation_dashboard -> {
                     val intent = Intent(this, AddDiaryActivity::class.java)
-                    val location = IntArray(2)
-                    view.getLocationInWindow(location)
-                    //把点击按钮的中心位置坐标传过去作为 AddDiaryActivity 的揭露动画圆心
-                    intent.putExtra(CLICK_X, location[0] + view.width / 2)
-                    intent.putExtra(CLICK_Y, location[1] + view.height / 2)
+                    circleLocation(view, intent)
                     startActivityForResult(intent, 1)
                 }
                 R.id.navigation_home -> {
                     val intent = Intent(this, AddTodoActivity::class.java)
-                    val location = IntArray(2)
-                    view.getLocationInWindow(location)
-                    //把点击按钮的中心位置坐标传过去作为 AddDiaryActivity 的揭露动画圆心
-                    intent.putExtra(CLICK_X, location[0] + view.width / 2)
-                    intent.putExtra(CLICK_Y, location[1] + view.height / 2)
+                    circleLocation(view, intent)
                     startActivityForResult(intent, 3)
                 }
             }
@@ -102,33 +72,23 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_home -> {
-                    binding.navView.updatePadding(right = DensityUtil.dip2px(context, 50f))
-                    binding.navView2.updatePadding(left = DensityUtil.dip2px(context, 50f))
-                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
-                    binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
+                    showFab(window, binding)
                     binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_done_all_24))
                     binding.fab.show()
                 }
                 R.id.navigation_dashboard -> {
+                    showFab(window, binding)
                     binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_add_24))
-                    binding.navView.updatePadding(right = DensityUtil.dip2px(context, 50f))
-                    binding.navView2.updatePadding(left = DensityUtil.dip2px(context, 50f))
-                    binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
-                    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
                     binding.fab.show()
                 }
                 R.id.navigation_charts -> {
-                    binding.navView.setPadding(0)
-                    binding.navView2.setPadding(0)
-                    binding.navView.menu.findItem(R.id.uncheckedItem).isChecked = true
-                    binding.fab.hide()
+                    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+                    hideFab(binding)
                 }
 
                 R.id.navigation_settings -> {
-                    binding.navView.setPadding(0)
-                    binding.navView2.setPadding(0)
-                    binding.navView.menu.findItem(R.id.uncheckedItem).isChecked = true
-                    binding.fab.hide()
+                    window.statusBarColor = ContextCompat.getColor(context, R.color.main)
+                    hideFab(binding)
                 }
             }
         }
@@ -156,10 +116,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isDarkTheme(context: Context): Boolean {
-        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return flag == Configuration.UI_MODE_NIGHT_YES
-    }
+
 }
 
+private fun circleLocation(view: View, intent: Intent) {
+    val location = IntArray(2)
+    view.getLocationInWindow(location)
+    //把点击按钮的中心位置坐标传过去作为 AddDiaryActivity 的揭露动画圆心
+    intent.putExtra(CLICK_X, location[0] + view.width / 2)
+    intent.putExtra(CLICK_Y, location[1] + view.height / 2)
+}
+
+private fun showFab(window: Window, binding: ActivityMainBinding) {
+    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+    binding.navView.updatePadding(right = DensityUtil.dip2px(context, 50f))
+    binding.navView2.updatePadding(left = DensityUtil.dip2px(context, 50f))
+    binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
+    binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
+
+}
+
+private fun hideFab(binding: ActivityMainBinding) {
+    binding.navView.setPadding(0)
+    binding.navView2.setPadding(0)
+    binding.navView.menu.findItem(R.id.uncheckedItem).isChecked = true
+    binding.fab.hide()
+}
 

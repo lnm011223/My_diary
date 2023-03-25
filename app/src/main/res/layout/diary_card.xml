@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/delete_image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:tint="@color/titletextcolor"
         android:src="@drawable/ic_twotone_delete_24"
         app:layout_constraintEnd_toEndOf="@+id/diary_card"
@@ -18,8 +18,8 @@
 
     <ImageView
         android:id="@+id/edit_image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
 
         android:src="@drawable/ic_twotone_edit_24"
         android:layout_marginEnd="10dp"

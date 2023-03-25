@@ -218,10 +218,14 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/selector_color"
+                        style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                         app:layout_constraintBottom_toBottomOf="@+id/textView5"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toEndOf="@+id/textView5"
-                        app:layout_constraintTop_toTopOf="@+id/textView5" />
+                        app:layout_constraintTop_toTopOf="@+id/textView5"
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 

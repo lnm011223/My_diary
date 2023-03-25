@@ -22,6 +22,8 @@ import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.ActivityReviseBinding
 import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.BaseUtil
+
 import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
 
@@ -38,20 +40,21 @@ class ReviseDiaryActivity : AppCompatActivity() {
     var flag4 = false
     var flag5 = false
     var imageflag = false
-    val moodMap = mapOf(
+    private val moodMap = mapOf(
         R.drawable.mood_1 to 1,
         R.drawable.mood_2 to 2,
         R.drawable.mood_3 to 3,
         R.drawable.mood_4 to 4,
         R.drawable.mood_5 to 5,
     )
-    val moodMapR = mapOf(
+    private val moodMapR = mapOf(
         1 to R.drawable.mood_1,
         2 to R.drawable.mood_2,
         3 to R.drawable.mood_3,
         4 to R.drawable.mood_4,
         5 to R.drawable.mood_5,
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,23 +62,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
         setContentView(binding.root)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         val db = dbHelper.writableDatabase
-        val insetsController = WindowCompat.getInsetsController(
-            window, window.decorView
-        )
-        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        window.navigationBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        insetsController.systemBarsBehavior =
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-        if (!isDarkTheme(this)) {
-
-            insetsController.apply {
-                isAppearanceLightStatusBars = true
-                isAppearanceLightNavigationBars = true
-
-            }
-
-        }
+        BaseUtil.rightColor(window, this)
         val datetext = intent.getStringExtra("datetext")
         var diarytext: String?
         val imageuri = intent.getStringExtra("imageuri")?.toUri()
@@ -135,146 +122,121 @@ class ReviseDiaryActivity : AppCompatActivity() {
             intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
             startActivityForResult(intent, formAlbum)
         }
+
+        var imageViewList = listOf(
+            binding.mood1Image,
+            binding.mood2Image,
+            binding.mood3Image,
+            binding.mood4Image,
+            binding.mood5Image
+        )
+        var flagList = mutableListOf(flag1, flag2, flag3, flag4, flag5)
+        flagList[1] = false
+        val moodIdList = listOf(
+            R.drawable.mood_1_last,
+            R.drawable.mood_2_last,
+            R.drawable.mood_3_last,
+            R.drawable.mood_4_last,
+            R.drawable.mood_5_last
+        )
+
         binding.mood1Image.setOnClickListener {
-            if (flag1 == false) {
-                binding.mood1Image.setImageResource(R.drawable.mood_1)
-                flag1 = true
-                changeOther(binding.mood1Image, flag1)
-                mood_flag = R.drawable.mood_1
-            } else {
-                binding.mood1Image.setImageResource(R.drawable.mood_1_last)
-                flag1 = false
-            }
+            flag1 = moodClick(
+                flag1,
+                binding.mood1Image,
+                R.drawable.mood_1,
+                R.drawable.mood_1_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
         }
         binding.mood2Image.setOnClickListener {
-            if (flag2 == false) {
-                binding.mood2Image.setImageResource(R.drawable.mood_2)
-                flag2 = true
-                changeOther(binding.mood2Image, flag2)
-                mood_flag = R.drawable.mood_2
-            } else {
-                binding.mood2Image.setImageResource(R.drawable.mood_2_last)
-                flag2 = false
-            }
+            flag2 = moodClick(
+                flag2,
+                binding.mood2Image,
+                R.drawable.mood_2,
+                R.drawable.mood_2_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
         }
         binding.mood3Image.setOnClickListener {
-            if (flag3 == false) {
-                binding.mood3Image.setImageResource(R.drawable.mood_3)
-                flag3 = true
-                changeOther(binding.mood3Image, flag3)
-                mood_flag = R.drawable.mood_3
-            } else {
-                binding.mood3Image.setImageResource(R.drawable.mood_3_last)
-                flag3 = false
-            }
+            flag3 = moodClick(
+                flag3,
+                binding.mood3Image,
+                R.drawable.mood_3,
+                R.drawable.mood_3_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
         }
         binding.mood4Image.setOnClickListener {
-            if (flag4 == false) {
-                binding.mood4Image.setImageResource(R.drawable.mood_4)
-                flag4 = true
-                changeOther(binding.mood4Image, flag4)
-                mood_flag = R.drawable.mood_4
-            } else {
-                binding.mood4Image.setImageResource(R.drawable.mood_4_last)
-                flag4 = false
-            }
+            flag4 = moodClick(
+                flag4,
+                binding.mood4Image,
+                R.drawable.mood_4,
+                R.drawable.mood_4_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
         }
         binding.mood5Image.setOnClickListener {
-            if (flag5 == false) {
-                binding.mood5Image.setImageResource(R.drawable.mood_5)
-                flag5 = true
-                changeOther(binding.mood5Image, flag5)
-                mood_flag = R.drawable.mood_5
-            } else {
-                binding.mood5Image.setImageResource(R.drawable.mood_5_last)
-                flag5 = false
-            }
+            flag5 = moodClick(
+                flag5,
+                binding.mood5Image,
+                R.drawable.mood_5,
+                R.drawable.mood_5_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
         }
 
     }
 
-    private fun isDarkTheme(context: Context): Boolean {
-        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return flag == Configuration.UI_MODE_NIGHT_YES
+    private fun moodClick(
+        flag: Boolean,
+        moodImage: ImageView,
+        mood: Int,
+        mood_last: Int,
+        imageViewList: List<ImageView>,
+        flagList: MutableList<Boolean>,
+        moodIdList: List<Int>
+    ): Boolean {
+        return if (!flag) {
+            moodImage.setImageResource(mood)
+
+            changeOther(moodImage, !flag, imageViewList, flagList, moodIdList)
+            mood_flag = mood
+            !flag
+        } else {
+            moodImage.setImageResource(mood_last)
+            !flag
+        }
     }
+
 
     //切换mood选择效果
-    private fun changeOther(imageView: ImageView, flag: Boolean) {
+    private fun changeOther(
+        imageView: ImageView,
+        flag: Boolean,
+        imageViewList: List<ImageView>,
+        flagList: MutableList<Boolean>,
+        moodIdList: List<Int>
+    ) {
 
-        if (flag == true) {
-            when (imageView) {
-                binding.mood1Image -> {
-                    binding.apply {
-                        mood2Image.setImageResource(R.drawable.mood_2_last)
-                        mood3Image.setImageResource(R.drawable.mood_3_last)
-                        mood4Image.setImageResource(R.drawable.mood_4_last)
-                        mood5Image.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    flag2 = false
-                    flag3 = false
-                    flag4 = false
-                    flag5 = false
-
-                }
-                binding.mood2Image -> {
-                    binding.apply {
-                        mood1Image.setImageResource(R.drawable.mood_1_last)
-                        mood3Image.setImageResource(R.drawable.mood_3_last)
-                        mood4Image.setImageResource(R.drawable.mood_4_last)
-                        mood5Image.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    flag1 = false
-                    flag3 = false
-                    flag4 = false
-                    flag5 = false
-
-                }
-                binding.mood3Image -> {
-                    binding.apply {
-                        mood2Image.setImageResource(R.drawable.mood_2_last)
-                        mood1Image.setImageResource(R.drawable.mood_1_last)
-                        mood4Image.setImageResource(R.drawable.mood_4_last)
-                        mood5Image.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    flag2 = false
-                    flag1 = false
-                    flag4 = false
-                    flag5 = false
-
-                }
-                binding.mood4Image -> {
-                    binding.apply {
-                        mood2Image.setImageResource(R.drawable.mood_2_last)
-                        mood3Image.setImageResource(R.drawable.mood_3_last)
-                        mood1Image.setImageResource(R.drawable.mood_1_last)
-                        mood5Image.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    flag2 = false
-                    flag3 = false
-                    flag1 = false
-                    flag5 = false
-
-                }
-                binding.mood5Image -> {
-                    binding.apply {
-                        mood2Image.setImageResource(R.drawable.mood_2_last)
-                        mood3Image.setImageResource(R.drawable.mood_3_last)
-                        mood4Image.setImageResource(R.drawable.mood_4_last)
-                        mood1Image.setImageResource(R.drawable.mood_1_last)
-
-                    }
-                    flag2 = false
-                    flag3 = false
-                    flag4 = false
-                    flag1 = false
-
-                }
+        for (i in imageViewList) {
+            if (i == imageView) {
+                continue
             }
+            i.setImageResource(moodIdList[imageViewList.indexOf(i)])
+            flagList[imageViewList.indexOf(i)] = false
         }
+
     }
 
     @Deprecated("Deprecated in Java")
