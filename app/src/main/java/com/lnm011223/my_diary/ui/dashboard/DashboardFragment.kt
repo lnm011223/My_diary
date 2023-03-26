@@ -22,7 +22,7 @@ import kotlin.concurrent.thread
 class DashboardFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentDashboardBinding? = null
-    val dbHelper = MyDatabaseHelper(MyApplication.context,"DiaryData.db",1)
+    val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
     private val binding get() = _binding!!
     val moodMap = mapOf(
         R.drawable.mood_1 to 1,
@@ -31,6 +31,7 @@ class DashboardFragment : Fragment() {
         R.drawable.mood_4 to 4,
         R.drawable.mood_5 to 5,
     )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,16 +52,27 @@ class DashboardFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (mainViewModel.selectflag) {
-            Log.d("yes","yes")
+            Log.d("yes", "yes")
             when {
-                mainViewModel.flag1 -> { binding.selectMood1.setImageResource(R.drawable.mood_1) }
-                mainViewModel.flag2 -> { binding.selectMood2.setImageResource(R.drawable.mood_2) }
-                mainViewModel.flag3 -> { binding.selectMood3.setImageResource(R.drawable.mood_3) }
-                mainViewModel.flag4 -> { binding.selectMood4.setImageResource(R.drawable.mood_4) }
-                mainViewModel.flag5 -> { binding.selectMood5.setImageResource(R.drawable.mood_5) }
+                mainViewModel.flag1 -> {
+                    binding.selectMood1.setImageResource(R.drawable.mood_1)
+                }
+                mainViewModel.flag2 -> {
+                    binding.selectMood2.setImageResource(R.drawable.mood_2)
+                }
+                mainViewModel.flag3 -> {
+                    binding.selectMood3.setImageResource(R.drawable.mood_3)
+                }
+                mainViewModel.flag4 -> {
+                    binding.selectMood4.setImageResource(R.drawable.mood_4)
+                }
+                mainViewModel.flag5 -> {
+                    binding.selectMood5.setImageResource(R.drawable.mood_5)
+                }
             }
         }
     }
+
     @Deprecated("Deprecated in Java")
     @SuppressLint("NotifyDataSetChanged")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -81,19 +93,18 @@ class DashboardFragment : Fragment() {
                         //当新的mood和当前筛选的一样才加进recyclerview
                         mainViewModel.addDiaryItem.moon == mainViewModel.selectid && mainViewModel.selectflag -> {
                             mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size-1)
-                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
+                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
                         }
                         //当前没筛选才添加
                         !mainViewModel.selectflag -> {
                             mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size-1)
-                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount-1)
+                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
                         }
                         //重置flag值
                         else -> mainViewModel.addPosition.value = -1
                     }
-
 
 
                 }
@@ -101,10 +112,10 @@ class DashboardFragment : Fragment() {
         }
         mainViewModel.revisePosition.observe(viewLifecycleOwner) { revisePosition ->
             when (revisePosition) {
-                -1 -> { }
+                -1 -> {}
                 else -> {
                     //当检测到有变化才改变
-                    mainViewModel.changeDiary(revisePosition,mainViewModel.reviseDiaryItem)
+                    mainViewModel.changeDiary(revisePosition, mainViewModel.reviseDiaryItem)
                     adapter.notifyItemChanged(revisePosition)
                     binding.diaryRecycle.scrollToPosition(revisePosition)
                     mainViewModel.revisePosition.value = -1
@@ -126,85 +137,116 @@ class DashboardFragment : Fragment() {
 
             override fun showItemImageClick(position: Int) {
 
-                ImageBottomSheet(adapter.diaryList[position].diary_image,adapter.diaryList[position].date_text).show(fragmentManager!!,"ImageBottomSheet")
-                Log.d("111",adapter.diaryList[position].diary_image)
+                ImageBottomSheet(
+                    adapter.diaryList[position].diary_image,
+                    adapter.diaryList[position].date_text
+                ).show(fragmentManager!!, "ImageBottomSheet")
+                Log.d("111", adapter.diaryList[position].diary_image)
                 //ImageBottomSheet().setImageShow(adapter.diaryList[position].diary_image)
 
             }
 
 
         })
+
+        var imageViewList = listOf(
+            binding.selectMood1,
+            binding.selectMood2,
+            binding.selectMood3,
+            binding.selectMood4,
+            binding.selectMood5
+        )
+        var flagList = mutableListOf(
+            mainViewModel.flag1,
+            mainViewModel.flag2,
+            mainViewModel.flag3,
+            mainViewModel.flag4,
+            mainViewModel.flag5
+        )
+        val moodIdList = listOf(
+            R.drawable.mood_1_last,
+            R.drawable.mood_2_last,
+            R.drawable.mood_3_last,
+            R.drawable.mood_4_last,
+            R.drawable.mood_5_last
+        )
+
+
         //筛选逻辑
         binding.selectMood1.setOnClickListener {
-            if (!mainViewModel.flag1) {
-                binding.selectMood1.setImageResource(R.drawable.mood_1)
-                mainViewModel.flag1 = true
-                changeOther(binding.selectMood1,mainViewModel.flag1)
-                mainViewModel.selectid = R.drawable.mood_1
-                mainViewModel.selectflag = true
-                initDiary()
-                adapter.notifyDataSetChanged()
-            }else{
-                binding.selectMood1.setImageResource(R.drawable.mood_1_last)
-                mainViewModel.flag1 = false
 
+            mainViewModel.flag1 = moodClick(
+                mainViewModel.flag1,
+                binding.selectMood1,
+                R.drawable.mood_1,
+                R.drawable.mood_1_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
+            if (mainViewModel.flag1) {
+                adapter.notifyDataSetChanged()
             }
+
         }
         binding.selectMood2.setOnClickListener {
-            if (!mainViewModel.flag2) {
-                binding.selectMood2.setImageResource(R.drawable.mood_2)
-                mainViewModel.flag2 = true
-                changeOther(binding.selectMood2,mainViewModel.flag2)
-                mainViewModel.selectid = R.drawable.mood_2
-                mainViewModel.selectflag = true
-                initDiary()
+            mainViewModel.flag2 = moodClick(
+                mainViewModel.flag2,
+                binding.selectMood2,
+                R.drawable.mood_2,
+                R.drawable.mood_2_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
+            if (mainViewModel.flag2) {
                 adapter.notifyDataSetChanged()
-            }else{
-                binding.selectMood2.setImageResource(R.drawable.mood_2_last)
-                mainViewModel.flag2 = false
             }
+
         }
         binding.selectMood3.setOnClickListener {
-            if (!mainViewModel.flag3) {
-                binding.selectMood3.setImageResource(R.drawable.mood_3)
-                mainViewModel.flag3 = true
-                changeOther(binding.selectMood3,mainViewModel.flag3)
-                mainViewModel.selectid = R.drawable.mood_3
-                mainViewModel.selectflag = true
-                initDiary()
+
+            mainViewModel.flag3 = moodClick(
+                mainViewModel.flag3,
+                binding.selectMood3,
+                R.drawable.mood_3,
+                R.drawable.mood_3_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
+            if (mainViewModel.flag3) {
                 adapter.notifyDataSetChanged()
-            }else{
-                binding.selectMood3.setImageResource(R.drawable.mood_3_last)
-                mainViewModel.flag3 = false
             }
         }
         binding.selectMood4.setOnClickListener {
-            if (!mainViewModel.flag4) {
-                binding.selectMood4.setImageResource(R.drawable.mood_4)
-                mainViewModel.flag4 = true
-                changeOther(binding.selectMood4,mainViewModel.flag4)
-                mainViewModel.selectid = R.drawable.mood_4
-                mainViewModel.selectflag = true
-                initDiary()
+
+            mainViewModel.flag4 = moodClick(
+                mainViewModel.flag4,
+                binding.selectMood4,
+                R.drawable.mood_4,
+                R.drawable.mood_4_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
+            if (mainViewModel.flag4) {
                 adapter.notifyDataSetChanged()
-                Log.d("livedata",mainViewModel.diaryList.toString())
-            }else{
-                binding.selectMood4.setImageResource(R.drawable.mood_4_last)
-                mainViewModel.flag4 = false
             }
         }
         binding.selectMood5.setOnClickListener {
-            if (!mainViewModel.flag5) {
-                binding.selectMood5.setImageResource(R.drawable.mood_5)
-                mainViewModel.flag5 = true
-                changeOther(binding.selectMood5,mainViewModel.flag5)
-                mainViewModel.selectid = R.drawable.mood_5
-                mainViewModel.selectflag = true
-                initDiary()
+
+            mainViewModel.flag5 = moodClick(
+                mainViewModel.flag5,
+                binding.selectMood5,
+                R.drawable.mood_5,
+                R.drawable.mood_5_last,
+                imageViewList,
+                flagList,
+                moodIdList
+            )
+            if (mainViewModel.flag5) {
                 adapter.notifyDataSetChanged()
-            }else{
-                binding.selectMood5.setImageResource(R.drawable.mood_5_last)
-                mainViewModel.flag5 = false
             }
         }
 
@@ -224,11 +266,10 @@ class DashboardFragment : Fragment() {
         }
 
 
-
     }
 
     @SuppressLint("Range")
-    private fun initDiary(){
+    private fun initDiary() {
         thread {
             //mainViewModel.clearAll()
             //diaryList.clear()
@@ -244,15 +285,15 @@ class DashboardFragment : Fragment() {
                     val imageuri = cursor.getString(cursor.getColumnIndex("imageuri"))
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
-                    if (mainViewModel.selectflag){
-                        if (moodMap[mainViewModel.selectid]==moodid){
-                            diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
+                    if (mainViewModel.selectflag) {
+                        if (moodMap[mainViewModel.selectid] == moodid) {
+                            diaryList.add(Diary(id, datetext, moodid, imageuri, diarytext))
                         }
-                    }else{
-                        diaryList.add(Diary(id,datetext,moodid,imageuri,diarytext))
+                    } else {
+                        diaryList.add(Diary(id, datetext, moodid, imageuri, diarytext))
                     }
 
-                }while (cursor.moveToNext())
+                } while (cursor.moveToNext())
             }
             cursor.close()
             mainViewModel.diaryList.value?.clear()
@@ -261,83 +302,50 @@ class DashboardFragment : Fragment() {
     }
 
 
-    private fun changeOther(imageView: ImageView, flag:Boolean){
+    private fun moodClick(
+        flag: Boolean,
+        moodImage: ImageView,
+        mood: Int,
+        mood_last: Int,
+        imageViewList: List<ImageView>,
+        flagList: MutableList<Boolean>,
+        moodIdList: List<Int>
+    ): Boolean {
+        return if (!flag) {
+            moodImage.setImageResource(mood)
 
-        if (mainViewModel.selectflag){
-            when (imageView) {
-                binding.selectMood1 -> {
-                    binding.apply {
-                        selectMood2.setImageResource(R.drawable.mood_2_last)
-                        selectMood3.setImageResource(R.drawable.mood_3_last)
-                        selectMood4.setImageResource(R.drawable.mood_4_last)
-                        selectMood5.setImageResource(R.drawable.mood_5_last)
+            changeOther(moodImage, !flag, imageViewList, flagList, moodIdList)
+            mainViewModel.selectid = mood
+            mainViewModel.selectflag = true
+            initDiary()
+            !flag
 
-                    }
-                    mainViewModel.flag2 = false
-                    mainViewModel.flag3 = false
-                    mainViewModel.flag4 = false
-                    mainViewModel.flag5 = false
-
-                }
-                binding.selectMood2 -> {
-                    binding.apply {
-                        selectMood1.setImageResource(R.drawable.mood_1_last)
-                        selectMood3.setImageResource(R.drawable.mood_3_last)
-                        selectMood4.setImageResource(R.drawable.mood_4_last)
-                        selectMood5.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    mainViewModel.flag1 = false
-                    mainViewModel.flag3 = false
-                    mainViewModel.flag4 = false
-                    mainViewModel.flag5 = false
-
-                }
-                binding.selectMood3 -> {
-                    binding.apply {
-                        selectMood2.setImageResource(R.drawable.mood_2_last)
-                        selectMood1.setImageResource(R.drawable.mood_1_last)
-                        selectMood4.setImageResource(R.drawable.mood_4_last)
-                        selectMood5.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    mainViewModel.flag2 = false
-                    mainViewModel.flag1 = false
-                    mainViewModel.flag4 = false
-                    mainViewModel.flag5 = false
-
-                }
-                binding.selectMood4 -> {
-                    binding.apply {
-                        selectMood2.setImageResource(R.drawable.mood_2_last)
-                        selectMood3.setImageResource(R.drawable.mood_3_last)
-                        selectMood1.setImageResource(R.drawable.mood_1_last)
-                        selectMood5.setImageResource(R.drawable.mood_5_last)
-
-                    }
-                    mainViewModel.flag2 = false
-                    mainViewModel.flag3 = false
-                    mainViewModel.flag1 = false
-                    mainViewModel.flag5 = false
-
-                }
-                binding.selectMood5 -> {
-                    binding.apply {
-                        selectMood2.setImageResource(R.drawable.mood_2_last)
-                        selectMood3.setImageResource(R.drawable.mood_3_last)
-                        selectMood4.setImageResource(R.drawable.mood_4_last)
-                        selectMood1.setImageResource(R.drawable.mood_1_last)
-
-                    }
-                    mainViewModel.flag2 = false
-                    mainViewModel.flag3 = false
-                    mainViewModel.flag4 = false
-                    mainViewModel.flag1 = false
-
-                }
-            }
+        } else {
+            moodImage.setImageResource(mood_last)
+            !flag
         }
     }
+
+    private fun changeOther(
+        imageView: ImageView,
+        flag: Boolean,
+        imageViewList: List<ImageView>,
+        flagList: MutableList<Boolean>,
+        moodIdList: List<Int>
+    ) {
+
+        for (i in imageViewList) {
+            if (i == imageView) {
+                continue
+            }
+            i.setImageResource(moodIdList[imageViewList.indexOf(i)])
+            flagList[imageViewList.indexOf(i)] = false
+        }
+
+    }
+
+
+//
 
 
 }

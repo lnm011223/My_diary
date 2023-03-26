@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.view.Window
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -23,12 +24,14 @@ object BaseUtil {
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
 
-    internal fun rightColor(window: Window,activity: Activity) {
+    internal fun rightColor(window: Window, activity: Activity) {
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
-        window.statusBarColor = ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
-        window.navigationBarColor = ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
+        window.statusBarColor =
+            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
+        window.navigationBarColor =
+            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
         insetsController.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         insetsController.hide(WindowInsetsCompat.Type.navigationBars())
@@ -45,4 +48,6 @@ object BaseUtil {
 
         }
     }
+
+
 }

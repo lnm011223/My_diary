@@ -131,7 +131,6 @@ class ReviseDiaryActivity : AppCompatActivity() {
             binding.mood5Image
         )
         var flagList = mutableListOf(flag1, flag2, flag3, flag4, flag5)
-        flagList[1] = false
         val moodIdList = listOf(
             R.drawable.mood_1_last,
             R.drawable.mood_2_last,
