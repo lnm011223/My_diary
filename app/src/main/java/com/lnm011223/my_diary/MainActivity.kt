@@ -1,16 +1,12 @@
 package com.lnm011223.my_diary
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
-import android.view.ViewTreeObserver
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -24,8 +20,8 @@ import com.lnm011223.my_diary.ui.add.AddDiaryActivity
 import com.lnm011223.my_diary.ui.add.AddTodoActivity
 import com.lnm011223.my_diary.util.BaseUtil
 import com.lnm011223.my_diary.util.DensityUtil
-import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_X
-import com.xiaofeidev.appreveal.base.BaseActivity.Companion.CLICK_Y
+import com.lnm011223.my_diary.base.BaseActivity.Companion.CLICK_X
+import com.lnm011223.my_diary.base.BaseActivity.Companion.CLICK_Y
 
 
 class MainActivity : AppCompatActivity() {

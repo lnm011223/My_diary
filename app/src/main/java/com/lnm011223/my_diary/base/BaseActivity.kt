@@ -1,4 +1,4 @@
-package com.xiaofeidev.appreveal.base
+package com.lnm011223.my_diary.base
 
 import android.animation.Animator
 import android.content.Intent
@@ -130,4 +130,3 @@ abstract class BaseActivity : AppCompatActivity(){
         this.intent = intent
     }
 }
-

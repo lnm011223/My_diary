@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/shape_sheet_dialog_bg"
     >
 
@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/sheetToolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="5dp"
         app:titleTextColor="#61AE72"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,20 +26,17 @@
         app:navigationIconTint="@color/cardtext"
         android:backgroundTint="#00000000"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/sheetImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
         android:adjustViewBounds="true"
-        android:layout_marginTop="15dp"
         android:minWidth="300dp"
         android:minHeight="300dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@+id/sheetToolBar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/sheetToolBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

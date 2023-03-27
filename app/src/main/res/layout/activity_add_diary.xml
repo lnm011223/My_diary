@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundcolor"
-    android:transitionName="sharedcard"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.revise.ReviseDiaryActivity">
+
+
+    tools:context=".ui.add.AddDiaryActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,9 +16,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:overScrollMode="never"
         android:layout_marginBottom="10dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
+
             <TextView
                 android:id="@+id/date_text"
                 android:layout_width="wrap_content"
@@ -56,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:text="今天的心情"
                         android:textColor="@color/cardtext"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -99,9 +103,9 @@
                         android:backgroundTint="#00000000"
                         android:src="@drawable/mood_3_last"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline6"
                         app:layout_constraintHorizontal_bias="0.512"
-                        app:layout_constraintStart_toStartOf="@+id/guideline5"
+                        app:layout_constraintStart_toStartOf="@+id/guideline6"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
                         app:layout_constraintVertical_bias="1.0" />
 
@@ -135,7 +139,7 @@
                         tools:layout_editor_absoluteY="37dp" />
 
                     <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideline5"
+                        android:id="@+id/guideline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -159,12 +163,11 @@
                 app:cardElevation="0dp"
                 app:layout_constraintTop_toBottomOf="@id/card_mood"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintStart_toStartOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -174,7 +177,7 @@
                         android:layout_marginTop="10dp"
                         android:text="今天的照片"
                         android:textColor="@color/cardtext"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
 
                         />
@@ -189,14 +192,13 @@
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
+                        <ImageView
                             android:id="@+id/image_show"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:minHeight="300dp"
-
-                            android:scaleType="center"
                             android:adjustViewBounds="true"
+                            android:scaleType="center"
                             android:src="@drawable/ic_baseline_camera_alt_24"
 
 
@@ -222,7 +224,8 @@
                 app:cardElevation="0dp"
                 app:layout_constraintTop_toBottomOf="@id/photo_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -231,7 +234,7 @@
                     android:layout_marginTop="10dp"
                     android:text="一行日记"
                     android:textColor="@color/cardtext"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -244,14 +247,15 @@
                     android:background="@drawable/button_drawable"
                     android:backgroundTint="@color/cardinlinecolor"
                     android:hint="请输入内容"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:paddingStart="10dp"
+                    android:textSize="15sp"
                     android:textColor="@color/titletextcolor" />
             </com.google.android.material.card.MaterialCardView>
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/complete_Button"
         android:layout_width="match_parent"
@@ -259,12 +263,11 @@
         android:backgroundTint="#3EB06A"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="修改完成"
+        android:text="制作完成"
         android:textSize="18dp"
         android:textStyle="bold"
         app:cornerRadius="0dp"
         app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

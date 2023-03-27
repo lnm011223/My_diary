@@ -20,7 +20,8 @@ import androidx.core.view.setPadding
 import com.lnm011223.my_diary.base.MyApplication.Companion.context
 import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.R
-import com.lnm011223.my_diary.databinding.ActivityReviseBinding
+
+import com.lnm011223.my_diary.databinding.ActivityReviseDairyBinding
 import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
 
@@ -28,7 +29,7 @@ import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
 
 class ReviseDiaryActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityReviseBinding
+    private lateinit var binding: ActivityReviseDairyBinding
     var mood_flag: Int = 1
     var uri1: String = ""
 
@@ -58,7 +59,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityReviseBinding.inflate(layoutInflater)
+        binding = ActivityReviseDairyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         val db = dbHelper.writableDatabase

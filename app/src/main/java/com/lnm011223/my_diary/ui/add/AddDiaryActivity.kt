@@ -3,32 +3,30 @@ package com.lnm011223.my_diary.ui.add
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.*
 import com.lnm011223.my_diary.base.MyApplication.Companion.context
 import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.R
-import com.lnm011223.my_diary.databinding.ActivityAddBinding
+
 import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
 import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
-import com.xiaofeidev.appreveal.base.BaseActivity
+import com.lnm011223.my_diary.base.BaseActivity
+import com.lnm011223.my_diary.databinding.ActivityAddDiaryBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AddDiaryActivity : BaseActivity() {
-    private lateinit var binding: ActivityAddBinding
+    private lateinit var binding: ActivityAddDiaryBinding
     var mood_flag: Int = R.drawable.mood_1
     var uri1: String = ""
     val moodMap = mapOf(
@@ -51,7 +49,7 @@ class AddDiaryActivity : BaseActivity() {
     @SuppressLint("SimpleDateFormat", "Recycle", "Range")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddBinding.inflate(layoutInflater)
+        binding = ActivityAddDiaryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
         BaseUtil.rightColor(window, this)
@@ -259,81 +257,5 @@ class AddDiaryActivity : BaseActivity() {
         }
 
     }
-//    private fun changeOther(imageView: ImageView, flag: Boolean) {
-//
-//        if (flag == true) {
-//            when (imageView) {
-//                binding.mood1Image -> {
-//                    binding.apply {
-//                        mood2Image.setImageResource(R.drawable.mood_2_last)
-//                        mood3Image.setImageResource(R.drawable.mood_3_last)
-//                        mood4Image.setImageResource(R.drawable.mood_4_last)
-//                        mood5Image.setImageResource(R.drawable.mood_5_last)
-//
-//                    }
-//                    flag2 = false
-//                    flag3 = false
-//                    flag4 = false
-//                    flag5 = false
-//
-//                }
-//                binding.mood2Image -> {
-//                    binding.apply {
-//                        mood1Image.setImageResource(R.drawable.mood_1_last)
-//                        mood3Image.setImageResource(R.drawable.mood_3_last)
-//                        mood4Image.setImageResource(R.drawable.mood_4_last)
-//                        mood5Image.setImageResource(R.drawable.mood_5_last)
-//
-//                    }
-//                    flag1 = false
-//                    flag3 = false
-//                    flag4 = false
-//                    flag5 = false
-//
-//                }
-//                binding.mood3Image -> {
-//                    binding.apply {
-//                        mood2Image.setImageResource(R.drawable.mood_2_last)
-//                        mood1Image.setImageResource(R.drawable.mood_1_last)
-//                        mood4Image.setImageResource(R.drawable.mood_4_last)
-//                        mood5Image.setImageResource(R.drawable.mood_5_last)
-//
-//                    }
-//                    flag2 = false
-//                    flag1 = false
-//                    flag4 = false
-//                    flag5 = false
-//
-//                }
-//                binding.mood4Image -> {
-//                    binding.apply {
-//                        mood2Image.setImageResource(R.drawable.mood_2_last)
-//                        mood3Image.setImageResource(R.drawable.mood_3_last)
-//                        mood1Image.setImageResource(R.drawable.mood_1_last)
-//                        mood5Image.setImageResource(R.drawable.mood_5_last)
-//
-//                    }
-//                    flag2 = false
-//                    flag3 = false
-//                    flag1 = false
-//                    flag5 = false
-//
-//                }
-//                binding.mood5Image -> {
-//                    binding.apply {
-//                        mood2Image.setImageResource(R.drawable.mood_2_last)
-//                        mood3Image.setImageResource(R.drawable.mood_3_last)
-//                        mood4Image.setImageResource(R.drawable.mood_4_last)
-//                        mood1Image.setImageResource(R.drawable.mood_1_last)
-//
-//                    }
-//                    flag2 = false
-//                    flag3 = false
-//                    flag4 = false
-//                    flag1 = false
-//
-//                }
-//            }
-//        }
-//    }
+
 }

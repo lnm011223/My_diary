@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text="待办事项"
                     android:textColor="@color/cardtext"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-
+                    android:textSize="15sp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/button_drawable"
                     android:backgroundTint="@color/cardinlinecolor"
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:text="截止时间"
                         android:textColor="@color/cardtext"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -170,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:text="分类"
                         android:textColor="@color/cardtext"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginTop="15dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -186,6 +186,7 @@
                         android:backgroundTint="@color/cardinlinecolor"
                         android:hint="请输入分类"
                         android:maxLines="1"
+                        android:textSize="15sp"
                         android:textAlignment="center"
                         android:textColor="@color/titletextcolor"
                         app:layout_constraintBottom_toBottomOf="@+id/textView4"
@@ -210,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:text="是否置顶"
                         android:textColor="@color/cardtext"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view1" />
