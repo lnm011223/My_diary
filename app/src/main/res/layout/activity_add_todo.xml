@@ -217,6 +217,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/view1" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/isTopButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/selector_color"

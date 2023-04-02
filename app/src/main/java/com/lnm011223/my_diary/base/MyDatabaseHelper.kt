@@ -21,10 +21,10 @@ class MyDatabaseHelper(val context: Context, name: String, version: Int) :
             "todotext text," +
             "classification text," +
             "startdate text," +
-            "enddate text," +
+            "enddate text default '0'," +
             "deadline text," +
             "isTop integer," +
-            "isDone integer)"
+            "isDone integer Default 0)"
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(diray_create)

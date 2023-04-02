@@ -12,8 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.logic.model.Todo
 import com.lnm011223.my_diary.databinding.FragmentTodoBinding
+import com.lnm011223.my_diary.logic.model.Diary
+import kotlin.concurrent.thread
 
 // TODO: 待办界面 
 class TodoFragment : Fragment() {
@@ -24,6 +28,7 @@ class TodoFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +55,7 @@ class TodoFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-       //val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
+        //val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
 
 //
 //        animMap.keys.forEach { s ->
@@ -88,7 +93,7 @@ class TodoFragment : Fragment() {
 //            val textView = view.findViewById<TextView>(R.id.item_title)
 //            //val badgetext = view.findViewById<TextView>(R.id.item_badge)
 //            tab.customView = view
-            when (position){
+            when (position) {
                 0 -> {
 //                    imageView.setImageResource(R.drawable.ic_twotone_library_add_24)
 //                    textView.text = "未完成"
@@ -114,11 +119,13 @@ class TodoFragment : Fragment() {
         val linearLayout = binding.tabLayout.getChildAt(0) as? LinearLayout
         linearLayout?.let {
             it.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
-            it.dividerDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.shape_tab_divider)
+            it.dividerDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.shape_tab_divider)
             it.dividerPadding = 30
         }
-        initFinishedList()
+
         initUnFinishedList()
+
 //        mainViewModel.unFinishedList.observe(viewLifecycleOwner) {
 //            Log.d("dddtest",mainViewModel.unFinishedList.value!!.size.toString())
 //            binding.tabLayout.getTabAt(0)?.let { tab ->
@@ -148,30 +155,63 @@ class TodoFragment : Fragment() {
 //        }
 
 
-
-
-
     }
 
-    private fun initUnFinishedList(){
-        mainViewModel.unFinishedList.value?.clear()
-        mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
-        mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
-        mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
-        mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
-        mainViewModel.unFinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
+    @SuppressLint("Range")
+    private fun initUnFinishedList() {
+//        mainViewModel.unfinishedList.value?.clear()
+//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
+//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
+//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
+//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
+//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
+        thread {
+            //mainViewModel.clearAll()
+            //diaryList.clear()
+            val unfinshedList = ArrayList<Todo>()
+            val db = dbHelper.writableDatabase
+            val cursor = db.rawQuery("select * from tododata ", null)
+
+
+            if (cursor.moveToFirst()) {
+                do {
+                    val id = cursor.getString(cursor.getColumnIndex("id")).toInt()
+                    val todotext = cursor.getString(cursor.getColumnIndex("todotext"))
+                    val classification = cursor.getString(cursor.getColumnIndex("classification"))
+                    val startdate = cursor.getString(cursor.getColumnIndex("startdate"))
+                    val deadline = cursor.getString(cursor.getColumnIndex("deadline"))
+                    val isTop = cursor.getInt(cursor.getColumnIndex("isTop"))
+                    unfinshedList.add(
+                        Todo(
+                            id,
+                            todotext,
+                            classification,
+                            startdate,
+                            "0",
+                            deadline,
+                            isTop,
+                            0
+                        )
+                    )
+
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
+            mainViewModel.unfinishedList.value?.clear()
+            mainViewModel.setAllUnfinished(unfinshedList)
+        }
     }
 
 
-    private fun initFinishedList(){
-        mainViewModel.finishedList.value?.clear()
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
-        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
+    private fun initFinishedList() {
+//        mainViewModel.finishedList.value?.clear()
+//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
+//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
+//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
+//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
+//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
+
     }
-
-
 
 }
+

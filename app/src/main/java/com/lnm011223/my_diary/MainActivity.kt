@@ -109,6 +109,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
+            3 -> if (resultCode == RESULT_OK) {
+                mainViewModel.addunfinishedItem = data?.getParcelableExtra("addTodo")!!
+                mainViewModel.addPosition.value = 1
+            }
         }
     }
 

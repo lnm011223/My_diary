@@ -35,10 +35,24 @@ class UnFinishedFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         //initUnFinishedList()
         binding.unFinishedRecyclerView.layoutManager = layoutManager
-        val adapter = UnFinishedAdapter(mainViewModel.unFinishedList.value!!, requireActivity())
+        val adapter = UnFinishedAdapter(mainViewModel.unfinishedList.value!!, requireActivity())
         binding.unFinishedRecyclerView.adapter = adapter
+        mainViewModel.addPosition.observe(viewLifecycleOwner) { add ->
+            when (add) {
+                -1 -> {}
+                1 -> {
+                    mainViewModel.addunfinishedTodo(mainViewModel.addunfinishedItem)
+                    adapter.notifyItemInserted(mainViewModel.unfinishedList.value!!.size - 1)
+                    binding.unFinishedRecyclerView.smoothScrollToPosition(adapter.itemCount - 1)
+                    mainViewModel.addPosition.value = -1
+                }
 
+
+            }
+        }
     }
-
-
 }
+
+
+
+

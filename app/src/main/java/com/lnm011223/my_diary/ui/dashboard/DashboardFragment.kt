@@ -273,7 +273,7 @@ class DashboardFragment : Fragment() {
         thread {
             //mainViewModel.clearAll()
             //diaryList.clear()
-            var diaryList = ArrayList<Diary>()
+            val diaryList = ArrayList<Diary>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
 

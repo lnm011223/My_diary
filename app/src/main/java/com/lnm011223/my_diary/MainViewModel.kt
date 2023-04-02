@@ -13,11 +13,21 @@ class MainViewModel() : ViewModel() {
 
     private var _diaryList = MutableLiveData<ArrayList<Diary>>(arrayListOf())
 
+
+    val finishedList: LiveData<ArrayList<Todo>>
+        get() = _finishedList
+
+    private var _finishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
+
+
+    val unfinishedList: LiveData<ArrayList<Todo>>
+        get() = _unfinishedList
+
+    private var _unfinishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
     init {
 
     }
-    var finishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
-    var unFinishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
+
     var selectid = R.drawable.mood_1
     var flag1 = false
     var flag2 = false
@@ -29,6 +39,8 @@ class MainViewModel() : ViewModel() {
     var revisePosition = MutableLiveData<Int>(-1)
     var addDiaryItem = Diary(-1, "", -1, "", "")
     var addPosition = MutableLiveData<Int>(-1)
+
+    var addunfinishedItem = Todo(-1,"","","","","",0,0)
 
 
 
@@ -44,6 +56,16 @@ class MainViewModel() : ViewModel() {
         _diaryList.value?.clear()
         _diaryList.value?.addAll(list)
 
+    }
+
+    fun setAllUnfinished(list: ArrayList<Todo>) {
+        _unfinishedList.value?.clear()
+        _unfinishedList.value?.addAll(list)
+    }
+
+    fun setAllfinished(list: ArrayList<Todo>) {
+        _finishedList.value?.clear()
+        _finishedList.value?.addAll(list)
     }
 
     fun addDiary(diary: Diary) {
@@ -69,4 +91,13 @@ class MainViewModel() : ViewModel() {
         Log.d("livedateview", "${_diaryList.value?.get(position)?.diary_text}")
         reviseDiaryItem = Diary(-1, "", -1, "", "")
     }
+
+
+    fun addunfinishedTodo(todo: Todo){
+        _unfinishedList.value?.add(todo)
+        addPosition.value = -1
+
+    }
+
+
 }
