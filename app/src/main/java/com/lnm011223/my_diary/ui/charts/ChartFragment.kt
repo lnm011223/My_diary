@@ -43,28 +43,7 @@ class ChartFragment : Fragment() {
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val date = BaseUtil.second2Date(System.currentTimeMillis())
-        binding.monthText.text = "${date.substring(0..3)}年 ${date.substring(5..6)}月"
-        binding.monthText.setOnClickListener { view ->
-            CardDatePickerDialog.builder(view.context)
 
-                .setTitle("请选择月份：")
-                .showBackNow(false)
-                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
-                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH)
-                .showFocusDateInfo(false)
-                .setPickerLayout(R.layout.layout_month_picker_segmentation)
-                .setThemeColor(Color.parseColor("#3EB06A"))
-                .setAssistColor(
-                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
-                        "#b9b9b9"
-                    )
-                )
-                .setOnChoose { millisecond ->
-                    val selectDate = BaseUtil.second2Date(millisecond)
-                    binding.monthText.text = "${selectDate.substring(0..3)}年 ${selectDate.substring(5..6)}月"
-                }.build().show()
-        }
     }
 
 

@@ -5,7 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
+    <LinearLayout
+        android:id="@+id/month_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
 
+        <TextView
+            android:id="@+id/month_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titletextcolor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_unfold_more_24"
+            android:tint="@color/titletextcolor"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/swap_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/twotone_swap_vert_24"
+        android:tint="@color/titletextcolor"
+        app:layout_constraintBottom_toBottomOf="@+id/month_select"
+        android:alpha="0.7"
+        app:layout_constraintEnd_toEndOf="@+id/select_card"
+        app:layout_constraintTop_toTopOf="@+id/month_select" />
     <com.google.android.material.circularreveal.cardview.CircularRevealCardView
         android:id="@+id/select_card"
         android:layout_width="match_parent"
@@ -19,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/month_select">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

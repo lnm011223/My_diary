@@ -1,6 +1,7 @@
 package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,9 @@ import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
 import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.BaseUtil
+import com.loper7.date_time_picker.DateTimeConfig
+import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import kotlin.concurrent.thread
 
 
@@ -74,9 +78,33 @@ class DashboardFragment : Fragment() {
     }
 
     @Deprecated("Deprecated in Java")
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val date = BaseUtil.second2Date(System.currentTimeMillis())
+        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(5..6)}月 "
+        binding.monthSelect.setOnClickListener { view ->
+            CardDatePickerDialog.builder(view.context)
+
+                .setTitle("请选择月份：")
+                .showBackNow(false)
+                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
+                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH)
+                .showFocusDateInfo(false)
+                .setPickerLayout(R.layout.layout_month_picker_segmentation)
+                .setThemeColor(Color.parseColor("#3EB06A"))
+                .setAssistColor(
+                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
+                        "#b9b9b9"
+                    )
+                )
+                .setOnChoose { millisecond ->
+                    val selectDate = BaseUtil.second2Date(millisecond)
+                    binding.monthText.text =
+                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
+                }.build().show()
+        }
+
         initDiary()
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
@@ -171,7 +199,10 @@ class DashboardFragment : Fragment() {
             R.drawable.mood_5_last
         )
 
-
+        binding.swapBtn.setOnClickListener {
+            mainViewModel.diaryList.value?.reverse()
+            adapter.notifyDataSetChanged()
+        }
         //筛选逻辑
         binding.selectMood1.setOnClickListener {
 

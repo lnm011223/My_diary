@@ -39,6 +39,7 @@ class MainViewModel() : ViewModel() {
     var revisePosition = MutableLiveData<Int>(-1)
     var addDiaryItem = Diary(-1, "", -1, "", "")
     var addPosition = MutableLiveData<Int>(-1)
+    var addTodoPosition = MutableLiveData<Int>(-1)
 
     var addunfinishedItem = Todo(-1,"","","","","",0,0)
 
@@ -95,7 +96,7 @@ class MainViewModel() : ViewModel() {
 
     fun addunfinishedTodo(todo: Todo){
         _unfinishedList.value?.add(todo)
-        addPosition.value = -1
+        addTodoPosition.value = -1
 
     }
 
