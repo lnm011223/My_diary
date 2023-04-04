@@ -24,9 +24,6 @@ class TodoFragment : Fragment() {
 
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentTodoBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
 
@@ -53,66 +50,16 @@ class TodoFragment : Fragment() {
 
     @SuppressLint("UseCompatLoadingForColorStateLists")
     @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //val animMap = mapOf("未完成" to R.drawable.ic_twotone_library_add_24, "已完成" to R.drawable.ic_twotone_library_add_check_24)
-
-//
-//        animMap.keys.forEach { s ->
-//            val tab = binding.tabLayout.newTab()
-//            val view = LayoutInflater.from(context).inflate(R.layout.item_tab, null)
-//            val imageView = view.findViewById<ImageView>(R.id.item_icon)
-//            val textView = view.findViewById<TextView>(R.id.item_title)
-//            imageView.setImageResource(animMap[s]!!)
-//            imageView.imageTintList = resources.getColorStateList(R.color.selector_color)
-//            textView.text = s
-//
-//            tab.customView = view
-//            binding.tabLayout.addTab(tab)
-//        }
-//
-//        binding.tabLayout.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                tab?.customView.let {
-//
-//                }
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//
-//            }
-//        })
-        binding.viewPager.adapter = AdapterFragmentPager(requireActivity())
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.viewPager.adapter = AdapterFragmentPager(this)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-//            val view = LayoutInflater.from(context).inflate(R.layout.item_tab, null)
-//            val imageView = view.findViewById<ImageView>(R.id.item_icon)
-//            val textView = view.findViewById<TextView>(R.id.item_title)
-//            //val badgetext = view.findViewById<TextView>(R.id.item_badge)
-//            tab.customView = view
             when (position) {
                 0 -> {
-//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_24)
-//                    textView.text = "未完成"
-                    //badgetext.text = "999"
-
                     tab.text = "未完成"
-                    //tab.setIcon(R.drawable.ic_twotone_library_add_24)
-
-
                 }
                 1 -> {
-//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_check_24)
-//                    textView.text = "已完成"
-                    //badgetext.text = "999"
-//                    imageView.setImageResource(R.drawable.ic_twotone_library_add_check_24)
-//                    textView.text = "已完成"
-//                    badgetext.visibility = View.GONE
                     tab.text = "已完成"
-                    //tab.setIcon(R.drawable.ic_twotone_library_add_check_24)
                 }
             }
         }.attach()
@@ -126,53 +73,14 @@ class TodoFragment : Fragment() {
 
         initUnFinishedList()
 
-//        mainViewModel.unFinishedList.observe(viewLifecycleOwner) {
-//            Log.d("dddtest",mainViewModel.unFinishedList.value!!.size.toString())
-//            binding.tabLayout.getTabAt(0)?.let { tab ->
-//
-//                tab.orCreateBadge.apply {
-//                    backgroundColor = Color.parseColor("#61AE72")
-//                    maxCharacterCount = 3
-//                    badgeGravity = BadgeDrawable.TOP_START
-//                    number = mainViewModel.unFinishedList.value!!.size
-//                    badgeTextColor = Color.WHITE
-//
-//
-//                }
-//            }
-//
-//            binding.tabLayout.getTabAt(1)?.let { tab ->
-//
-//                tab.orCreateBadge.apply {
-//                    backgroundColor = Color.parseColor("#61AE72")
-//                    maxCharacterCount = 3
-//                    number = mainViewModel.finishedList.value!!.size
-//                    badgeTextColor = Color.WHITE
-//
-//
-//                }
-//            }
-//        }
-
-
     }
 
     @SuppressLint("Range")
     private fun initUnFinishedList() {
-//        mainViewModel.unfinishedList.value?.clear()
-//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
-//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
-//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
-//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
-//        mainViewModel.unfinishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
         thread {
-            //mainViewModel.clearAll()
-            //diaryList.clear()
             val unfinshedList = ArrayList<Todo>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from tododata ", null)
-
-
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getString(cursor.getColumnIndex("id")).toInt()
@@ -181,18 +89,38 @@ class TodoFragment : Fragment() {
                     val startdate = cursor.getString(cursor.getColumnIndex("startdate"))
                     val deadline = cursor.getString(cursor.getColumnIndex("deadline"))
                     val isTop = cursor.getInt(cursor.getColumnIndex("isTop"))
-                    unfinshedList.add(
-                        Todo(
-                            id,
-                            todotext,
-                            classification,
-                            startdate,
-                            "0",
-                            deadline,
-                            isTop,
-                            0
-                        )
-                    )
+                    when (isTop) {
+                        0 -> {
+                            unfinshedList.add(
+                                Todo(
+                                    id,
+                                    todotext,
+                                    classification,
+                                    startdate,
+                                    "0",
+                                    deadline,
+                                    isTop,
+                                    0
+                                )
+                            )
+                        }
+                        1 -> {
+                            unfinshedList.add(
+                                0,
+                                Todo(
+                                    id,
+                                    todotext,
+                                    classification,
+                                    startdate,
+                                    "0",
+                                    deadline,
+                                    isTop,
+                                    0
+                                )
+                            )
+                        }
+                    }
+
 
                 } while (cursor.moveToNext())
             }

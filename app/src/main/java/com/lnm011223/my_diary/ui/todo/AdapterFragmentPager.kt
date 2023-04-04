@@ -10,8 +10,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * @Date 2022/6/24-1:55 上午
 
  */
-class AdapterFragmentPager(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity) {
+
+//之前使用了fragmentactivity作为参数，导致tab里的fragment生命周期归actvity管理，现在改成fragment
+class AdapterFragmentPager(fragment: Fragment) :
+    FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
@@ -22,6 +24,8 @@ class AdapterFragmentPager(fragmentActivity: FragmentActivity) :
 
         }
     }
+
+
 
     override fun getItemCount(): Int {
         return 2

@@ -100,5 +100,11 @@ class MainViewModel() : ViewModel() {
 
     }
 
+    fun deleteUnfinished(position: Int) {
+        _unfinishedList.value?.removeAt(position)
+        Log.d("livedata", "deletesucceed")
+        Log.d("livedata", diaryList.value.toString())
+    }
+
 
 }

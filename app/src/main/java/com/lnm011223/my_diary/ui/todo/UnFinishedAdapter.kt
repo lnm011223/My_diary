@@ -1,6 +1,7 @@
 package com.lnm011223.my_diary.ui.todo
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,11 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.lnm011223.my_diary.R
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.logic.model.Todo
 import com.lnm011223.my_diary.ui.dashboard.DiaryAdapter
 import com.lnm011223.my_diary.util.BaseUtil
@@ -32,7 +36,8 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
     private var year = date.substring(0..3)
     private var month = date.substring(5..6)
     private var day = date.substring(8..9)
-
+    val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
+    val db = dbHelper.writableDatabase
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val isDoneChecked: CheckBox = view.findViewById(R.id.isDoneChecked)
         val isTopButton: ImageButton = view.findViewById(R.id.isTopButton)
@@ -64,15 +69,32 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
             LayoutInflater.from(parent.context).inflate(R.layout.unfinished_item, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
+
             val position = viewHolder.adapterPosition
             val unFinished = unFinishedList[position]
             itemListenter?.reviseItemClick(position)
 
+
         }
         viewHolder.itemView.setOnLongClickListener {
+
             val position = viewHolder.adapterPosition
             val unFinished = unFinishedList[position]
-            itemListenter?.deleteItemLongClick(position)
+            AlertDialog.Builder(parent.context).apply {
+                setTitle("确认：")
+                setMessage("真的要删除这条记录吗？")
+                setNegativeButton("否") { _, _ ->
+
+
+                }
+                setPositiveButton("是") { _, _ ->
+                    db.delete("tododata", "id = ?", arrayOf(unFinished.id.toString()))
+                    itemListenter?.deleteItemLongClick(position)
+                }
+
+
+                show()
+            }
             true
         }
         viewHolder.isDoneChecked.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -81,6 +103,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
             when (isChecked) {
                 true -> {
                     unFinished.isDone = 1
+
                     itemListenter?.finishItemClick(position)
                 }
                 false -> {
@@ -126,6 +149,9 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
                     itemListenter?.noTopItemClick(position)
                 }
             }
+            val todoIsTop_value = contentValuesOf("isTop" to unFinished.isTop)
+            db.update("tododata",todoIsTop_value,"id = ?", arrayOf(unFinished.id.toString()))
+
         }
         return viewHolder
     }

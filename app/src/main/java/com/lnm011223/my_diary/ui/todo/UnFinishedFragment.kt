@@ -6,15 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lnm011223.my_diary.MainViewModel
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.FragmentUnFinishedBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class UnFinishedFragment : Fragment() {
 
     private lateinit var binding: FragmentUnFinishedBinding
     private lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,6 +56,43 @@ class UnFinishedFragment : Fragment() {
 
             }
         }
+
+        adapter.setOnItemClickListener(object : UnFinishedAdapter.ItemListenter {
+            override fun deleteItemLongClick(position: Int) {
+                mainViewModel.deleteUnfinished(position)
+                adapter.notifyItemRemoved(position)
+            }
+
+            override fun reviseItemClick(position: Int) {
+
+            }
+
+            override fun topItemClick(position: Int) {
+                val todo = adapter.unFinishedList[position]
+
+                lifecycleScope.launchWhenCreated {
+                    mainViewModel.unfinishedList.value?.removeAt(position)
+                    adapter.notifyItemRemoved(position)
+
+                    binding.unFinishedRecyclerView.smoothScrollToPosition(0)
+                    delay(100L)
+                    mainViewModel.unfinishedList.value?.add(0, todo)
+                    adapter.notifyItemInserted(0)
+                    binding.unFinishedRecyclerView.smoothScrollToPosition(0)
+
+
+                }
+            }
+
+            override fun noTopItemClick(position: Int) {
+
+            }
+
+            override fun finishItemClick(position: Int) {
+
+            }
+
+        })
     }
 }
 
