@@ -32,12 +32,49 @@ class FinishedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(context)
-        //initFinishedList()
         binding.finishedRecyclerView.layoutManager = layoutManager
         val adapter = FinishedAdapter(mainViewModel.finishedList.value!!, requireActivity())
         binding.finishedRecyclerView.adapter = adapter
 
-    }
+        mainViewModel.isDonePosition.observe(viewLifecycleOwner) { done ->
+            when (done) {
+                -1 -> {}
+                1 -> {
+                    adapter.notifyItemInserted(mainViewModel.finishedList.value?.size!!)
+                    mainViewModel.isDonePosition.value = -1
+                }
+
+
+            }
+        }
+        adapter.setOnItemClickListener(object : FinishedAdapter.ItemListenter {
+            override fun deleteItemLongClick(position: Int) {
+
+            }
+
+            override fun reviseItemClick(position: Int) {
+
+            }
+
+            override fun topItemClick(position: Int) {
+
+            }
+
+            override fun noTopItemClick(position: Int) {
+
+            }
+
+            override fun unfinishItemClick(position: Int) {
+                val todo = adapter.FinishedList[position]
+                todo.isDone = 0
+                mainViewModel.finishedList.value?.removeAt(position)
+                adapter.notifyItemRemoved(position)
+                mainViewModel.unfinishedList.value?.add(todo)
+                mainViewModel.notDonePosition.value = 1
+            }
+        })
+
+        }
 
 
 }

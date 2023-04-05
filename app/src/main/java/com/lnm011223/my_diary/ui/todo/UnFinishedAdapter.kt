@@ -2,7 +2,10 @@ package com.lnm011223.my_diary.ui.todo
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues
+import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,7 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.lnm011223.my_diary.R
@@ -21,7 +25,10 @@ import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.logic.model.Todo
 import com.lnm011223.my_diary.ui.dashboard.DiaryAdapter
+import com.lnm011223.my_diary.ui.revise.ReviseDiaryActivity
+import com.lnm011223.my_diary.ui.revise.ReviseTodoActivity
 import com.lnm011223.my_diary.util.BaseUtil
+import java.math.BigInteger
 
 
 /**
@@ -36,15 +43,20 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
     private var year = date.substring(0..3)
     private var month = date.substring(5..6)
     private var day = date.substring(8..9)
+    private var hour = date.substring(11..12)
+    private var min = date.substring(14..15)
+    private var dateStr = year
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
     val db = dbHelper.writableDatabase
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val isDoneChecked: CheckBox = view.findViewById(R.id.isDoneChecked)
+        var isDoneChecked: CheckBox = view.findViewById(R.id.isDoneChecked)
         val isTopButton: ImageButton = view.findViewById(R.id.isTopButton)
         val todoText: TextView = view.findViewById(R.id.todoText)
         val deadLineText: TextView = view.findViewById(R.id.deadLineText)
         val classificationText: TextView = view.findViewById(R.id.classificationText)
         val splitText: TextView = view.findViewById(R.id.splitText)
+        val todoCard: View = view.findViewById(R.id.todoCard)
 
     }
 
@@ -73,7 +85,21 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
             val position = viewHolder.adapterPosition
             val unFinished = unFinishedList[position]
             itemListenter?.reviseItemClick(position)
+            val intent = Intent(parent.context, ReviseTodoActivity::class.java)
+            intent.apply {
+                putExtra("id", unFinished.id)
+                putExtra("todo", unFinished)
+                putExtra("position", position.toString())
 
+
+            }
+            activity.startActivityForResult(
+                intent, 4, ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    activity,
+                    viewHolder.todoCard, "todocard"
+                ).toBundle()
+            )
+            Log.d("todo",unFinished.toString())
 
         }
         viewHolder.itemView.setOnLongClickListener {
@@ -103,7 +129,17 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
             when (isChecked) {
                 true -> {
                     unFinished.isDone = 1
-
+                    unFinished.endDate = BaseUtil.second2Date(System.currentTimeMillis())
+                    val todoIsTop_value = contentValuesOf(
+                        "isDone" to 1,
+                        "enddate" to unFinished.endDate
+                    )
+                    db.update(
+                        "tododata",
+                        todoIsTop_value,
+                        "id = ?",
+                        arrayOf(unFinished.id.toString())
+                    )
                     itemListenter?.finishItemClick(position)
                 }
                 false -> {
@@ -150,7 +186,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
                 }
             }
             val todoIsTop_value = contentValuesOf("isTop" to unFinished.isTop)
-            db.update("tododata",todoIsTop_value,"id = ?", arrayOf(unFinished.id.toString()))
+            db.update("tododata", todoIsTop_value, "id = ?", arrayOf(unFinished.id.toString()))
 
         }
         return viewHolder
@@ -175,9 +211,18 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         } else {
             unFinished.deadline.substring(0..9)
         })
+
+        if (date.filter { it.isDigit() }
+                .toBigInteger() - unFinished.deadline.filter { it.isDigit() }
+                .toBigInteger() > "0".toBigInteger()) {
+            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.red))
+        }else{
+            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.main))
+
+        }
         holder.todoText.text = unFinished.todoText
         holder.classificationText.text = unFinished.classification
-
+        holder.isDoneChecked.isChecked = false
         when (unFinished.isTop) {
             1 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
@@ -207,3 +252,4 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
 
     override fun getItemCount() = unFinishedList.size
 }
+

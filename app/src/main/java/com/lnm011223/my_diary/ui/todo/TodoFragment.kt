@@ -78,6 +78,7 @@ class TodoFragment : Fragment() {
     @SuppressLint("Range")
     private fun initUnFinishedList() {
         thread {
+            val finishedList = ArrayList<Todo>()
             val unfinshedList = ArrayList<Todo>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from tododata ", null)
@@ -89,37 +90,77 @@ class TodoFragment : Fragment() {
                     val startdate = cursor.getString(cursor.getColumnIndex("startdate"))
                     val deadline = cursor.getString(cursor.getColumnIndex("deadline"))
                     val isTop = cursor.getInt(cursor.getColumnIndex("isTop"))
-                    when (isTop) {
+                    val isDone = cursor.getInt(cursor.getColumnIndex("isDone"))
+                    val enddate = cursor.getString(cursor.getColumnIndex("enddate"))
+                    when (isDone) {
                         0 -> {
-                            unfinshedList.add(
-                                Todo(
-                                    id,
-                                    todotext,
-                                    classification,
-                                    startdate,
-                                    "0",
-                                    deadline,
-                                    isTop,
-                                    0
-                                )
-                            )
+                            when (isTop) {
+                                0 -> {
+                                    unfinshedList.add(
+                                        Todo(
+                                            id,
+                                            todotext,
+                                            classification,
+                                            startdate,
+                                            "0",
+                                            deadline,
+                                            isTop,
+                                            0
+                                        )
+                                    )
+                                }
+                                1 -> {
+                                    unfinshedList.add(
+                                        0,
+                                        Todo(
+                                            id,
+                                            todotext,
+                                            classification,
+                                            startdate,
+                                            "0",
+                                            deadline,
+                                            isTop,
+                                            0
+                                        )
+                                    )
+                                }
+                            }
                         }
                         1 -> {
-                            unfinshedList.add(
-                                0,
-                                Todo(
-                                    id,
-                                    todotext,
-                                    classification,
-                                    startdate,
-                                    "0",
-                                    deadline,
-                                    isTop,
-                                    0
-                                )
-                            )
+                            when (isTop) {
+                                0 -> {
+                                    finishedList.add(
+                                        Todo(
+                                            id,
+                                            todotext,
+                                            classification,
+                                            startdate,
+                                            enddate,
+                                            deadline,
+                                            isTop,
+                                            0
+                                        )
+                                    )
+                                }
+                                1 -> {
+                                    finishedList.add(
+                                        0,
+                                        Todo(
+                                            id,
+                                            todotext,
+                                            classification,
+                                            startdate,
+                                            enddate,
+                                            deadline,
+                                            isTop,
+                                            0
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
+
 
 
                 } while (cursor.moveToNext())
@@ -127,19 +168,13 @@ class TodoFragment : Fragment() {
             cursor.close()
             mainViewModel.unfinishedList.value?.clear()
             mainViewModel.setAllUnfinished(unfinshedList)
+            mainViewModel.finishedList.value?.clear()
+            mainViewModel.setAllfinished(finishedList)
         }
     }
 
 
-    private fun initFinishedList() {
-//        mainViewModel.finishedList.value?.clear()
-//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能做完Todo的功能","工作","1","2","明天",1,0))
-//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","明天",0,0))
-//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","",1,0))
-//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","","1","2","明天",0,0))
-//        mainViewModel.finishedList.value?.add(Todo(1,"做完Todo的功能","工作","1","2","",1,0))
 
-    }
 
 }
 

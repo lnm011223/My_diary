@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import java.util.Date
 import kotlin.concurrent.thread
 
 
@@ -83,29 +85,7 @@ class DashboardFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val date = BaseUtil.second2Date(System.currentTimeMillis())
         binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(5..6)}月 "
-        binding.monthSelect.setOnClickListener { view ->
-            CardDatePickerDialog.builder(view.context)
-
-                .setTitle("请选择月份：")
-                .showBackNow(false)
-                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
-                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH)
-                .showFocusDateInfo(false)
-                .setPickerLayout(R.layout.layout_month_picker_segmentation)
-                .setThemeColor(Color.parseColor("#3EB06A"))
-                .setAssistColor(
-                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
-                        "#b9b9b9"
-                    )
-                )
-                .setOnChoose { millisecond ->
-                    val selectDate = BaseUtil.second2Date(millisecond)
-                    binding.monthText.text =
-                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
-                }.build().show()
-        }
-
-        initDiary()
+        initDiary(binding.monthText.text.toString())
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
         val adapter = DiaryAdapter(mainViewModel.diaryList.value!!, requireActivity())
@@ -292,22 +272,44 @@ class DashboardFragment : Fragment() {
                 selectMood5.setImageResource(R.drawable.mood_5_last)
 
             }
-            initDiary()
+            initDiary(binding.monthText.text.toString())
             adapter.notifyDataSetChanged()
         }
+        binding.monthSelect.setOnClickListener { view ->
+            CardDatePickerDialog.builder(view.context)
 
+                .setTitle("请选择月份：")
+                .showBackNow(false)
+                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
+                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH)
+                .showFocusDateInfo(false)
+                .setPickerLayout(R.layout.layout_month_picker_segmentation)
+                .setThemeColor(Color.parseColor("#3EB06A"))
+                .setAssistColor(
+                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
+                        "#b9b9b9"
+                    )
+                )
+                .setOnChoose { millisecond ->
+                    val selectDate = BaseUtil.second2Date(millisecond)
+                    binding.monthText.text =
+                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
+                    initDiary(binding.monthText.text.toString())
+                    adapter.notifyDataSetChanged()
+                }.build().show()
+        }
 
     }
 
     @SuppressLint("Range")
-    private fun initDiary() {
+    private fun initDiary(date: String) {
         thread {
             //mainViewModel.clearAll()
             //diaryList.clear()
             val diaryList = ArrayList<Diary>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
-
+            val dateSelect = date.substring(0..5)+date.substring(7..8)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -316,13 +318,19 @@ class DashboardFragment : Fragment() {
                     val imageuri = cursor.getString(cursor.getColumnIndex("imageuri"))
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
-                    if (mainViewModel.selectflag) {
-                        if (moodMap[mainViewModel.selectid] == moodid) {
+
+
+                    if (datetext.substring(0..7) == dateSelect) {
+
+                        if (mainViewModel.selectflag) {
+                            if (moodMap[mainViewModel.selectid] == moodid) {
+                                diaryList.add(Diary(id, datetext, moodid, imageuri, diarytext))
+                            }
+                        } else {
                             diaryList.add(Diary(id, datetext, moodid, imageuri, diarytext))
                         }
-                    } else {
-                        diaryList.add(Diary(id, datetext, moodid, imageuri, diarytext))
                     }
+
 
                 } while (cursor.moveToNext())
             }
@@ -348,7 +356,7 @@ class DashboardFragment : Fragment() {
             changeOther(moodImage, !flag, imageViewList, flagList, moodIdList)
             mainViewModel.selectid = mood
             mainViewModel.selectflag = true
-            initDiary()
+            initDiary(binding.monthText.text.toString())
             !flag
 
         } else {

@@ -74,7 +74,7 @@
                 android:id="@+id/splitText_F"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text=" · "
+
                 android:textColor="#61AE72"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

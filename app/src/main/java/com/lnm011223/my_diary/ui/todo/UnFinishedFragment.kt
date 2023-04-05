@@ -56,7 +56,31 @@ class UnFinishedFragment : Fragment() {
 
             }
         }
+        mainViewModel.notDonePosition.observe(viewLifecycleOwner) { done ->
+            when (done) {
+                -1 -> {}
+                1 -> {
+                    adapter.notifyItemInserted(mainViewModel.unfinishedList.value?.size!!)
+                    mainViewModel.notDonePosition.value = -1
+                }
 
+
+            }
+        }
+        mainViewModel.reviseTodoPosition.observe(viewLifecycleOwner) { revisePosition ->
+            when (revisePosition) {
+                -1 -> {}
+                else -> {
+                    //当检测到有变化才改变
+                    mainViewModel.changeTodo(revisePosition, mainViewModel.reviseTodoItem)
+                    adapter.notifyItemChanged(revisePosition)
+                    binding.unFinishedRecyclerView.scrollToPosition(revisePosition)
+                    mainViewModel.reviseTodoPosition.value = -1
+                }
+            }
+
+
+        }
         adapter.setOnItemClickListener(object : UnFinishedAdapter.ItemListenter {
             override fun deleteItemLongClick(position: Int) {
                 mainViewModel.deleteUnfinished(position)
@@ -89,7 +113,12 @@ class UnFinishedFragment : Fragment() {
             }
 
             override fun finishItemClick(position: Int) {
-
+                val todo = adapter.unFinishedList[position]
+                todo.isDone = 1
+                mainViewModel.unfinishedList.value?.removeAt(position)
+                adapter.notifyItemRemoved(position)
+                mainViewModel.finishedList.value?.add(todo)
+                mainViewModel.isDonePosition.value = 1
             }
 
         })

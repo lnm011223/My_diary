@@ -24,6 +24,7 @@ class MainViewModel() : ViewModel() {
         get() = _unfinishedList
 
     private var _unfinishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
+
     init {
 
     }
@@ -37,16 +38,22 @@ class MainViewModel() : ViewModel() {
     var selectflag = false
     var reviseDiaryItem = Diary(-1, "", -1, "", "")
     var revisePosition = MutableLiveData<Int>(-1)
+    var reviseTodoItem = Todo(-1, "", "", "", "", "", -1, -1)
+    var reviseTodoPosition = MutableLiveData<Int>(-1)
     var addDiaryItem = Diary(-1, "", -1, "", "")
     var addPosition = MutableLiveData<Int>(-1)
     var addTodoPosition = MutableLiveData<Int>(-1)
-
-    var addunfinishedItem = Todo(-1,"","","","","",0,0)
-
+    var isDonePosition = MutableLiveData<Int>(-1)
+    var notDonePosition = MutableLiveData<Int>(-1)
+    var addunfinishedItem = Todo(-1, "", "", "", "", "", 0, 0)
 
 
     fun setPosition(position: Int) {
         revisePosition.value = position
+    }
+
+    fun setTodoPosition(position: Int) {
+        reviseTodoPosition.value = position
     }
 
     fun resetPostion() {
@@ -93,8 +100,13 @@ class MainViewModel() : ViewModel() {
         reviseDiaryItem = Diary(-1, "", -1, "", "")
     }
 
+    fun changeTodo(position: Int, todo: Todo) {
+        _unfinishedList.value!![position] = todo
+        reviseTodoItem = Todo(-1, "", "", "", "", "", -1, -1)
+    }
 
-    fun addunfinishedTodo(todo: Todo){
+
+    fun addunfinishedTodo(todo: Todo) {
         _unfinishedList.value?.add(todo)
         addTodoPosition.value = -1
 

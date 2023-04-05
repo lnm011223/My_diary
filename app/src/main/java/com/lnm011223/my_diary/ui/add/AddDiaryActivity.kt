@@ -137,7 +137,7 @@ class AddDiaryActivity : BaseActivity() {
 
             val diary_text = binding.diarytextEdit.text.toString()
 
-            val datetext: String? = SimpleDateFormat("MM 月 dd 日 E").format(Date())
+            val datetext: String? = SimpleDateFormat("yyyy年 MM 月 dd 日 E").format(Date())
             val intent = Intent()
             val db = dbHelper.writableDatabase
             val diary_value = ContentValues().apply {
@@ -259,3 +259,6 @@ class AddDiaryActivity : BaseActivity() {
     }
 
 }
+
+
+

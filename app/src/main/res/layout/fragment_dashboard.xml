@@ -175,6 +175,7 @@
         android:layout_marginBottom="10dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/diary_recycle"
+            tools:listitem="@layout/diary_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"

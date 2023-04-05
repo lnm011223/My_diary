@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.My_diary">
         <activity
+            android:name=".ui.revise.ReviseTodoActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>

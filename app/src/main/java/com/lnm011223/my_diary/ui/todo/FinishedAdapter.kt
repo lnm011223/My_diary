@@ -14,9 +14,13 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.lnm011223.my_diary.R
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.logic.model.Todo
+import com.lnm011223.my_diary.util.BaseUtil
 
 /**
 
@@ -26,6 +30,13 @@ import com.lnm011223.my_diary.logic.model.Todo
  */
 class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
     RecyclerView.Adapter<FinishedAdapter.ViewHolder>() {
+    val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
+    val db = dbHelper.writableDatabase
+    private var date = BaseUtil.second2Date(System.currentTimeMillis())
+    private var year = date.substring(0..3)
+    private var month = date.substring(5..6)
+    private var day = date.substring(8..9)
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val isDoneChecked: CheckBox = view.findViewById(R.id.isDoneChecked_F)
         val isTopButton: ImageButton = view.findViewById(R.id.isTopButton_F)
@@ -36,6 +47,20 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         val splitText: TextView = view.findViewById(R.id.splitText_F)
         val splitText2: TextView = view.findViewById(R.id.splitText2_F)
 
+    }
+
+    interface ItemListenter {
+        fun deleteItemLongClick(position: Int)
+        fun reviseItemClick(position: Int)
+        fun topItemClick(position: Int)
+        fun noTopItemClick(position: Int)
+
+        fun unfinishItemClick(position: Int)
+    }
+
+    private var itemListenter: FinishedAdapter.ItemListenter? = null
+    fun setOnItemClickListener(itemListenter: FinishedAdapter.ItemListenter?) {
+        this.itemListenter = itemListenter
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -57,6 +82,14 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
                 }
                 false -> {
                     finished.isDone = 0
+                    val todoIsTop_value = contentValuesOf("isDone" to 0, "enddate" to "0")
+                    db.update(
+                        "tododata",
+                        todoIsTop_value,
+                        "id = ?",
+                        arrayOf(finished.id.toString())
+                    )
+                    itemListenter?.unfinishItemClick(position)
                 }
             }
         }
@@ -98,12 +131,12 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val finished = FinishedList[position]
-        holder.startText.text = finished.startDate
-        holder.endText.text = finished.endDate
+//        holder.startText.text = finished.startDate
+        holder.endText.text = "完成时间："+finished.endDate
         holder.todoText.text = finished.todoText
         holder.todoText.paintFlags = (holder.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         holder.classificationText.text = finished.classification
-
+        holder.isDoneChecked.isChecked = true
         when (finished.isTop) {
             1 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)

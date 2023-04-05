@@ -113,6 +113,15 @@ class MainActivity : AppCompatActivity() {
                 mainViewModel.addunfinishedItem = data?.getParcelableExtra("addTodo")!!
                 mainViewModel.addTodoPosition.value = 1
             }
+
+            4 -> {
+                if (data?.getStringExtra("todoPosition").toString() != "null") {
+                    mainViewModel.reviseTodoItem = data?.getParcelableExtra("reviseTodo")!!
+                    mainViewModel.setTodoPosition(
+                        position = data.getStringExtra("todoPosition")?.toInt() ?: -1
+                    )
+                }
+            }
         }
     }
 

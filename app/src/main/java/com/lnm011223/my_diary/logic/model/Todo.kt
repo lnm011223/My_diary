@@ -16,7 +16,7 @@ class Todo(
     val todoText: String,
     val classification: String,
     val startDate: String,
-    val endDate: String,
+    var endDate: String,
     val deadline: String,
     var isTop: Int,
     var isDone: Int

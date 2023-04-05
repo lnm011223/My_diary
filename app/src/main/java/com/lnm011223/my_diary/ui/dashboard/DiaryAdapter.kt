@@ -105,7 +105,6 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
 
 
             }
-            Log.d("livedata", position.toString())
             activity.startActivityForResult(
                 intent, 2, ActivityOptionsCompat.makeSceneTransitionAnimation(
                     activity,
@@ -129,7 +128,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(moodMap[diary.moon]!!)
         holder.diarycard_date.text =
-            diary.date_text.substring(5, 7) + " " + diary.date_text.substring(10, 12)
+            diary.date_text.substring(11, 13) + " " + diary.date_text.substring(16, 18)
         holder.diarycard_text.text = diary.diary_text
         Log.d("image-url", diary.diary_image)
         if (diary.diary_image == "") {

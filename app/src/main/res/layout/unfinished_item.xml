@@ -12,6 +12,7 @@
         app:cardCornerRadius="10dp"
         android:elevation="0dp"
         app:cardElevation="0dp"
+        android:id="@+id/todoCard"
         android:backgroundTint="@color/cardcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
