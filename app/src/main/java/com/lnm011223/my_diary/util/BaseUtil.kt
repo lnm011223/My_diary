@@ -63,5 +63,21 @@ object BaseUtil {
         return formattedDate
     }
 
+    internal fun second2Day(secondNum:Long):String {
+        //创建一个 Date 对象并传入时间戳参数
+        val date = Date(secondNum)
+        // 创建 SimpleDateFormat 对象以定义日期显示格式
+        val sdf = SimpleDateFormat("yyyy年 MM 月 dd 日 E", Locale.getDefault())
+        // 使用 format() 方法将日期转换为指定格式的字符串
+        val formattedDate = sdf.format(date)
+//        Log.d("millisecond", formattedDate)
+        return formattedDate
+    }
+
+
+
+
+
 
 }
+

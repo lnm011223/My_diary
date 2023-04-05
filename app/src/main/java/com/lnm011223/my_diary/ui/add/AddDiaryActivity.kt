@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -21,12 +22,15 @@ import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
 import com.lnm011223.my_diary.base.BaseActivity
 import com.lnm011223.my_diary.databinding.ActivityAddDiaryBinding
+import com.loper7.date_time_picker.DateTimeConfig
+import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class AddDiaryActivity : BaseActivity() {
     private lateinit var binding: ActivityAddDiaryBinding
+    private lateinit var selectDate: String
     var mood_flag: Int = R.drawable.mood_1
     var uri1: String = ""
     val moodMap = mapOf(
@@ -46,7 +50,7 @@ class AddDiaryActivity : BaseActivity() {
     var flag4 = false
     var flag5 = false
 
-    @SuppressLint("SimpleDateFormat", "Recycle", "Range")
+    @SuppressLint("SimpleDateFormat", "Recycle", "Range", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddDiaryBinding.inflate(layoutInflater)
@@ -133,6 +137,28 @@ class AddDiaryActivity : BaseActivity() {
             )
         }
         binding.completeButton.doOnAttach { }
+        binding.daySelect.setOnClickListener { view ->
+            CardDatePickerDialog.builder(view.context)
+
+                .setTitle("请选择日期：")
+                .showBackNow(false)
+                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
+                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH, DateTimeConfig.DAY)
+                .showFocusDateInfo(false)
+                .setMaxTime(System.currentTimeMillis())
+                .setPickerLayout(R.layout.layout_date_picker_segmentation)
+                .setThemeColor(Color.parseColor("#3EB06A"))
+                .setAssistColor(
+                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
+                        "#b9b9b9"
+                    )
+                )
+                .setOnChoose { millisecond ->
+                    selectDate = BaseUtil.second2Day(millisecond)
+                    binding.dateText.text = selectDate.substring(6..17)
+
+                }.build().show()
+        }
         binding.completeButton.setOnClickListener { view ->
 
             val diary_text = binding.diarytextEdit.text.toString()
@@ -143,7 +169,7 @@ class AddDiaryActivity : BaseActivity() {
             val diary_value = ContentValues().apply {
                 put("imageuri", uri1)
                 put("moodid", moodMap[mood_flag])
-                put("datetext", datetext)
+                put("datetext", selectDate)
                 put("diarytext", diary_text)
             }
             val success = db.insert("diarydata", null, diary_value)
@@ -170,7 +196,7 @@ class AddDiaryActivity : BaseActivity() {
                 Log.d("successtest", success.toString())
                 intent.putExtra(
                     "addDiary", Diary(
-                        id, datetext!!,
+                        id, selectDate,
                         moodMap[mood_flag]!!, uri1, diary_text
                     )
                 )

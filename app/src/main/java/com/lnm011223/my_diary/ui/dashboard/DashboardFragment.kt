@@ -39,12 +39,9 @@ class DashboardFragment : Fragment() {
     )
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        mainViewModel =
-            ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -94,21 +91,35 @@ class DashboardFragment : Fragment() {
         binding.diaryRecycle.adapter = adapter
 
         mainViewModel.addPosition.observe(viewLifecycleOwner) { add ->
+
+
             when (add) {
                 -1 -> {}
                 1 -> {
                     when {
                         //当新的mood和当前筛选的一样才加进recyclerview
                         mainViewModel.addDiaryItem.moon == mainViewModel.selectid && mainViewModel.selectflag -> {
-                            mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
-                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                            val flag =
+                                binding.monthText.text.substring(0..5) + binding.monthText.text.substring(7..8) == mainViewModel.addDiaryItem.date_text.substring(
+                                    0..7
+                                )
+                            if (flag) {
+                                mainViewModel.addDiary(mainViewModel.addDiaryItem)
+                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                            }
                         }
                         //当前没筛选才添加
                         !mainViewModel.selectflag -> {
-                            mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                            adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
-                            binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                            val flag =
+                                binding.monthText.text.substring(0..5) + binding.monthText.text.substring(7..8) == mainViewModel.addDiaryItem.date_text.substring(
+                                    0..7
+                                )
+                            if (flag) {
+                                mainViewModel.addDiary(mainViewModel.addDiaryItem)
+                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                            }
                         }
                         //重置flag值
                         else -> mainViewModel.addPosition.value = -1
@@ -146,8 +157,7 @@ class DashboardFragment : Fragment() {
             override fun showItemImageClick(position: Int) {
 
                 ImageBottomSheet(
-                    adapter.diaryList[position].diary_image,
-                    adapter.diaryList[position].date_text
+                    adapter.diaryList[position].diary_image, adapter.diaryList[position].date_text
                 ).show(fragmentManager!!, "ImageBottomSheet")
                 Log.d("111", adapter.diaryList[position].diary_image)
                 //ImageBottomSheet().setImageShow(adapter.diaryList[position].diary_image)
@@ -278,19 +288,15 @@ class DashboardFragment : Fragment() {
         binding.monthSelect.setOnClickListener { view ->
             CardDatePickerDialog.builder(view.context)
 
-                .setTitle("请选择月份：")
-                .showBackNow(false)
+                .setTitle("请选择月份：").showBackNow(false)
                 .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
-                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH)
-                .showFocusDateInfo(false)
+                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH).showFocusDateInfo(false)
                 .setPickerLayout(R.layout.layout_month_picker_segmentation)
-                .setThemeColor(Color.parseColor("#3EB06A"))
-                .setAssistColor(
+                .setThemeColor(Color.parseColor("#3EB06A")).setAssistColor(
                     if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
                         "#b9b9b9"
                     )
-                )
-                .setOnChoose { millisecond ->
+                ).setOnChoose { millisecond ->
                     val selectDate = BaseUtil.second2Date(millisecond)
                     binding.monthText.text =
                         "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
@@ -309,7 +315,7 @@ class DashboardFragment : Fragment() {
             val diaryList = ArrayList<Diary>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
-            val dateSelect = date.substring(0..5)+date.substring(7..8)
+            val dateSelect = date.substring(0..5) + date.substring(7..8)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -335,6 +341,7 @@ class DashboardFragment : Fragment() {
                 } while (cursor.moveToNext())
             }
             cursor.close()
+            diaryList.sortBy { it.date_text }
             mainViewModel.diaryList.value?.clear()
             mainViewModel.setAll(diaryList)
         }
