@@ -8,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
-import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.databinding.FragmentChartBinding
-import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
-import com.lnm011223.my_diary.util.BaseUtil
-import com.loper7.date_time_picker.DateTimeConfig
-import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+
 
 
 class ChartFragment : Fragment() {
@@ -43,7 +41,25 @@ class ChartFragment : Fragment() {
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val aaChartModel = AAChartModel()
+            .chartType(AAChartType.Pie)
+            .title("title")
+            .subtitle("subtitle")
+            .dataLabelsEnabled(false)
+            .stacking(AAChartStackingType.Percent)
+            .polar(true)
+            .backgroundColor(R.color.backgroundcolor)
+            .series(arrayOf(
+                AASeriesElement()
+                    .name("test")
+                    .data(arrayOf(arrayOf("java",1), arrayOf("python",2), arrayOf("C",4)))
 
+
+            )
+            )
+
+
+        binding.aaChartView.aa_drawChartWithChartModel(aaChartModel)
     }
 
 

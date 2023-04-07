@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal">
+
+    <com.loper7.date_time_picker.number_picker.NumberPicker
+        android:id="@+id/np_datetime_year"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="#E5E5E5"
+        app:np_textSize="15sp"
+        app:np_selectedTextSize="15sp"
+        app:np_dividerThickness="0.6dp"
+        app:np_height="184dp"
+        app:np_wheelItemCount="3" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="1dp"
+        android:background="#999999"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/np_datetime_month"
+        app:layout_constraintStart_toEndOf="@+id/np_datetime_year"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.loper7.date_time_picker.number_picker.NumberPicker
+        android:id="@+id/np_datetime_month"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:np_textSize="15sp"
+        app:np_selectedTextSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/np_datetime_year"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="#E5E5E5"
+        app:np_dividerThickness="0.6dp"
+        app:np_height="184dp"
+        app:np_wheelItemCount="3" />
+
+    <View
+        android:layout_width="4dp"
+        android:layout_height="1dp"
+        android:background="#999999"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/np_datetime_day"
+        app:layout_constraintStart_toEndOf="@+id/np_datetime_month"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.loper7.date_time_picker.number_picker.NumberPicker
+        android:id="@+id/np_datetime_day"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:np_textSize="15sp"
+        app:np_selectedTextSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/np_datetime_month"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="#E5E5E5"
+        app:np_dividerThickness="0.6dp"
+        app:np_height="184dp"
+        app:np_wheelItemCount="3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

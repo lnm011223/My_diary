@@ -56,6 +56,7 @@ class AddDiaryActivity : BaseActivity() {
         binding = ActivityAddDiaryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
+        selectDate = BaseUtil.second2Day(System.currentTimeMillis())
         BaseUtil.rightColor(window, this)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
@@ -146,7 +147,7 @@ class AddDiaryActivity : BaseActivity() {
                 .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH, DateTimeConfig.DAY)
                 .showFocusDateInfo(false)
                 .setMaxTime(System.currentTimeMillis())
-                .setPickerLayout(R.layout.layout_date_picker_segmentation)
+                .setPickerLayout(R.layout.layout_day_picker_segmentation)
                 .setThemeColor(Color.parseColor("#3EB06A"))
                 .setAssistColor(
                     if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
