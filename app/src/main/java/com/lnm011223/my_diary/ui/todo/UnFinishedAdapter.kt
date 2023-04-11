@@ -1,9 +1,11 @@
 package com.lnm011223.my_diary.ui.todo
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,6 +59,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         val classificationText: TextView = view.findViewById(R.id.classificationText)
         val splitText: TextView = view.findViewById(R.id.splitText)
         val todoCard: View = view.findViewById(R.id.todoCard)
+        val todoNotify: View = view.findViewById(R.id.todoNotifyView)
 
     }
 
@@ -192,6 +195,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         return viewHolder
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val unFinished = unFinishedList[position]
@@ -216,9 +220,10 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
                 .toBigInteger() - unFinished.deadline.filter { it.isDigit() }
                 .toBigInteger() > "0".toBigInteger()) {
             holder.deadLineText.setTextColor(activity.getColorStateList(R.color.red))
+            holder.todoNotify.setBackgroundColor(Color.parseColor("#F44336"))
         }else{
             holder.deadLineText.setTextColor(activity.getColorStateList(R.color.main))
-
+            holder.todoNotify.setBackgroundColor(Color.parseColor("#3EB06A"))
         }
         holder.todoText.text = unFinished.todoText
         holder.classificationText.text = unFinished.classification
