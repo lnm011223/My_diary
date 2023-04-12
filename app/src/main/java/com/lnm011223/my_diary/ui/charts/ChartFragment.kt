@@ -40,7 +40,6 @@ class ChartFragment : Fragment() {
     private val binding get() = _binding!!
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
     val moodList = ArrayList<Daymood>()
-    //    var moodList = ArrayList<FloatEntry>()
     var chartlist = listOf<FloatEntry>().toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,44 +88,14 @@ class ChartFragment : Fragment() {
         }
         initChart(binding.monthText.text.toString())
 
-//        chartlist = moodList.toMutableList()
-//        for (i in 1..31) {
-//            if (i % 5 == 0) {
-//
-//                val num = Random.nextInt(5) + 1
-//                chartlist.add(FloatEntry(i.toFloat(), num.toFloat()))
-//            }
-//        }
-//        chartlist.add(FloatEntry(6.toFloat(), 2.toFloat()))
-//        chartlist.add(FloatEntry(8.toFloat(), 3.toFloat()))
-//        chartlist.add(FloatEntry(14.toFloat(), 1.toFloat()))
-//
-//        chartlist.add(FloatEntry(15.toFloat(), 1.toFloat()))
-//        chartlist.add(FloatEntry(25.toFloat(), 3.toFloat()))
-//        chartlist.add(FloatEntry(16.toFloat(), 2.toFloat()))
-//
-//        chartlist.add(FloatEntry(28.toFloat(), 5.toFloat()))
-//        Log.d("moodsize1", chartlist.size.toString())
-//        binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
-
-//        mainViewModel.moodList.observe(viewLifecycleOwner) { list ->
-//            Log.d("moodsize",list.size.toString())
-//            for (i in list) {
-//                chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
-//            }
-//
-//            binding.chartView.entryProducer =
-//                ChartEntryModelProducer(chartlist)
-//
-//        }
     }
 
     @SuppressLint("Range")
     fun initChart(date: String) {
         thread {
-            //mainViewModel.clearAll()
-            //diaryList.clear()
+
             moodList.clear()
+            val moodNum = arrayListOf<Int>(0,0,0,0,0,0)
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
             val dateSelect = date.substring(0..5) + date.substring(7..8)
@@ -140,20 +109,16 @@ class ChartFragment : Fragment() {
                         val dateNum = datetext.substring(11..12).toInt()
 
                         moodList.add(Daymood(dateNum, moodid))
+                        moodNum[moodid]++
 
                     }
 
 
                 } while (cursor.moveToNext())
             }
-//            for (i in moodList) {
-//                Log.d("mood", i.day.toString())
-//            }
+
             cursor.close()
             moodList.sortBy { it.day }
-//            for (i in moodList) {
-//                Log.d("mood", i.day.toString())
-//            }
             mainViewModel.moodList.value?.clear()
             mainViewModel.setAllmood(moodList)
             chartlist.removeAll{ it.x.toString().isNotEmpty() }
@@ -162,7 +127,13 @@ class ChartFragment : Fragment() {
                 chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
 
             }
+            var numlist = listOf<FloatEntry>().toMutableList()
+            for (i in 1..5) {
+                numlist.add(FloatEntry(i.toFloat(),moodNum[i].toFloat()))
+            }
+
             binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
+            binding.chartView1.entryProducer = ChartEntryModelProducer(numlist)
 
         }
     }

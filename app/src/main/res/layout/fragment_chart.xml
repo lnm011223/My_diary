@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +35,7 @@
                     android:id="@+id/month_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="30dp"
+
                     android:textColor="@color/cardtext"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,29 @@
                     android:tint="@color/titletextcolor" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/dividerLine"
+                android:layout_width="200dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_drawable"
+                android:backgroundTint="@color/main"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/month_select" />
+            <TextView
+                android:id="@+id/qushi_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/cardtext"
+                android:textSize="16sp"
+                android:text="心情趋势"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dividerLine" />
             <com.google.android.material.card.MaterialCardView
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -58,7 +81,8 @@
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/month_select">
+                app:layout_constraintTop_toBottomOf="@+id/qushi_text"
+                android:id="@+id/chartcard">
 
                 <com.patrykandpatrick.vico.views.chart.ChartView
                     android:id="@+id/chart_view"
@@ -71,7 +95,42 @@
                     app:showBottomAxis="true"
                     app:showStartAxis="true" />
             </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/fenbu_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/cardtext"
+                android:textSize="16sp"
+                android:text="心情分布"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chartcard" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:backgroundTint="@color/cardcolor"
+                android:elevation="0dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                android:id="@+id/chartcard1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fenbu_text">
 
+                <com.patrykandpatrick.vico.views.chart.ChartView
+                    android:id="@+id/chart_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:chart="column"
+                    app:columnChartStyle="@style/Chart4ColumnChartStyle"
+
+                    app:showBottomAxis="true"
+                    app:showStartAxis="true" />
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -27,6 +27,7 @@
     <color name="cardcolor">#ffffff</color>
     <color name="cardinlinecolor">#eeeeee</color>
     <color name="smallcardcolor">#eeeeee</color>
+    <color name="diverLinecolor">#707070</color>
     <color name="backgroundcolor">#f2f3ed</color>
     <color name="cardtext">#707070</color>
     <color name="titletextcolor">#707070</color>
