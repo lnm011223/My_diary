@@ -2,7 +2,14 @@ package com.lnm011223.my_diary.ui.charts
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
+
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,21 +24,14 @@ import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.FragmentChartBinding
 import com.lnm011223.my_diary.logic.model.Daymood
-import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
-import com.patrykandpatrick.vico.core.entry.ChartEntryModel
 import com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatrick.vico.core.entry.FloatEntry
-import com.patrykandpatrick.vico.core.entry.composed.plus
-import com.patrykandpatrick.vico.core.entry.entryModelOf
-import com.patrykandpatrick.vico.core.marker.Marker
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
-import kotlin.random.Random
 
 
 class ChartFragment : Fragment() {
@@ -97,7 +97,7 @@ class ChartFragment : Fragment() {
         thread {
 
             moodList.clear()
-            val moodNum = arrayListOf<Int>(0,0,0,0,0,0)
+            val moodNum = arrayListOf<Int>(0, 0, 0, 0, 0, 0)
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
             val dateSelect = date.substring(0..5) + date.substring(7..8)
@@ -123,20 +123,76 @@ class ChartFragment : Fragment() {
             moodList.sortBy { it.day }
             mainViewModel.moodList.value?.clear()
             mainViewModel.setAllmood(moodList)
-            chartlist.removeAll{ it.x.toString().isNotEmpty() }
-            var numlist = listOf<FloatEntry>().toMutableList()
+            chartlist.removeAll { it.x.toString().isNotEmpty() }
+            val numlist = listOf<FloatEntry>().toMutableList()
 
             for (i in moodList) {
+                when (i.mood) {
+                    1 -> i.mood = 5
+                    2 -> i.mood = 4
+                    3 -> i.mood = 3
+                    4 -> i.mood = 2
+                    5 -> i.mood = 1
+                }
                 Log.d("mood", i.day.toString())
-                chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
+                chartlist.add(FloatEntry(i.day.toFloat(), i.mood.toFloat()))
 
             }
             for (i in 1..5) {
-                numlist.add(FloatEntry(i.toFloat(),moodNum[i].toFloat()))
+                numlist.add(FloatEntry(i.toFloat(), moodNum[i].toFloat()))
+            }
+            var doneNum = 0
+            var ontimeNum = 0
+            var overtimeNum = 0
+            val cursor1 = db.rawQuery("select * from tododata ", null)
+            if (cursor1.moveToFirst()) {
+                do {
+                    val deadline = cursor1.getString(cursor1.getColumnIndex("deadline"))
+                    val isDone = cursor1.getInt(cursor1.getColumnIndex("isDone"))
+                    val enddate = cursor1.getString(cursor1.getColumnIndex("enddate"))
+                    if (enddate != "0") {
+                        val compare = "${enddate.substring(0..3)}年 ${enddate.substring(5..6)}"
+                        Log.d("compare", compare + "   " + dateSelect)
+                        if ((compare == dateSelect) && (isDone == 1)) {
+                            val deadlinenum = deadline.filter { it.isDigit() }.toBigInteger()
+                            val enddatenum = enddate.filter { it.isDigit() }.toBigInteger()
+                            doneNum++
+                            if (enddatenum - deadlinenum > "0".toBigInteger()) {
+                                overtimeNum++
+                            } else {
+                                ontimeNum++
+                            }
+
+                        }
+                    }
+
+                } while (cursor1.moveToNext())
+            }
+
+            cursor1.close()
+            val showtext =
+                "本月共有${moodList.size}次日记记录，其中开心${moodNum[1]}天,愉悦${moodNum[2]}天,平静${moodNum[3]}天,失落${moodNum[4]}天,伤心${moodNum[5]}天。\n" +
+                        "且完成待办事项${doneNum}个，其中按时完成${ontimeNum}个，逾期完成${overtimeNum}个。"
+            val spannableString = SpannableString(showtext)
+            val pattern = Regex("\\d+")
+            val matcher = pattern.findAll(spannableString)
+
+            matcher.forEach {
+                val start = it.range.first
+                val end = it.range.last + 1
+
+                // 将数字部分的文本颜色设置为绿色并添加下划线和加粗
+                val colorSpan = ForegroundColorSpan(Color.parseColor("#3EB06A"))
+                val underlineSpan = UnderlineSpan()
+                val boldSpan = StyleSpan(Typeface.BOLD)
+                spannableString.setSpan(colorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(underlineSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                spannableString.setSpan(boldSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             }
             activity?.runOnUiThread {
                 binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
                 binding.chartView1.entryProducer = ChartEntryModelProducer(numlist)
+                binding.showText.text = spannableString
             }
 
 

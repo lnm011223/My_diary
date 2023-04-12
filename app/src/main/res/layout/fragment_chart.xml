@@ -142,6 +142,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chartcard1" />
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
@@ -152,10 +153,16 @@
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 android:id="@+id/chartcard2"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fenxi_text">
-
+                <TextView
+                    android:id="@+id/showText"
+                    android:layout_margin="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
             </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

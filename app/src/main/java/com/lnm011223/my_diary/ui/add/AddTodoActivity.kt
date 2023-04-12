@@ -52,6 +52,7 @@ class AddTodoActivity : BaseActivity() {
                 put("deadline", deadline)
                 put("startdate", startdate)
                 put("isTop", isTop)
+                put("enddate","0")
             }
             val success = db.insert("tododata", null, todo_value)
             Log.d("successtest", success.toString())
