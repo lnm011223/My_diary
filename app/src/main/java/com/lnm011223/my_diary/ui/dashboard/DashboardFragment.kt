@@ -346,9 +346,13 @@ class DashboardFragment : Fragment() {
             diaryList.sortBy { it.date_text }
             mainViewModel.diaryList.value?.clear()
             mainViewModel.setAll(diaryList)
-            binding.diaryRecycle.adapter?.notifyDataSetChanged()
-            binding.diaryRecycle.smoothScrollToPosition(0)
+            activity?.runOnUiThread {
+                binding.diaryRecycle.adapter?.notifyDataSetChanged()
+                binding.diaryRecycle.smoothScrollToPosition(0)
+            }
+
         }
+
     }
 
 

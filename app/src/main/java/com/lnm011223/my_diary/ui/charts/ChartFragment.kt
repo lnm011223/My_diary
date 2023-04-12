@@ -41,6 +41,8 @@ class ChartFragment : Fragment() {
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
     val moodList = ArrayList<Daymood>()
     var chartlist = listOf<FloatEntry>().toMutableList()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -122,20 +124,24 @@ class ChartFragment : Fragment() {
             mainViewModel.moodList.value?.clear()
             mainViewModel.setAllmood(moodList)
             chartlist.removeAll{ it.x.toString().isNotEmpty() }
+            var numlist = listOf<FloatEntry>().toMutableList()
+
             for (i in moodList) {
                 Log.d("mood", i.day.toString())
                 chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
 
             }
-            var numlist = listOf<FloatEntry>().toMutableList()
             for (i in 1..5) {
                 numlist.add(FloatEntry(i.toFloat(),moodNum[i].toFloat()))
             }
+            activity?.runOnUiThread {
+                binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
+                binding.chartView1.entryProducer = ChartEntryModelProducer(numlist)
+            }
 
-            binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
-            binding.chartView1.entryProducer = ChartEntryModelProducer(numlist)
 
         }
+
     }
 
 
