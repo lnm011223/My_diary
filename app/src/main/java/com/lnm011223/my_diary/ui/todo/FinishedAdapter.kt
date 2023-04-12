@@ -132,7 +132,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val finished = FinishedList[position]
 //        holder.startText.text = finished.startDate
-        holder.endText.text = "完成时间："+finished.endDate
+        holder.endText.text = "完成时间：" + finished.endDate
         holder.todoText.text = finished.todoText
         holder.todoText.paintFlags = (holder.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         holder.classificationText.text = finished.classification
@@ -155,6 +155,14 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
                 classificationText.visibility = View.GONE
 
             }
+        }
+        val deadlinenum = finished.deadline.filter { it.isDigit() }.toBigInteger()
+        val enddatenum = finished.endDate.filter { it.isDigit() }.toBigInteger()
+
+        if (enddatenum - deadlinenum > "0".toBigInteger()) {
+            holder.endText.setTextColor(activity.getColorStateList(R.color.red))
+        } else {
+            holder.endText.setTextColor(activity.getColorStateList(R.color.main))
         }
 
 
