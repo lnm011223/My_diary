@@ -3,6 +3,7 @@ package com.lnm011223.my_diary.ui.charts
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +13,35 @@ import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
+import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.FragmentChartBinding
-
+import com.lnm011223.my_diary.logic.model.Daymood
+import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.BaseUtil
+import com.loper7.date_time_picker.DateTimeConfig
+import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import com.patrykandpatrick.vico.core.entry.ChartEntryModel
+import com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
+import com.patrykandpatrick.vico.core.entry.FloatEntry
+import com.patrykandpatrick.vico.core.entry.composed.plus
+import com.patrykandpatrick.vico.core.entry.entryModelOf
+import com.patrykandpatrick.vico.core.marker.Marker
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
+import kotlin.random.Random
 
 
 class ChartFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentChartBinding? = null
     private val binding get() = _binding!!
-
+    val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
+    val moodList = ArrayList<Daymood>()
+    //    var moodList = ArrayList<FloatEntry>()
+    var chartlist = listOf<FloatEntry>().toMutableList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,7 +50,7 @@ class ChartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainViewModel =
             ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         _binding = FragmentChartBinding.inflate(inflater, container, false)
@@ -41,25 +62,109 @@ class ChartFragment : Fragment() {
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val aaChartModel = AAChartModel()
-            .chartType(AAChartType.Pie)
-            .title("title")
-            .subtitle("subtitle")
-            .dataLabelsEnabled(false)
-            .stacking(AAChartStackingType.Percent)
-            .polar(true)
-            .backgroundColor(R.color.backgroundcolor)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("test")
-                    .data(arrayOf(arrayOf("java",1), arrayOf("python",2), arrayOf("C",4)))
+        val date = BaseUtil.second2Date(System.currentTimeMillis())
+        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(5..6)}月 "
 
 
-            )
-            )
+        binding.monthSelect.setOnClickListener { view ->
+            CardDatePickerDialog.builder(view.context)
+
+                .setTitle("请选择月份：").showBackNow(false)
+                .setMaxTime(System.currentTimeMillis())
+                .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
+                .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH).showFocusDateInfo(false)
+                .setPickerLayout(R.layout.layout_month_picker_segmentation)
+                .setThemeColor(Color.parseColor("#3EB06A")).setAssistColor(
+                    if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
+                        "#b9b9b9"
+                    )
+                ).setOnChoose { millisecond ->
+                    val selectDate = BaseUtil.second2Date(millisecond)
+                    binding.monthText.text =
+                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
+                    initChart(binding.monthText.text.toString())
 
 
-        binding.aaChartView.aa_drawChartWithChartModel(aaChartModel)
+                }.build().show()
+        }
+        initChart(binding.monthText.text.toString())
+
+//        chartlist = moodList.toMutableList()
+//        for (i in 1..31) {
+//            if (i % 5 == 0) {
+//
+//                val num = Random.nextInt(5) + 1
+//                chartlist.add(FloatEntry(i.toFloat(), num.toFloat()))
+//            }
+//        }
+//        chartlist.add(FloatEntry(6.toFloat(), 2.toFloat()))
+//        chartlist.add(FloatEntry(8.toFloat(), 3.toFloat()))
+//        chartlist.add(FloatEntry(14.toFloat(), 1.toFloat()))
+//
+//        chartlist.add(FloatEntry(15.toFloat(), 1.toFloat()))
+//        chartlist.add(FloatEntry(25.toFloat(), 3.toFloat()))
+//        chartlist.add(FloatEntry(16.toFloat(), 2.toFloat()))
+//
+//        chartlist.add(FloatEntry(28.toFloat(), 5.toFloat()))
+//        Log.d("moodsize1", chartlist.size.toString())
+//        binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
+
+//        mainViewModel.moodList.observe(viewLifecycleOwner) { list ->
+//            Log.d("moodsize",list.size.toString())
+//            for (i in list) {
+//                chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
+//            }
+//
+//            binding.chartView.entryProducer =
+//                ChartEntryModelProducer(chartlist)
+//
+//        }
+    }
+
+    @SuppressLint("Range")
+    fun initChart(date: String) {
+        thread {
+            //mainViewModel.clearAll()
+            //diaryList.clear()
+            moodList.clear()
+            val db = dbHelper.writableDatabase
+            val cursor = db.rawQuery("select * from diarydata ", null)
+            val dateSelect = date.substring(0..5) + date.substring(7..8)
+
+            if (cursor.moveToFirst()) {
+                do {
+                    val id = cursor.getString(cursor.getColumnIndex("id")).toInt()
+                    val datetext = cursor.getString(cursor.getColumnIndex("datetext"))
+                    val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
+                    if (datetext.substring(0..7) == dateSelect) {
+                        val dateNum = datetext.substring(11..12).toInt()
+
+                        moodList.add(Daymood(dateNum, moodid))
+
+                    }
+
+
+                } while (cursor.moveToNext())
+            }
+//            for (i in moodList) {
+//                Log.d("mood", i.day.toString())
+//            }
+            cursor.close()
+            moodList.sortBy { it.day }
+//            for (i in moodList) {
+//                Log.d("mood", i.day.toString())
+//            }
+            mainViewModel.moodList.value?.clear()
+            mainViewModel.setAllmood(moodList)
+            chartlist.removeAll{ it.x.toString().isNotEmpty() }
+            for (i in moodList) {
+                Log.d("mood", i.day.toString())
+                chartlist.add(FloatEntry(i.day.toFloat(),i.mood.toFloat()))
+
+            }
+            binding.chartView.entryProducer = ChartEntryModelProducer(chartlist)
+
+        }
     }
 
 

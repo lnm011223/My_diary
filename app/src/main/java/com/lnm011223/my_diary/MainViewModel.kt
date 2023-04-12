@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.lnm011223.my_diary.logic.model.Daymood
 import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.logic.model.Todo
+import com.patrykandpatrick.vico.core.entry.FloatEntry
 
 class MainViewModel() : ViewModel() {
     val diaryList: LiveData<ArrayList<Diary>>
@@ -24,6 +26,11 @@ class MainViewModel() : ViewModel() {
         get() = _unfinishedList
 
     private var _unfinishedList = MutableLiveData<ArrayList<Todo>>(arrayListOf())
+
+    val moodList: LiveData<ArrayList<Daymood>>
+        get() = _moodList
+
+    private var _moodList = MutableLiveData<ArrayList<Daymood>>()
 
     init {
 
@@ -76,6 +83,11 @@ class MainViewModel() : ViewModel() {
         _finishedList.value?.addAll(list)
     }
 
+    fun setAllmood(list: ArrayList<Daymood>) {
+        _moodList.value?.clear()
+        _moodList.value?.addAll(list)
+    }
+
     fun addDiary(diary: Diary) {
         _diaryList.value?.add(diary)
         addPosition.value = -1
@@ -88,15 +100,13 @@ class MainViewModel() : ViewModel() {
 
     fun deleteDiary(position: Int) {
         _diaryList.value?.removeAt(position)
-        Log.d("livedata", "deletesucceed")
-        Log.d("livedata", diaryList.value.toString())
+
     }
 
     fun changeDiary(position: Int, diary: Diary) {
-        Log.d("livedateview", "${_diaryList.value?.get(position)?.diary_text}")
+
         _diaryList.value!![position] = diary
-        Log.d("livedateview", diary.diary_text)
-        Log.d("livedateview", "${_diaryList.value?.get(position)?.diary_text}")
+
         reviseDiaryItem = Diary(-1, "", -1, "", "")
     }
 
@@ -114,9 +124,9 @@ class MainViewModel() : ViewModel() {
 
     fun deleteUnfinished(position: Int) {
         _unfinishedList.value?.removeAt(position)
-        Log.d("livedata", "deletesucceed")
-        Log.d("livedata", diaryList.value.toString())
+
     }
 
 
 }
+

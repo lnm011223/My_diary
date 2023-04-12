@@ -206,7 +206,7 @@ class AddDiaryActivity : BaseActivity() {
             } else {
                 AlertDialog.Builder(this).apply {
                     setTitle("提醒：")
-                    setMessage("您今天已创建过日记，如有需要请修改或删除该日记。")
+                    setMessage("您今天已创建过日记，如有需要请修改日期或删除该日记。")
 
                     setPositiveButton("是") { _, _ ->
                         super.onBackPressed()

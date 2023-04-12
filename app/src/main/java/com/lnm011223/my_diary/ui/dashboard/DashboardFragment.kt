@@ -292,6 +292,7 @@ class DashboardFragment : Fragment() {
                 .setBackGroundModel(R.drawable.shape_sheet_dialog_bg)
                 .setDisplayType(DateTimeConfig.YEAR, DateTimeConfig.MONTH).showFocusDateInfo(false)
                 .setPickerLayout(R.layout.layout_month_picker_segmentation)
+                .setMaxTime(System.currentTimeMillis())
                 .setThemeColor(Color.parseColor("#3EB06A")).setAssistColor(
                     if (BaseUtil.isDarkTheme(view.context)) Color.parseColor("#707070") else Color.parseColor(
                         "#b9b9b9"
@@ -301,13 +302,14 @@ class DashboardFragment : Fragment() {
                     binding.monthText.text =
                         "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
                     initDiary(binding.monthText.text.toString())
-                    adapter.notifyDataSetChanged()
+
+
                 }.build().show()
         }
 
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "NotifyDataSetChanged")
     private fun initDiary(date: String) {
         thread {
             //mainViewModel.clearAll()
@@ -344,6 +346,8 @@ class DashboardFragment : Fragment() {
             diaryList.sortBy { it.date_text }
             mainViewModel.diaryList.value?.clear()
             mainViewModel.setAll(diaryList)
+            binding.diaryRecycle.adapter?.notifyDataSetChanged()
+            binding.diaryRecycle.smoothScrollToPosition(0)
         }
     }
 
