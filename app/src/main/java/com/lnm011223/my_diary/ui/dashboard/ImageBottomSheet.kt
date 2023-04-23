@@ -38,7 +38,7 @@ class ImageBottomSheet(private val imageUrl: String, private val date: String) :
     }
 
     private fun initView(imageUrl: String, date: String) {
-        binding.sheetToolBar.subtitle = date
+        binding.sheetToolBar.subtitle = "${date.substring(0..3)}年 ${date.substring(4..5)}月 ${date.substring(6..7)}日"
         //do something
         //rootView.tv_cancel.setOnClickListener { dismiss() }
         binding.sheetImage.setImageURI(imageUrl.toUri())
