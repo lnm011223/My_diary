@@ -43,10 +43,10 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
     RecyclerView.Adapter<UnFinishedAdapter.ViewHolder>() {
     private var date = BaseUtil.second2Date(System.currentTimeMillis())
     private var year = date.substring(0..3)
-    private var month = date.substring(5..6)
-    private var day = date.substring(8..9)
-    private var hour = date.substring(11..12)
-    private var min = date.substring(14..15)
+    private var month = date.substring(4..5)
+    private var day = date.substring(6..7)
+    private var hour = date.substring(8..9)
+    private var min = date.substring(10..11)
     private var dateStr = year
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
     val db = dbHelper.writableDatabase
@@ -199,21 +199,25 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val unFinished = unFinishedList[position]
-
-        holder.deadLineText.text = if (unFinished.deadline.substring(0..3) == year
-            && unFinished.deadline.substring(5..6) == month
+        val itemyear = unFinished.deadline.substring(0..3)
+        val itemmonth = unFinished.deadline.substring(4..5)
+        val itemday = unFinished.deadline.substring(6..7)
+        val itemhour = unFinished.deadline.substring(8..9)
+        val itemmin = unFinished.deadline.substring(10..11)
+        holder.deadLineText.text = if (itemyear == year
+            && itemmonth == month
         ) {
-            when (unFinished.deadline.substring(8..9).toInt() - day.toInt()) {
-                -1 -> "昨天"
-                0 -> "今天"
-                1 -> "明天"
-                2 -> "后天"
-                else -> unFinished.deadline.substring(5..9)
+            when (itemday.toInt() - day.toInt()) {
+                -1 -> "昨天 $itemhour:$itemmin"
+                0 -> "今天 $itemhour:$itemmin"
+                1 -> "明天 $itemhour:$itemmin"
+                2 -> "后天 $itemhour:$itemmin"
+                else -> "$itemmonth-$itemday $itemhour:$itemmin"
             }
-        } else (if (unFinished.deadline.substring(0..3) == year) {
-            unFinished.deadline.substring(5..9)
+        } else (if (itemyear == year) {
+            "$itemmonth-$itemday $itemhour:$itemmin"
         } else {
-            unFinished.deadline.substring(0..9)
+            "$itemyear-$itemmonth-$itemday $itemhour:$itemmin"
         })
 
         if (date.filter { it.isDigit() }

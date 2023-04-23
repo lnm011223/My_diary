@@ -38,8 +38,6 @@ class TodoFragment : Fragment() {
         _binding = FragmentTodoBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
         return root
     }
 

@@ -64,7 +64,7 @@ class ChartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val date = BaseUtil.second2Date(System.currentTimeMillis())
-        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(5..6)}月 "
+        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(4..5)}月 "
 
 
         binding.monthSelect.setOnClickListener { view ->
@@ -82,7 +82,7 @@ class ChartFragment : Fragment() {
                 ).setOnChoose { millisecond ->
                     val selectDate = BaseUtil.second2Date(millisecond)
                     binding.monthText.text =
-                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
+                        "${selectDate.substring(0..3)}年  ${selectDate.substring(4..5)}月 "
                     initChart(binding.monthText.text.toString())
 
 
@@ -100,16 +100,17 @@ class ChartFragment : Fragment() {
             val moodNum = arrayListOf<Int>(0, 0, 0, 0, 0, 0)
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
-            val dateSelect = date.substring(0..5) + date.substring(7..8)
+            val dateSelect = date.substring(0..3) + date.substring(7..8)
 
             if (cursor.moveToFirst()) {
                 do {
                     val id = cursor.getString(cursor.getColumnIndex("id")).toInt()
                     val datetext = cursor.getString(cursor.getColumnIndex("datetext"))
                     val moodid = cursor.getInt(cursor.getColumnIndex("moodid"))
-                    if (datetext.substring(0..7) == dateSelect) {
-                        val dateNum = datetext.substring(11..12).toInt()
-
+                    Log.d("compare", "${datetext.substring(0..5)}    $dateSelect")
+                    if (datetext.substring(0..5) == dateSelect) {
+                        val dateNum = datetext.substring(6..7).toInt()
+                        Log.d("compare", dateNum.toString())
                         moodList.add(Daymood(dateNum, moodid))
                         moodNum[moodid]++
 
@@ -151,8 +152,8 @@ class ChartFragment : Fragment() {
                     val isDone = cursor1.getInt(cursor1.getColumnIndex("isDone"))
                     val enddate = cursor1.getString(cursor1.getColumnIndex("enddate"))
                     if (enddate != "0") {
-                        val compare = "${enddate.substring(0..3)}年 ${enddate.substring(5..6)}"
-                        Log.d("compare", compare + "   " + dateSelect)
+                        val compare = enddate.substring(0..5)
+//                        Log.d("compare", compare + "   " + dateSelect)
                         if ((compare == dateSelect) && (isDone == 1)) {
                             val deadlinenum = deadline.filter { it.isDigit() }.toBigInteger()
                             val enddatenum = enddate.filter { it.isDigit() }.toBigInteger()

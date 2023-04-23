@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.net.toUri
@@ -20,6 +22,7 @@ import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.ui.revise.ReviseDiaryActivity
 import com.lnm011223.my_diary.logic.model.Diary
+import com.lnm011223.my_diary.util.BaseUtil
 
 
 class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
@@ -121,6 +124,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         return viewHolder
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary = diaryList[position]
@@ -128,7 +132,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(moodMap[diary.moon]!!)
         holder.diarycard_date.text =
-            diary.date_text.substring(11, 13) + " " + diary.date_text.substring(16, 18)
+            diary.date_text.substring(6..7) + " " + BaseUtil.dayOfWeek(diary.date_text)
         holder.diarycard_text.text = diary.diary_text
         Log.d("image-url", diary.diary_image)
         if (diary.diary_image == "") {

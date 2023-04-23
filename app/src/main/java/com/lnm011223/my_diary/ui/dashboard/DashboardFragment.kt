@@ -81,7 +81,7 @@ class DashboardFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val date = BaseUtil.second2Date(System.currentTimeMillis())
-        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(5..6)}月 "
+        binding.monthText.text = "${date.substring(0..3)}年  ${date.substring(4..5)}月 "
         initDiary(binding.monthText.text.toString())
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
@@ -100,7 +100,9 @@ class DashboardFragment : Fragment() {
                         //当新的mood和当前筛选的一样才加进recyclerview
                         mainViewModel.addDiaryItem.moon == mainViewModel.selectid && mainViewModel.selectflag -> {
                             val flag =
-                                binding.monthText.text.substring(0..5) + binding.monthText.text.substring(7..8) == mainViewModel.addDiaryItem.date_text.substring(
+                                binding.monthText.text.substring(0..5) + binding.monthText.text.substring(
+                                    7..8
+                                ) == mainViewModel.addDiaryItem.date_text.substring(
                                     0..7
                                 )
                             if (flag) {
@@ -112,8 +114,10 @@ class DashboardFragment : Fragment() {
                         //当前没筛选才添加
                         !mainViewModel.selectflag -> {
                             val flag =
-                                binding.monthText.text.substring(0..5) + binding.monthText.text.substring(7..8) == mainViewModel.addDiaryItem.date_text.substring(
-                                    0..7
+                                binding.monthText.text.substring(0..3) + binding.monthText.text.substring(
+                                    7..8
+                                ) == mainViewModel.addDiaryItem.date_text.substring(
+                                    0..5
                                 )
                             if (flag) {
                                 mainViewModel.addDiary(mainViewModel.addDiaryItem)
@@ -300,7 +304,7 @@ class DashboardFragment : Fragment() {
                 ).setOnChoose { millisecond ->
                     val selectDate = BaseUtil.second2Date(millisecond)
                     binding.monthText.text =
-                        "${selectDate.substring(0..3)}年  ${selectDate.substring(5..6)}月 "
+                        "${selectDate.substring(0..3)}年  ${selectDate.substring(4..5)}月 "
                     initDiary(binding.monthText.text.toString())
 
 
@@ -317,7 +321,7 @@ class DashboardFragment : Fragment() {
             val diaryList = ArrayList<Diary>()
             val db = dbHelper.writableDatabase
             val cursor = db.rawQuery("select * from diarydata ", null)
-            val dateSelect = date.substring(0..5) + date.substring(7..8)
+            val dateSelect = date.substring(0..3) + date.substring(7..8)
 
             if (cursor.moveToFirst()) {
                 do {
@@ -328,7 +332,7 @@ class DashboardFragment : Fragment() {
                     val diarytext = cursor.getString(cursor.getColumnIndex("diarytext"))
 
 
-                    if (datetext.substring(0..7) == dateSelect) {
+                    if (datetext.substring(0..5) == dateSelect) {
 
                         if (mainViewModel.selectflag) {
                             if (moodMap[mainViewModel.selectid] == moodid) {

@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.view.setPadding
@@ -50,6 +52,8 @@ class ReviseDiaryActivity : AppCompatActivity() {
         5 to R.drawable.mood_5,
     )
 
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,7 +80,9 @@ class ReviseDiaryActivity : AppCompatActivity() {
             R.drawable.mood_4 -> binding.mood4Image.setImageResource(R.drawable.mood_4)
             R.drawable.mood_5 -> binding.mood5Image.setImageResource(R.drawable.mood_5)
         }
-        binding.dateText.text = datetext
+        binding.dateText.text = "${datetext?.substring(4..5)}月 ${datetext?.substring(6..7)}日 ${BaseUtil.dayOfWeek(
+            datetext.toString()
+        )}"
         binding.diarytextEdit.setText(diarytext)
 
         if (imageuri?.toString() != "" && !imageflag) {

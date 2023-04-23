@@ -66,12 +66,29 @@ object BaseUtil {
         val dayOfWeek = localDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
         return dayOfWeek.replace("星期", "周")
     }
-    
+
+
+
     internal fun second2Date(secondNum: Long): String {
         //创建一个 Date 对象并传入时间戳参数
         val date = Date(secondNum)
         // 创建 SimpleDateFormat 对象以定义日期显示格式
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault())
+
+//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        // 使用 format() 方法将日期转换为指定格式的字符串
+        val formattedDate = sdf.format(date)
+//        Log.d("millisecond", formattedDate)
+        return formattedDate
+    }
+
+    internal fun second2Date2(secondNum: Long): String {
+        //创建一个 Date 对象并传入时间戳参数
+        val date = Date(secondNum)
+        // 创建 SimpleDateFormat 对象以定义日期显示格式
+        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+
+//        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         // 使用 format() 方法将日期转换为指定格式的字符串
         val formattedDate = sdf.format(date)
 //        Log.d("millisecond", formattedDate)

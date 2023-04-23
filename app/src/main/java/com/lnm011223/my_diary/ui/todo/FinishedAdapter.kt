@@ -1,5 +1,6 @@
 package com.lnm011223.my_diary.ui.todo
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Paint
 import android.os.Build
@@ -128,11 +129,17 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         return viewHolder
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val finished = FinishedList[position]
+        val itemyear = finished.deadline.substring(0..3)
+        val itemmonth = finished.deadline.substring(4..5)
+        val itemday = finished.deadline.substring(6..7)
+        val itemhour = finished.deadline.substring(8..9)
+        val itemmin = finished.deadline.substring(10..11)
 //        holder.startText.text = finished.startDate
-        holder.endText.text = "完成时间：" + finished.endDate
+        holder.endText.text = "完成时间：$itemyear-$itemmonth-$itemday $itemhour:$itemmin"
         holder.todoText.text = finished.todoText
         holder.todoText.paintFlags = (holder.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         holder.classificationText.text = finished.classification

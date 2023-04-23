@@ -31,6 +31,7 @@ import java.util.*
 class AddDiaryActivity : BaseActivity() {
     private lateinit var binding: ActivityAddDiaryBinding
     private lateinit var selectDate: String
+    private lateinit var dateString: String
     var mood_flag: Int = R.drawable.mood_1
     var uri1: String = ""
     val moodMap = mapOf(
@@ -57,6 +58,7 @@ class AddDiaryActivity : BaseActivity() {
         setContentView(binding.root)
         binding.dateText.text = SimpleDateFormat("MM 月 dd 日 E").format(Date())
         selectDate = BaseUtil.second2Day(System.currentTimeMillis())
+        dateString = BaseUtil.second2Date2(System.currentTimeMillis())
         BaseUtil.rightColor(window, this)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
@@ -156,6 +158,7 @@ class AddDiaryActivity : BaseActivity() {
                 )
                 .setOnChoose { millisecond ->
                     selectDate = BaseUtil.second2Day(millisecond)
+                    dateString = BaseUtil.second2Date2(millisecond)
                     binding.dateText.text = selectDate.substring(6..17)
 
                 }.build().show()
@@ -170,7 +173,7 @@ class AddDiaryActivity : BaseActivity() {
             val diary_value = ContentValues().apply {
                 put("imageuri", uri1)
                 put("moodid", moodMap[mood_flag])
-                put("datetext", selectDate)
+                put("datetext", dateString)
                 put("diarytext", diary_text)
             }
             val success = db.insert("diarydata", null, diary_value)
@@ -197,7 +200,7 @@ class AddDiaryActivity : BaseActivity() {
                 Log.d("successtest", success.toString())
                 intent.putExtra(
                     "addDiary", Diary(
-                        id, selectDate,
+                        id, dateString,
                         moodMap[mood_flag]!!, uri1, diary_text
                     )
                 )

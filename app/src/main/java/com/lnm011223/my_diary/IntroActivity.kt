@@ -22,6 +22,9 @@ class IntroActivity : AppIntro2() {
         setProgressIndicator()
         setImmersiveMode()
         isColorTransitionsEnabled = true
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
         setIndicatorColor(
             selectedIndicatorColor = getColor(R.color.main),
             unselectedIndicatorColor = getColor(R.color.main)

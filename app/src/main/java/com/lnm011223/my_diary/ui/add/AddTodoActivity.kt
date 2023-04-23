@@ -19,6 +19,7 @@ import java.util.*
 class AddTodoActivity : BaseActivity() {
     private lateinit var binding: ActivityAddTodoBinding
     private var secondNum: Long = 0
+    private var dateString: String = ""
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
