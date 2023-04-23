@@ -16,4 +16,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    <ImageView-->
+<!--        android:id="@+id/nodataImg"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/undraw_to_do_list_re_9nt7"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/nodataText"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="暂无数据。"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/nodataImg"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/nodataImg"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/nodataImg" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

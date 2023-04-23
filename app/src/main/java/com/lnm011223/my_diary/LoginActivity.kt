@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         BaseUtil.rightColor(window, this)
         if (!isLock) {
-            val intent = Intent(this, SplashActivity::class.java)
+            val intent = Intent(this, IntroActivity::class.java)
             startActivity(intent)
         } else {
 

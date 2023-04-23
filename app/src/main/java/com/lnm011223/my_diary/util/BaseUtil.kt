@@ -3,9 +3,11 @@ package com.lnm011223.my_diary.util
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.util.Log
 import android.view.Window
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,6 +15,9 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.base.MyApplication
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.*
 
 /**
@@ -26,6 +31,8 @@ object BaseUtil {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
+
+
 
     internal fun rightColor(window: Window, activity: Activity) {
         val insetsController = WindowCompat.getInsetsController(
@@ -52,7 +59,15 @@ object BaseUtil {
         }
     }
 
-    internal fun second2Date(secondNum:Long):String {
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dayOfWeek(dateString: String): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.getDefault())
+        val localDate = LocalDate.parse(dateString.substring(0, 8), formatter)
+        val dayOfWeek = localDate.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+        return dayOfWeek.replace("星期", "周")
+    }
+    
+    internal fun second2Date(secondNum: Long): String {
         //创建一个 Date 对象并传入时间戳参数
         val date = Date(secondNum)
         // 创建 SimpleDateFormat 对象以定义日期显示格式
@@ -63,7 +78,7 @@ object BaseUtil {
         return formattedDate
     }
 
-    internal fun second2Day(secondNum:Long):String {
+    internal fun second2Day(secondNum: Long): String {
         //创建一个 Date 对象并传入时间戳参数
         val date = Date(secondNum)
         // 创建 SimpleDateFormat 对象以定义日期显示格式
@@ -73,10 +88,6 @@ object BaseUtil {
 //        Log.d("millisecond", formattedDate)
         return formattedDate
     }
-
-
-
-
 
 
 }
