@@ -73,5 +73,5 @@ dependencies {
     implementation 'com.patrykandpatrick.vico:core:1.6.5'
     implementation 'com.patrykandpatrick.vico:views:1.6.5'
     implementation 'androidx.work:work-runtime:2.8.1'
-
+    implementation 'com.guolindev.permissionx:permissionx:1.7.1'
 }

@@ -27,6 +27,9 @@ import java.util.*
 
  */
 object BaseUtil {
+
+
+
     internal fun isDarkTheme(context: Context): Boolean {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES

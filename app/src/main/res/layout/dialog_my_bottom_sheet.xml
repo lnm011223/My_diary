@@ -14,6 +14,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
         app:titleTextColor="#61AE72"
+        app:subtitleTextColor="@color/titletextcolor"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
         app:title="图片预览"

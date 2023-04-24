@@ -26,6 +26,13 @@
     <color name="titletextcolor">#b9b9b9</color>
     <color name="smallcardtext">#202020</color>
     <color name="linecolor">#292929</color>
+    <color name="greenbg">#262D22</color>
+    <color name="green2">#1E241B</color>
+    <color name="green3">#394531</color>
+    <color name="green4">#E9FDDB</color>
+    <color name="green5">#E9FDDB</color>
+    <color name="green6">#6F9E4F</color>
+    <color name="greentext">#E9FDDB</color>
     <style name="MyTabLayout">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>

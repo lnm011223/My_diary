@@ -33,6 +33,14 @@
     <color name="titletextcolor">#707070</color>
     <color name="smallcardtext">#707070</color>
     <color name="linecolor">#eeeeee</color>
+    <color name="greenbg">#8BB868</color>
+    <color name="green2">#B5D6A0</color>
+    <color name="green3">#87B36A</color>
+    <color name="green4">#48732B</color>
+    <color name="green5">#E9FDDB</color>
+    <color name="green6">#6F9E4F</color>
+    <color name="greentext">#3B5529</color>
+
     <style name="MyTabLayout">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
