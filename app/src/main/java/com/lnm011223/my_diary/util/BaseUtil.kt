@@ -71,6 +71,12 @@ object BaseUtil {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun day2Text(dateString: String): String {
+        return "${dateString.substring(8..9)}:${dateString.substring(10..11)}"
+    }
+
+
 
     internal fun second2Date(secondNum: Long): String {
         //创建一个 Date 对象并传入时间戳参数

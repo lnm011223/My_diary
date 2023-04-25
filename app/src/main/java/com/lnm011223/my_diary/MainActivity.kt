@@ -60,8 +60,12 @@ class MainActivity : AppCompatActivity() {
         navView2.setupWithNavController(navController)
 
         getPermission(this)
-
-        setDailyNotification()
+        val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)
+        val isNotice = prefs?.getBoolean("isNotice", false)
+        if (isNotice!!) {
+            setDailyNotification()
+        }
+        TodoCheck.start(this)
         BaseUtil.rightColor(window, this)
         //控制不同fragment时fab的点击
         binding.fab.setOnClickListener { view ->
@@ -98,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_settings -> {
-                    window.statusBarColor = ContextCompat.getColor(context, R.color.main)
+                    window.statusBarColor = ContextCompat.getColor(context, R.color.greenbg)
                     hideFab(binding)
                 }
             }
@@ -234,7 +238,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         // 提示用户已成功设置每日提醒
-        Toast.makeText(this, "已设置每日提醒！", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "已设置每日提醒！", Toast.LENGTH_SHORT).show()
     }
 
 }
@@ -245,7 +249,7 @@ class MyReceiver : BroadcastReceiver() {
     }
 
     private fun showNotification(context: Context?) {
-        Log.d("yes","yes")
+        Log.d("yes", "yes")
         val notificationManager =
             context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
