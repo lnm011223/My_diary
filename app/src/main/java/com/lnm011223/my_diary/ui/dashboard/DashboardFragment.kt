@@ -87,7 +87,6 @@ class DashboardFragment : Fragment() {
 //        val mDividerItemDecoration = DividerItemDecoration(requireActivity(),DividerItemDecoration.VERTICAL)
 //        binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
         binding.diaryRecycle.adapter = adapter
-
         mainViewModel.addPosition.observe(viewLifecycleOwner) { add ->
 
 

@@ -11,9 +11,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/ic_twotone_delete_24"
-        android:tint="@color/titletextcolor"
         app:layout_constraintEnd_toEndOf="@+id/diary_card"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/titletextcolor" />
 
     <ImageView
         android:id="@+id/edit_image"
@@ -22,9 +22,9 @@
 
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_twotone_edit_24"
-        android:tint="@color/titletextcolor"
         app:layout_constraintEnd_toStartOf="@+id/delete_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/titletextcolor" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/diary_card"

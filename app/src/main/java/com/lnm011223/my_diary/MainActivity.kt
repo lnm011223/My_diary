@@ -19,6 +19,8 @@ import androidx.core.view.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,7 +41,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var appBarConfiguration: AppBarConfiguration
     @SuppressLint("ResourceAsColor", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -58,7 +60,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
         navView2.setupWithNavController(navController)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
 
+            setDisplayShowTitleEnabled(false)
+        }
         getPermission(this)
         val prefs = getSharedPreferences("data", Context.MODE_PRIVATE)
         val isNotice = prefs?.getBoolean("isNotice", false)
@@ -87,22 +93,29 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_home -> {
+                    binding.toolbarTitle.text = "待办事项"
                     showFab(window, binding)
                     binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_done_all_24))
                     binding.fab.show()
                 }
                 R.id.navigation_dashboard -> {
+                    binding.toolbarTitle.text = "日记记录"
+
                     showFab(window, binding)
                     binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_add_24))
                     binding.fab.show()
                 }
                 R.id.navigation_charts -> {
+                    binding.toolbarTitle.text = "图表分析"
+
                     window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
                     hideFab(binding)
                 }
 
                 R.id.navigation_settings -> {
-                    window.statusBarColor = ContextCompat.getColor(context, R.color.greenbg)
+                    binding.toolbarTitle.text = "个人设置"
+
+                    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
                     hideFab(binding)
                 }
             }
