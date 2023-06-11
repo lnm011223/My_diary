@@ -46,6 +46,22 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
     </style>
+
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+
+        <!-- 调整 TabLayout 的顶部、底部内边距 -->
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
+
+        <item name="tabPaddingStart">8dp</item>
+        <item name="tabPaddingEnd">8dp</item>
+
+        <!-- 调整 TabItem 的顶部、底部内边距 -->
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+
+    </style>
+
     <!--实现BottomSheetDialog圆角效果-->
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>

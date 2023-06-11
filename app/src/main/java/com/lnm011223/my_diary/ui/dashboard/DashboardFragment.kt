@@ -83,10 +83,12 @@ class DashboardFragment : Fragment() {
         initDiary(binding.monthText.text.toString())
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
+
         val adapter = DiaryAdapter(mainViewModel.diaryList.value!!, requireActivity())
-//        val mDividerItemDecoration = DividerItemDecoration(requireActivity(),DividerItemDecoration.VERTICAL)
-//        binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
+        val mDividerItemDecoration = DiaryDividerItemDecoration()
+        binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
         binding.diaryRecycle.adapter = adapter
+
         mainViewModel.addPosition.observe(viewLifecycleOwner) { add ->
 
 

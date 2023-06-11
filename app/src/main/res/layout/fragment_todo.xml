@@ -20,7 +20,6 @@
         app:tabTextAppearance="@style/MyTabLayout"
         android:id="@+id/tabLayout"
         app:tabIndicator="@drawable/shape_tab_indicator"
-
         >
 
     </com.google.android.material.tabs.TabLayout>

@@ -47,6 +47,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
                     app:layout_constraintEnd_toEndOf="@+id/toolbar_title"
                     app:layout_constraintStart_toStartOf="@+id/toolbar_title" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 

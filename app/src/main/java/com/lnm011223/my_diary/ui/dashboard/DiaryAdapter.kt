@@ -38,6 +38,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         val edit_button: ImageView = view.findViewById(R.id.edit_image)
     }
 
+
     override fun getItemCount() = diaryList.size
 
     //点击事件接口
