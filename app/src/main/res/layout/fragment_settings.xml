@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-
         android:backgroundTint="@color/cardcolor"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
@@ -148,7 +147,19 @@
                         android:textColor="@color/smallcardtext"
                         android:textStyle="bold" />
                 </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/changeUsername_Btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改欢迎语"
+                    android:textColor="@color/cardtext"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view1" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
