@@ -4,28 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_sheet_dialog_bg"
-    >
+    android:background="@drawable/shape_sheet_dialog_bg">
 
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="5dp"
+        android:background="@drawable/button_drawable"
+        android:backgroundTint="@color/cardinlinecolor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"/>
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/sheetToolBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        app:titleTextColor="#61AE72"
-        app:subtitleTextColor="@color/titletextcolor"
-        app:layout_constraintTop_toTopOf="parent"
-        app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-        app:title="图片预览"
+        android:backgroundTint="#00000000"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:navigationIcon="@drawable/twotone_photo_24"
+        app:navigationIconTint="@color/cardtext"
         app:subtitle="@string/app_name"
         app:subtitleCentered="true"
         app:subtitleTextAppearance="@style/TextAppearance.Material3.TitleSmall"
+        app:subtitleTextColor="@color/titletextcolor"
+        app:title="图片预览"
         app:titleCentered="true"
-        tools:layout_editor_absoluteX="0dp"
-        app:navigationIcon="@drawable/twotone_photo_24"
-        app:navigationIconTint="@color/cardtext"
-        android:backgroundTint="#00000000"/>
+        app:titleTextAppearance="@style/TextAppearance.Material3.ActionBar.Title"
+        app:titleTextColor="#61AE72"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
         android:id="@+id/sheetImage"
