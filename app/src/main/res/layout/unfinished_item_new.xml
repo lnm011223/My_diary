@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -25,29 +24,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp">
-
             <View
                 android:id="@+id/todoNotifyView"
                 android:layout_width="3dp"
                 android:layout_height="0dp"
-                android:layout_marginVertical="3dp"
                 android:layout_marginStart="3dp"
-                android:background="@color/main"
-                android:visibility="gone"
+                android:layout_marginVertical="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/main"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/isDoneChecked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/custom_checkbox"
                 android:buttonTint="@color/selector_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/todoNotifyView"
+                app:layout_constraintTop_toTopOf="parent"
+                
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/todoText"
-                app:layout_constraintTop_toTopOf="parent" />
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/todoText"
@@ -56,77 +54,71 @@
 
                 android:gravity="center_vertical"
                 android:text="今天做完Todo功能"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+
                 android:textColor="@color/titletextcolor"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/isDoneChecked"
-                app:layout_constraintStart_toEndOf="@+id/todoNotifyView"
+                app:layout_constraintBottom_toTopOf="@id/deadLineText"
+                app:layout_constraintEnd_toStartOf="@+id/isTopButton"
+                app:layout_constraintStart_toEndOf="@id/isDoneChecked"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/line"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.Barrier
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="5dp"
-                android:background="@color/cardinlinecolor"
-                app:layout_constraintStart_toEndOf="@id/todoNotifyView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/isDoneChecked" />
-
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="todoText" />
 
             <com.google.android.material.textview.MaterialTextView
+
                 android:id="@+id/deadLineText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="111"
+                android:layout_height="20dp"
+                android:gravity="bottom"
                 android:textColor="#61AE72"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/todoText"
-                app:layout_constraintTop_toBottomOf="@+id/line" />
+
+                app:layout_constraintStart_toEndOf="@+id/isDoneChecked"
+                 />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/splitText"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text=" · "
-                android:visibility="gone"
                 android:textColor="#61AE72"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/deadLineText" />
+                app:layout_constraintStart_toEndOf="@+id/deadLineText"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/classificationText"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="1111"
+
                 android:textColor="#61AE72"
-                app:layout_constraintStart_toStartOf="@+id/todoText"
-                app:layout_constraintTop_toBottomOf="@+id/todoText" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/splitText"
+                />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/isTopButton"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#00000000"
                 android:src="@drawable/ic_twotone_grade_24"
                 android:tint="@color/selector_color"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/isDoneChecked"
-                app:layout_constraintStart_toStartOf="@+id/isDoneChecked"
-                app:layout_constraintTop_toBottomOf="@+id/line" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

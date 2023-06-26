@@ -20,6 +20,7 @@ import com.lnm011223.my_diary.databinding.FragmentSettingsBinding
 import com.lnm011223.my_diary.util.BaseUtil
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
+import kotlin.random.Random
 
 // TODO: 添加深色模式开关按钮
 // TODO: 可以考虑适配material3样式
@@ -71,6 +72,19 @@ class SettingsFragment : Fragment() {
                 binding.timecard.isVisible = false
             }
         }
+
+        binding.avatar.setOnClickListener {
+            val moodMap = mapOf(
+                1 to R.drawable.mood_1,
+                2 to R.drawable.mood_2,
+                3 to R.drawable.mood_3,
+                4 to R.drawable.mood_4,
+                5 to R.drawable.mood_5,
+            )
+            val mood_num = (1 .. 5).random()
+            binding.avatar.setImageResource(moodMap[mood_num]!!)
+        }
+
         binding.isNoticeButton.setOnCheckedChangeListener { buttonView, isChecked ->
             when (isChecked) {
                 true -> {
