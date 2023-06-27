@@ -107,6 +107,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        if (intent.getStringExtra("yiyan").toString() != "null") {
+            mainViewModel.yiyan = intent.getStringExtra("yiyan").toString()
+        }
         //控制BottomNavigationView和fab的效果
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

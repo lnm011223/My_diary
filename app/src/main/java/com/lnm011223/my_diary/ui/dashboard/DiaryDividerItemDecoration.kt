@@ -29,7 +29,7 @@ class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
 
 
     init {
-        mPaint.color = Color.parseColor("#3EB06A")
+        mPaint.color = Color.parseColor("#87b99f")
         if (BaseUtil.isDarkTheme(MyApplication.context)) {
             rectPaint.color = Color.parseColor("#292929")
         }else{

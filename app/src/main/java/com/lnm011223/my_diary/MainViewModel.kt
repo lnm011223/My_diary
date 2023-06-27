@@ -53,7 +53,7 @@ class MainViewModel() : ViewModel() {
     var isDonePosition = MutableLiveData<Int>(-1)
     var notDonePosition = MutableLiveData<Int>(-1)
     var addunfinishedItem = Todo(-1, "", "", "", "", "", 0, 0)
-
+    var yiyan = "欢迎回来！"
 
     fun setPosition(position: Int) {
         revisePosition.value = position

@@ -10,4 +10,11 @@
     <color name="green">#61AE72</color>
     <color name="main">#3EB06A</color>
     <color name="red">#F44336</color>
+    <color name="newcolorblue">#285dc2</color>
+    <color name="newcolorindigo">#7e6be8</color>
+    <color name="newcolorgreen">#73d197</color>
+    <color name="newcolorred">#e7647f</color>
+    <color name="newcoloryellow">#f9cf67</color>
+    <color name="newcolororange">#f39970</color>
+
 </resources>

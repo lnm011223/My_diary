@@ -223,7 +223,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         if (date.filter { it.isDigit() }
                 .toBigInteger() - unFinished.deadline.filter { it.isDigit() }
                 .toBigInteger() > "0".toBigInteger()) {
-            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.red))
+            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.newcolorred))
             holder.todoNotify.setBackgroundColor(Color.parseColor("#F44336"))
         }else{
             holder.deadLineText.setTextColor(activity.getColorStateList(R.color.main))

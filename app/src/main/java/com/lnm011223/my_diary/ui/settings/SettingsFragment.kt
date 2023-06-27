@@ -15,6 +15,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.FragmentSettingsBinding
 import com.lnm011223.my_diary.util.BaseUtil
@@ -28,7 +29,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var settingsViewModel: SettingsViewModel
     private var _binding: FragmentSettingsBinding? = null
-
+    private lateinit var mainViewModel: MainViewModel
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -40,7 +41,8 @@ class SettingsFragment : Fragment() {
     ): View? {
         settingsViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
-
+        mainViewModel =
+            ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -105,7 +107,7 @@ class SettingsFragment : Fragment() {
             }
 
         }
-
+        binding.sloganText.text = mainViewModel.yiyan
         binding.changeUsernameBtn.setOnClickListener {
             // 设置布局
             val view = layoutInflater.inflate(R.layout.username_dialog_layout, null)

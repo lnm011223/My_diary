@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
                 if (yiyan != null) {
                     onlineFlag = true
                     binding.splashText.text = yiyan
-
+                    intent.putExtra("yiyan",yiyan)
                 }
 
 

@@ -11,7 +11,7 @@
         android:id="@+id/materialCardView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginHorizontal="10dp"
         android:backgroundTint="@color/cardcolor"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
@@ -45,9 +45,18 @@
                 android:textColor="@color/titletextcolor"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/avatar"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
                 app:layout_constraintTop_toTopOf="@+id/avatar" />
+
+            <TextView
+                android:id="@+id/slogan_text"
+                android:layout_width="0dp"
+                android:text="11111"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/welcome_text"
+                app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

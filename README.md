@@ -2,13 +2,7 @@
 
 
 
-# 			日记本的设计与实现说明文档 
-
-
-
-
-
-
+# 			心情树洞
 
 
 
@@ -52,8 +46,8 @@
 - [ ] 主题选择
 - [ ] 日历视图
 - [ ] 设置自定义
-- [ ] todo提醒
-- [ ] 日记提醒
+- [x] todo提醒
+- [x] 日记提醒
 - [ ] 详细图表
 
 
@@ -62,38 +56,27 @@
 
 > Todo
 
-<img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_021951_My_diary.jpg" alt="Screenshot_20230413_021951_My_diary"  />
-
-![Screenshot_20230413_022002_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022002_My_diary.jpg)
-
-![Screenshot_20230413_022017_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022017_My_diary.jpg)
-
-![Screenshot_20230413_022028_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022028_My_diary.jpg)
-
-![Screenshot_20230413_022040_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022040_My_diary.jpg)
-
-
-
-
+| <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111545533.png" alt="未完成列表" style="zoom: 25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111715874.png" alt="image-20230627111715874" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111800469.png" alt="image-20230627111800469" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111828374.png" alt="image-20230627111828374" style="zoom:25%;" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
 
 
 > 日记
 
-![Screenshot_20230413_022047_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022047_My_diary.jpg)
-
-![Screenshot_20230413_022054_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022054_My_diary.jpg)
-
-![Screenshot_20230413_022110_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022110_My_diary.jpg)
-
-![Screenshot_20230413_022123_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022123_My_diary.jpg)
-
-![Screenshot_20230413_022129_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022129_My_diary.jpg)
-
-
+| <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111915556.png" alt="image-20230627111915556" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111934230.png" alt="image-20230627111934230" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111945454.png" alt="image-20230627111945454" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627111951193.png" alt="image-20230627111951193" style="zoom:25%;" /> |
+| ------------------------------------------------------------ | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
 
 
 
 > 图表
 
-![Screenshot_20230413_022136_My_diary](https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/Screenshot_20230413_022136_My_diary.jpg)
+| <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112153046.png" alt="image-20230627112153046" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112205422.png" alt="image-20230627112205422" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112214661.png" alt="image-20230627112214661" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112242912.png" alt="image-20230627112242912" style="zoom:25%;" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+
+
+
+> 设置
+
+| <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112340596.png" alt="image-20230627112340596" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112413917.png" alt="image-20230627112413917" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112419962.png" alt="image-20230627112419962" style="zoom:25%;" /> | <img src="https://blog-1307458383.cos.ap-guangzhou.myqcloud.com/lnm011223-picture-master/uPic/image-20230627112425858.png" alt="image-20230627112425858" style="zoom:25%;" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
+

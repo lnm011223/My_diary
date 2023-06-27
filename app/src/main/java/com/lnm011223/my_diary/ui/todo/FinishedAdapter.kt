@@ -167,7 +167,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         val enddatenum = finished.endDate.filter { it.isDigit() }.toBigInteger()
 
         if (enddatenum - deadlinenum > "0".toBigInteger()) {
-            holder.endText.setTextColor(activity.getColorStateList(R.color.red))
+            holder.endText.setTextColor(activity.getColorStateList(R.color.newcolorred))
         } else {
             holder.endText.setTextColor(activity.getColorStateList(R.color.main))
         }

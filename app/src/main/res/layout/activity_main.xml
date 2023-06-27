@@ -144,7 +144,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#AED581"
+        android:backgroundTint="#EDDB88"
         android:src="@drawable/ic_baseline_add_24"
 
         app:borderWidth="0dp"
