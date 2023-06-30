@@ -248,6 +248,8 @@
         android:textStyle="bold"
         app:cornerRadius="100dp"
         app:elevation="0dp"
+        android:stateListAnimator="@null"
+
         android:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

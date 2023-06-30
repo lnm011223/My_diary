@@ -264,6 +264,8 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="修改完成"
+        android:stateListAnimator="@null"
+
         android:textSize="18dp"
         android:textStyle="bold"
         app:cornerRadius="100dp"
