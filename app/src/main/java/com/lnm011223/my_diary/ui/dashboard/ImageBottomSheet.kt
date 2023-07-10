@@ -1,11 +1,14 @@
 package com.lnm011223.my_diary.ui.dashboard
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.lnm011223.my_diary.R
@@ -25,6 +28,25 @@ class ImageBottomSheet(private val imageUrl: String, private val date: String) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialog)
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //拿到系统的 bottom_sheet
+        val view: FrameLayout = dialog?.findViewById(R.id.design_bottom_sheet)!!
+        //设置view高度
+        view.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+        //获取behavior
+        val behavior = BottomSheetBehavior.from(view)
+        //设置弹出高度
+        behavior.peekHeight = 3000
+        //设置展开状态
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     override fun onCreateView(
@@ -47,6 +69,7 @@ class ImageBottomSheet(private val imageUrl: String, private val date: String) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.sheetToolBar.setNavigationOnClickListener {
 
         }

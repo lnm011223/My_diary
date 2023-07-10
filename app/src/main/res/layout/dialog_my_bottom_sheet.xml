@@ -35,7 +35,7 @@
         app:titleTextColor="#61AE72"
         tools:layout_editor_absoluteX="0dp" />
 
-    <ImageView
+    <com.lnm011223.my_diary.util.ZoomImageView
         android:id="@+id/sheetImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

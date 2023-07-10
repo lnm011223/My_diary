@@ -213,7 +213,8 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/card_text"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/cardcolor"
@@ -223,31 +224,36 @@
                 app:layout_constraintTop_toBottomOf="@id/photo_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="一行日记"
-                    android:textColor="@color/cardtext"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/diarytext_edit"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@drawable/button_drawable"
-                    android:backgroundTint="@color/cardinlinecolor"
-                    android:hint="请输入内容"
-                    android:maxLines="2"
-                    android:paddingStart="10dp"
-                    android:textColor="@color/titletextcolor"
-                    android:textSize="15sp" />
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="一行日记"
+                        android:textColor="@color/cardtext"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/diarytext_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/button_drawable"
+                        android:backgroundTint="@color/cardinlinecolor"
+                        android:hint="请输入内容"
+                        android:paddingStart="10dp"
+                        android:textColor="@color/titletextcolor"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -259,7 +265,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="#3EB06A"
+        android:backgroundTint="@color/main"
         android:elevation="0dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"

@@ -43,6 +43,8 @@
 
                 android:gravity="center_vertical"
                 android:text="今天做完Todo功能"
+                style="@style/TextAppearance.Material3.TitleMedium"
+
                 android:textColor="@color/titletextcolor"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/isDoneChecked_F"
