@@ -35,7 +35,7 @@
     </style>
 
     <style name="Chart4Column1Style" parent="@style/Chart4ColumnStyle">
-        <item name="color">@color/main</item>
+        <item name="color">@color/hpcolorpurple</item>
     </style>
 
     <style name="Chart4Column2Style" parent="@style/Chart4ColumnStyle">

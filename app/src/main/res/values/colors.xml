@@ -17,5 +17,9 @@
     <color name="newcolorred">#e7647f</color>
     <color name="newcoloryellow">#f9cf67</color>
     <color name="newcolororange">#f39970</color>
+    <color name="hpcolorgreen">#90bbbd</color>
+    <color name="hpcolorpurple">#8680e1</color>
+    <color name="hpcolororange">#f0b669</color>
+
 
 </resources>

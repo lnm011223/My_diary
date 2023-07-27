@@ -3,17 +3,14 @@ package com.lnm011223.my_diary.ui.settings
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
@@ -21,7 +18,6 @@ import com.lnm011223.my_diary.databinding.FragmentSettingsBinding
 import com.lnm011223.my_diary.util.BaseUtil
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
-import kotlin.random.Random
 
 // TODO: 添加深色模式开关按钮
 // TODO: 可以考虑适配material3样式
@@ -55,7 +51,7 @@ class SettingsFragment : Fragment() {
         _binding = null
     }
 
-    @SuppressLint("CommitPrefEdits", "SetTextI18n")
+    @SuppressLint("CommitPrefEdits", "SetTextI18n", "InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val prefs = activity?.getSharedPreferences("data", Context.MODE_PRIVATE)
@@ -110,7 +106,7 @@ class SettingsFragment : Fragment() {
         binding.sloganText.text = mainViewModel.yiyan
         binding.changeUsernameBtn.setOnClickListener {
             // 设置布局
-            val view = layoutInflater.inflate(R.layout.username_dialog_layout, null)
+            val view = layoutInflater.inflate(R.layout.welcometext_dialog_layout, null)
             val input = view.findViewById<EditText>(R.id.input_text)
 
             AlertDialog.Builder(requireActivity()).apply {

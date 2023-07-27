@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <color name="chart_1_color_1">@color/main</color>
+    <color name="chart_1_color_1">@color/hpcolorpurple</color>
 
     <style name="Chart1Line1Style">
         <item name="color">@color/chart_1_color_1</item>

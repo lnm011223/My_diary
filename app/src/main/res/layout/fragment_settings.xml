@@ -28,7 +28,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="0dp"
                 android:elevation="0dp"
                 android:src="@drawable/mood_1"
 
@@ -40,7 +40,7 @@
                 android:id="@+id/welcome_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="15dp"
                 android:text="鹿鸣，天天开心！"
                 android:textColor="@color/titletextcolor"
                 android:textSize="20sp"

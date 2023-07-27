@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         BaseUtil.rightColor(window, this)
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         val retrofit = Retrofit.Builder()
             .baseUrl("https://v1.hitokoto.cn")
             .addConverterFactory(ScalarsConverterFactory.create())

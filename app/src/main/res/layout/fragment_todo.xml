@@ -14,10 +14,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tabMode="fixed"
+        android:layout_marginTop="-5dp"
         app:tabIndicatorAnimationMode="elastic"
         app:tabGravity="center"
         app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/MyTabLayout"
+        app:tabSelectedTextColor="@color/hpcolororange"
+        app:tabIndicatorColor="@color/hpcolororange"
         android:id="@+id/tabLayout"
         app:tabIndicator="@drawable/shape_tab_indicator"
         >

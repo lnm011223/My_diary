@@ -74,4 +74,7 @@ dependencies {
     implementation 'com.patrykandpatrick.vico:views:1.6.5'
     implementation 'androidx.work:work-runtime:2.8.1'
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
+    implementation 'com.github.st235:swipetoactionlayout:1.1.1'
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.6'
+    implementation  'io.github.scwang90:refresh-header-radar:2.0.6'       //雷达刷新头
 }

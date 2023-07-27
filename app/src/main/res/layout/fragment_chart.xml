@@ -53,7 +53,7 @@
                 android:layout_height="5dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/button_drawable"
-                android:backgroundTint="@color/main"
+                android:backgroundTint="@color/hpcolorpurple"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/month_select" />

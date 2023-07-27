@@ -92,7 +92,7 @@ class ChartFragment : Fragment() {
 
     }
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "ResourceAsColor")
     fun initChart(date: String) {
         thread {
 
@@ -183,7 +183,7 @@ class ChartFragment : Fragment() {
                 val end = it.range.last + 1
 
                 // 将数字部分的文本颜色设置为绿色并添加下划线和加粗
-                val colorSpan = ForegroundColorSpan(Color.parseColor("#3EB06A"))
+                val colorSpan = ForegroundColorSpan(R.color.hpcolorpurple)
                 val underlineSpan = UnderlineSpan()
                 val boldSpan = StyleSpan(Typeface.BOLD)
                 spannableString.setSpan(colorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
