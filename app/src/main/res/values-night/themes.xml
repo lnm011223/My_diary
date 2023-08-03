@@ -17,7 +17,7 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    <color name="cardcolor">#171717</color>
+    <color name="cardcolor">#1c1c1c</color>
     <color name="cardinlinecolor">#282828</color>
     <color name="smallcardcolor">#707070</color>
     <color name="backgroundcolor">#010101</color>

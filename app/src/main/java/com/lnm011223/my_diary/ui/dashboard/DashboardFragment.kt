@@ -17,6 +17,8 @@ import com.lnm011223.my_diary.base.MyDatabaseHelper
 import com.lnm011223.my_diary.databinding.FragmentDashboardBinding
 import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
+import com.lnm011223.my_diary.util.BaseUtil.gone
+import com.lnm011223.my_diary.util.BaseUtil.visible
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import kotlin.concurrent.thread
@@ -24,6 +26,7 @@ import kotlin.concurrent.thread
 
 // TODO: 优化recyclerview的滑动卡顿
 class DashboardFragment : Fragment() {
+    var goneflag = true
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentDashboardBinding? = null
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
@@ -35,7 +38,6 @@ class DashboardFragment : Fragment() {
         R.drawable.mood_4 to 4,
         R.drawable.mood_5 to 5,
     )
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -191,7 +193,19 @@ class DashboardFragment : Fragment() {
             R.drawable.mood_4_last,
             R.drawable.mood_5_last
         )
+        binding.screentext.setOnClickListener {
+            if (!goneflag){
+                binding.moodgroup.gone()
+                goneflag = true
+                binding.screentext.text = "筛选（点击展开）："
+            }else{
+                binding.moodgroup.visible()
+                goneflag = false
+                binding.screentext.text = "筛选（点击收起）："
 
+            }
+
+        }
         binding.swapBtn.setOnClickListener {
             mainViewModel.diaryList.value?.reverse()
             adapter.notifyDataSetChanged()
@@ -349,6 +363,7 @@ class DashboardFragment : Fragment() {
             diaryList.sortBy { it.date_text }
             mainViewModel.diaryList.value?.clear()
             mainViewModel.setAll(diaryList)
+            mainViewModel.diaryList.value?.reverse()
             activity?.runOnUiThread {
                 binding.diaryRecycle.adapter?.notifyDataSetChanged()
                 binding.diaryRecycle.smoothScrollToPosition(0)

@@ -188,7 +188,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
                     itemListenter?.noTopItemClick(position)
                 }
             }
-            val todoIsTop_value = contentValuesOf("isTop" to unFinished.isTop)
+            val  todoIsTop_value = contentValuesOf("isTop" to unFinished.isTop)
             db.update("tododata", todoIsTop_value, "id = ?", arrayOf(unFinished.id.toString()))
 
         }
@@ -223,10 +223,10 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         if (date.filter { it.isDigit() }
                 .toBigInteger() - unFinished.deadline.filter { it.isDigit() }
                 .toBigInteger() > "0".toBigInteger()) {
-            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.newcolorred))
+            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorred))
             holder.todoNotify.setBackgroundColor(Color.parseColor("#F44336"))
         }else{
-            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.main))
+            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorblue))
             holder.todoNotify.setBackgroundColor(Color.parseColor("#3EB06A"))
         }
         holder.todoText.text = unFinished.todoText

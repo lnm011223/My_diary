@@ -48,6 +48,7 @@
         android:elevation="0dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,15 +56,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/screentext"
                 android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content"
-                android:text="筛选："
+                android:text="筛选（点击展开）："
                 android:textColor="@color/cardtext"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -76,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:text="取消筛选"
                 android:textColor="#3EB06A"
-                app:layout_constraintBaseline_toBaselineOf="@id/textView"
+                app:layout_constraintBaseline_toBaselineOf="@id/screentext"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,28 +86,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-
                 android:backgroundTint="#00000000"
                 android:src="@drawable/mood_1_last"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/screentext"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/select_mood2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
                 android:backgroundTint="#00000000"
                 android:src="@drawable/mood_2_last"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/select_mood3"
                 app:layout_constraintStart_toEndOf="@+id/select_mood1"
+                app:layout_constraintTop_toBottomOf="@+id/screentext"
 
-                app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:layout_constraintVertical_bias="1.0" />
 
 
@@ -120,37 +117,42 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/screentext"
+
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/select_mood4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-             
                 android:backgroundTint="#00000000"
                 android:src="@drawable/mood_4_last"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/select_mood5"
                 app:layout_constraintStart_toEndOf="@+id/select_mood3"
+                app:layout_constraintTop_toBottomOf="@+id/screentext"
 
-                app:layout_constraintTop_toBottomOf="@+id/textView"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/select_mood5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:backgroundTint="#00000000"
                 android:src="@drawable/mood_5_last"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/screentext"
 
                 app:layout_constraintVertical_bias="1.0"
                 tools:layout_editor_absoluteY="37dp" />
+            <androidx.constraintlayout.widget.Group
+                android:visibility="gone"
+                android:id="@+id/moodgroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="select_mood1,select_mood2,select_mood3,select_mood4,select_mood5"
+                />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
@@ -182,7 +184,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
             app:layout_constraintTop_toBottomOf="@id/select_card"
             android:layout_marginBottom="10dp"/>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

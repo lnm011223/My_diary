@@ -18,8 +18,11 @@
     <color name="newcoloryellow">#f9cf67</color>
     <color name="newcolororange">#f39970</color>
     <color name="hpcolorgreen">#90bbbd</color>
-    <color name="hpcolorpurple">#8680e1</color>
+    <color name="hpcolorpurple">#a184e8</color>
     <color name="hpcolororange">#f0b669</color>
+    <color name="hpcolorred">#fa124f</color>
+    <color name="hpcolorblue">#01b5fe</color>
+    <color name="hpcolorpink">#e288d1</color>
 
 
 </resources>

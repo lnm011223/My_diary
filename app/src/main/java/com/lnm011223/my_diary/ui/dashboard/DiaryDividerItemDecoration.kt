@@ -22,19 +22,22 @@ import com.lnm011223.my_diary.util.DensityUtil
 
  */
 
+@SuppressLint("ResourceAsColor")
 class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
 
     private var mPaint: Paint = Paint()
     private var rectPaint: Paint = Paint()
+    private var mPaint1: Paint = Paint()
 
 
     init {
         mPaint.color = Color.parseColor("#87b99f")
         if (BaseUtil.isDarkTheme(MyApplication.context)) {
             rectPaint.color = Color.parseColor("#292929")
-        }else{
+            mPaint1.color = Color.parseColor("#010101")
+        } else {
             rectPaint.color = Color.parseColor("#b2b2b2")
-
+            mPaint1.color = Color.parseColor("#f6f6f6")
         }
     }
 
@@ -62,10 +65,11 @@ class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
             val manager = parent.layoutManager as RecyclerView.LayoutManager
             val x = manager.getLeftDecorationWidth(child) / 2
             val y = child.top + child.height / 2
-            c.drawRect((x - 5).toFloat(), 0f, (x + 5).toFloat(), child.bottom.toFloat(), rectPaint)
-
+            c.drawRect((x - 3).toFloat(), 0f, (x + 3).toFloat(), parent.height.toFloat(), rectPaint)
+            break
 
         }
+
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -78,85 +82,12 @@ class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
             val manager = parent.layoutManager as RecyclerView.LayoutManager
             val x = manager.getLeftDecorationWidth(child) / 2
             val y = child.top + child.height / 2
+            c.drawCircle(x.toFloat(), y.toFloat(), 30f, mPaint1)
             c.drawCircle(x.toFloat(), y.toFloat(), 20f, mPaint)
-
+            c.drawCircle(x.toFloat(), y.toFloat(), 10f, mPaint1)
 
         }
     }
 }
 
 
-class DividerItemDecoration : ItemDecoration() {
-    private val mPaint: Paint
-
-    // 在构造函数里进行绘制的初始化，如画笔属性设置等
-    init {
-        mPaint = Paint()
-        mPaint.color = Color.RED
-        // 画笔颜色设置为红色
-    }
-
-    // 重写getItemOffsets（）方法
-    // 作用：设置矩形OutRect 与 Item 的间隔区域
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        val itemPosition = parent.getChildAdapterPosition(view)
-        // 获得每个Item的位置
-
-        // 第1个Item不绘制分割线
-        if (itemPosition != 0) {
-            outRect[0, 0, 0] = 10
-            // 设置间隔区域为10px,即onDraw()可绘制的区域为10px
-        }
-    }
-
-    // 重写onDraw（）
-    // 作用:在间隔区域里绘制一个矩形，即分割线
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDraw(c, parent, state)
-
-        // 获取RecyclerView的Child view的个数
-        val childCount = parent.childCount
-
-        // 遍历每个Item，分别获取它们的位置信息，然后再绘制对应的分割线
-        for (i in 0 until childCount) {
-            // 获取每个Item的位置
-            val child = parent.getChildAt(i)
-            val index = parent.getChildAdapterPosition(child)
-            // 第1个Item不需要绘制
-            if (index == 0) {
-                continue
-            }
-
-            // 获取布局参数
-            val params = child
-                .layoutParams as RecyclerView.LayoutParams
-            // 设置矩形(分割线)的宽度为10px
-            val mDivider = 10
-
-            // 根据子视图的位置 & 间隔区域，设置矩形（分割线）的2个顶点坐标(左上 & 右下)
-
-            // 矩形左上顶点 = (ItemView的左边界,ItemView的下边界)
-            // ItemView的左边界 = RecyclerView 的左边界 + paddingLeft距离 后的位置
-            val left = parent.paddingLeft
-            // ItemView的下边界：ItemView 的 bottom坐标 + 距离RecyclerView底部距离 +translationY
-            val top = child.bottom + params.bottomMargin +
-                    Math.round(ViewCompat.getTranslationY(child))
-
-            // 矩形右下顶点 = (ItemView的右边界,矩形的下边界)
-            // ItemView的右边界 = RecyclerView 的右边界减去 paddingRight 后的坐标位置
-            val right = parent.width - parent.paddingRight
-            // 绘制分割线的下边界 = ItemView的下边界+分割线的高度
-            val bottom = top + mDivider
-
-
-            // 通过Canvas绘制矩形（分割线）
-            c.drawRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat(), mPaint)
-        }
-    }
-}
