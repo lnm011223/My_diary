@@ -118,18 +118,22 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> {
                     binding.toolbarTitle.text = "待办事项"
                     showFab(window, binding)
-                    binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_done_all_24))
+                    binding.fab.setImageResource(R.drawable.ic_baseline_done_all_24)
+                    binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg1)
                     binding.fab.show()
                 }
                 R.id.navigation_dashboard -> {
                     binding.toolbarTitle.text = "日记记录"
 
                     showFab(window, binding)
-                    binding.fab.setImageDrawable(getDrawable(R.drawable.ic_baseline_add_24))
+                    binding.fab.setImageDrawable(getDrawable(R.drawable.baseline_create_24))
+                    binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg2)
+
                     binding.fab.show()
                 }
                 R.id.navigation_charts -> {
                     binding.toolbarTitle.text = "图表分析"
+                    binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg3)
 
                     window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
                     hideFab(binding)
@@ -137,6 +141,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_settings -> {
                     binding.toolbarTitle.text = "个人设置"
+                    binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg4)
 
                     window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
                     hideFab(binding)

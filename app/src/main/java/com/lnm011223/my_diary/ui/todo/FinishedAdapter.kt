@@ -13,6 +13,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.contentValuesOf
@@ -47,6 +48,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         val classificationText: TextView = view.findViewById(R.id.classificationText_F)
         val splitText: TextView = view.findViewById(R.id.splitText_F)
         val splitText2: TextView = view.findViewById(R.id.splitText2_F)
+        val clockImg: ImageView = view.findViewById(R.id.clock_image)
 
     }
 
@@ -115,7 +117,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
                     finished.isTop = 1
                     viewHolder.isTopButton.startAnimation(animationSet)
                     viewHolder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
-                    viewHolder.isTopButton.imageTintList = activity.getColorStateList(R.color.green)
+                    viewHolder.isTopButton.imageTintList = activity.getColorStateList(R.color.hpcolororange)
                 }
                 1 -> {
                     finished.isTop = 0
@@ -139,7 +141,9 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         val itemhour = finished.deadline.substring(8..9)
         val itemmin = finished.deadline.substring(10..11)
 //        holder.startText.text = finished.startDate
-        holder.endText.text = "完成时间：$itemyear-$itemmonth-$itemday $itemhour:$itemmin"
+//        holder.endText.text = "完成时间：$itemyear-$itemmonth-$itemday $itemhour:$itemmin"
+        holder.endText.text = "$itemyear-$itemmonth-$itemday $itemhour:$itemmin"
+
         holder.todoText.text = finished.todoText
         holder.todoText.paintFlags = (holder.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         holder.classificationText.text = finished.classification
@@ -147,7 +151,7 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         when (finished.isTop) {
             1 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
-                holder.isTopButton.imageTintList = activity.getColorStateList(R.color.green)
+                holder.isTopButton.imageTintList = activity.getColorStateList(R.color.hpcolororange)
             }
             0 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_twotone_grade_24)
@@ -167,9 +171,13 @@ class FinishedAdapter(val FinishedList: List<Todo>, val activity: Activity) :
         val enddatenum = finished.endDate.filter { it.isDigit() }.toBigInteger()
 
         if (enddatenum - deadlinenum > "0".toBigInteger()) {
-            holder.endText.setTextColor(activity.getColorStateList(R.color.hpcolorred))
+//            holder.endText.setTextColor(activity.getColorStateList(R.color.hpcolorred))
+            holder.clockImg.imageTintList = activity.getColorStateList(R.color.hpcolorred)
+
         } else {
-            holder.endText.setTextColor(activity.getColorStateList(R.color.hpcolorblue))
+//            holder.endText.setTextColor(activity.getColorStateList(R.color.hpcolorblue))
+            holder.clockImg.imageTintList = activity.getColorStateList(R.color.main1)
+
         }
 
 

@@ -53,16 +53,23 @@
                 android:id="@+id/todoText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:gravity="center_vertical"
                 android:text="今天做完Todo功能"
-                android:textColor="@color/titletextcolor"
+                android:textColor="@color/cardtext"
                 android:textStyle="bold"
+                android:textSize="16sp"
                 style="@style/TextAppearance.Material3.TitleMedium"
                 app:layout_constraintEnd_toStartOf="@+id/isDoneChecked"
                 app:layout_constraintStart_toEndOf="@+id/todoNotifyView"
                 app:layout_constraintTop_toTopOf="parent" />
-
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/classificationText"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="1111"
+                android:textColor="@color/titletextcolor"
+                app:layout_constraintStart_toStartOf="@+id/todoText"
+                app:layout_constraintTop_toBottomOf="@+id/todoText" />
             <View
                 android:id="@+id/line"
                 android:layout_width="0dp"
@@ -73,17 +80,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/isDoneChecked" />
 
-
+            <ImageView
+                android:id="@+id/clock_image"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/twotone_schedule_24"
+                app:tint="@color/titletextcolor"
+                app:layout_constraintBottom_toBottomOf="@id/isTopButton"
+                app:layout_constraintStart_toStartOf="@+id/todoText"
+                app:layout_constraintTop_toTopOf="@+id/isTopButton"/>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/deadLineText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="111"
-                android:textColor="#61AE72"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/todoText"
-                app:layout_constraintTop_toBottomOf="@+id/line" />
+                android:textColor="@color/cardtext"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/isTopButton"
+                app:layout_constraintStart_toEndOf="@+id/clock_image"
+                app:layout_constraintTop_toTopOf="@+id/isTopButton" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/splitText"
@@ -96,14 +112,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/deadLineText" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/classificationText"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="1111"
-                android:textColor="#61AE72"
-                app:layout_constraintStart_toStartOf="@+id/todoText"
-                app:layout_constraintTop_toBottomOf="@+id/todoText" />
+
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/isTopButton"

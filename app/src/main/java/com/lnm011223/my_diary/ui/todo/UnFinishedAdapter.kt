@@ -17,6 +17,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityOptionsCompat
@@ -60,6 +61,8 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         val splitText: TextView = view.findViewById(R.id.splitText)
         val todoCard: View = view.findViewById(R.id.todoCard)
         val todoNotify: View = view.findViewById(R.id.todoNotifyView)
+        val clockImg: ImageView = view.findViewById(R.id.clock_image)
+
 
     }
 
@@ -175,7 +178,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
 
                     viewHolder.isTopButton.startAnimation(animationSet)
                     viewHolder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
-                    viewHolder.isTopButton.imageTintList = activity.getColorStateList(R.color.green)
+                    viewHolder.isTopButton.imageTintList = activity.getColorStateList(R.color.hpcolororange)
                     itemListenter?.topItemClick(position)
 
                 }
@@ -223,11 +226,12 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         if (date.filter { it.isDigit() }
                 .toBigInteger() - unFinished.deadline.filter { it.isDigit() }
                 .toBigInteger() > "0".toBigInteger()) {
-            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorred))
-            holder.todoNotify.setBackgroundColor(Color.parseColor("#F44336"))
+//            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorred))
+//            holder.todoNotify.setBackgroundColor(Color.parseColor("#F44336"))
+            holder.clockImg.imageTintList = activity.getColorStateList(R.color.hpcolorred)
         }else{
-            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorblue))
-            holder.todoNotify.setBackgroundColor(Color.parseColor("#3EB06A"))
+//            holder.deadLineText.setTextColor(activity.getColorStateList(R.color.hpcolorblue))
+//            holder.todoNotify.setBackgroundColor(Color.parseColor("#3EB06A"))
         }
         holder.todoText.text = unFinished.todoText
         holder.classificationText.text = unFinished.classification
@@ -235,7 +239,7 @@ class UnFinishedAdapter(val unFinishedList: List<Todo>, val activity: Activity) 
         when (unFinished.isTop) {
             1 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_baseline_grade_24)
-                holder.isTopButton.imageTintList = activity.getColorStateList(R.color.green)
+                holder.isTopButton.imageTintList = activity.getColorStateList(R.color.hpcolororange)
             }
             0 -> {
                 holder.isTopButton.setImageResource(R.drawable.ic_twotone_grade_24)
