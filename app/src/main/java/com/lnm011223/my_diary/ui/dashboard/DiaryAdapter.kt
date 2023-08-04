@@ -31,6 +31,7 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         val diarycard_mood: ImageView = view.findViewById(R.id.diarycard_mood)
         val diarycard_image: ImageView = view.findViewById(R.id.diarycard_image)
         val diarycard_date: TextView = view.findViewById(R.id.diarycard_date)
+        val diarycard_date_week: TextView = view.findViewById(R.id.diarycard_date_week)
         val diarycard_text: TextView = view.findViewById(R.id.diarycard_text)
         val delete_button: ImageView = view.findViewById(R.id.delete_image)
         val diarycard_image_background: View = view.findViewById(R.id.diarycard_image_background)
@@ -59,6 +60,16 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         3 to R.drawable.mood_3,
         4 to R.drawable.mood_4,
         5 to R.drawable.mood_5,
+    )
+
+    val weekMap = mapOf(
+        "周一"  to "MON",
+        "周二"  to "TUE",
+        "周三"  to "WED",
+        "周四"  to "THU",
+        "周五"  to "FRI",
+        "周六"  to "SAT",
+        "周日"  to "SUN"
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -132,8 +143,11 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(moodMap[diary.moon]!!)
-        holder.diarycard_date.text =
-            diary.date_text.substring(6..7) + " " + BaseUtil.dayOfWeek(diary.date_text)
+//        holder.diarycard_date.text =
+//            diary.date_text.substring(6..7) + " " + BaseUtil.dayOfWeek(diary.date_text)
+        holder.diarycard_date.text = diary.date_text.substring(6..7)
+
+        holder.diarycard_date_week.text = weekMap[BaseUtil.dayOfWeek(diary.date_text)]
         holder.diarycard_text.text = diary.diary_text
         Log.d("image-url", diary.diary_image)
         if (diary.diary_image == "") {

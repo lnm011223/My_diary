@@ -6,15 +6,41 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp">
 
+    <TextView
+        android:id="@+id/diarycard_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="01"
+        android:fontFamily="monospace"
+        android:textColor="@color/titletextcolor"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/edit_image"
+        app:layout_constraintStart_toStartOf="@+id/diary_card" />
+
+    <TextView
+        android:id="@+id/diarycard_date_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="周五"
+        android:fontFamily="monospace"
+        android:textColor="@color/titletextcolor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/diarycard_date"
+        app:layout_constraintBottom_toBottomOf="@+id/diarycard_date"
+        app:layout_constraintStart_toEndOf="@+id/diarycard_date" />
+
     <ImageView
         android:id="@+id/delete_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="15dp"
-
         android:src="@drawable/ic_twotone_delete_24"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_image"
         app:layout_constraintEnd_toEndOf="@+id/diary_card"
-        app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/titletextcolor" />
 
     <ImageView
@@ -24,6 +50,8 @@
 
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_twotone_edit_24"
+        app:layout_constraintBottom_toTopOf="@+id/diary_card"
+
         app:layout_constraintEnd_toStartOf="@+id/delete_image"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/titletextcolor" />
@@ -39,7 +67,7 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/delete_image"
+        app:layout_constraintTop_toBottomOf="@id/diarycard_date"
         tools:layout_editor_absoluteX="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,9 +90,9 @@
                 android:id="@+id/materialCardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="5dp"
                 android:backgroundTint="@color/smallcardcolor"
+                android:visibility="invisible"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="@+id/diarycard_mood"
@@ -72,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/diarycard_mood">
 
                 <TextView
-                    android:id="@+id/diarycard_date"
+                    android:id="@+id/diarycard_date1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="6dp"
@@ -114,9 +142,9 @@
                 android:id="@+id/diarycard_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:minHeight="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:minHeight="40dp"
                 android:text="dddd"
                 android:textColor="@color/titletextcolor"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -20,6 +20,7 @@ import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.ActivityReviseDairyBinding
 import com.lnm011223.my_diary.logic.model.Diary
 import com.lnm011223.my_diary.util.BaseUtil
+import com.lnm011223.my_diary.util.BaseUtil.px
 
 import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
@@ -89,7 +90,7 @@ class ReviseDiaryActivity : AppCompatActivity() {
             binding.imageShow.scaleType = ImageView.ScaleType.FIT_XY
             binding.imageShow.setImageURI(imageuri)
         } else {
-            binding.imageShow.setPadding(DensityUtil.dip2px(context, 60f))
+            binding.imageShow.setPadding(60.px)
         }
 
 

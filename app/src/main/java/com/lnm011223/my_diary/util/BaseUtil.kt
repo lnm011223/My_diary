@@ -3,6 +3,7 @@ package com.lnm011223.my_diary.util
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.util.Log
 import android.view.Window
@@ -20,6 +21,10 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.*
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 
 /**
 
@@ -28,7 +33,13 @@ import android.view.View
 
  */
 object BaseUtil {
+    // Convert px to dp
+    val Int.dp: Int
+        get() = (this / Resources.getSystem().displayMetrics.density).toInt()
 
+    //Convert dp to px
+    val Int.px: Int
+        get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     fun View.gone() = run { visibility = View.GONE }
 
@@ -132,5 +143,49 @@ object BaseUtil {
     }
 
 
+    fun Fragment.shorttoast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun Fragment.shorttoast(@StringRes message: Int) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun Activity.shorttoast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun Activity.shorttoast(@StringRes message: Int) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun Fragment.longtoast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun Fragment.longtoast(@StringRes message: Int) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    fun Activity.longtoast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    fun Activity.longtoast(@StringRes message: Int) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    fun Any?.printToLog(tag: String = "DEBUG_LOG") {
+        Log.d(tag, toString())
+    }
+
+
+    fun View.snackbar(message: String, duration: Int = Snackbar.LENGTH_LONG) {
+        Snackbar.make(this, message, duration).show()
+    }
+
+    fun View.snackbar(@StringRes message: Int, duration: Int = Snackbar.LENGTH_LONG) {
+        Snackbar.make(this, message, duration).show()
+    }
 }
 

@@ -22,6 +22,7 @@ import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.util.UriUtils
 import com.lnm011223.my_diary.base.BaseActivity
 import com.lnm011223.my_diary.databinding.ActivityAddDiaryBinding
+import com.lnm011223.my_diary.util.BaseUtil.px
 import com.loper7.date_time_picker.DateTimeConfig
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog
 import java.text.SimpleDateFormat
@@ -62,7 +63,7 @@ class AddDiaryActivity : BaseActivity() {
         BaseUtil.rightColor(window, this)
         val dbHelper = MyDatabaseHelper(context, "DiaryData.db", 1)
         dbHelper.writableDatabase
-        binding.imageShow.setPadding(DensityUtil.dip2px(context, 60f))
+        binding.imageShow.setPadding(60.px)
         binding.imageShow.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK) // 打开相册
             intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")

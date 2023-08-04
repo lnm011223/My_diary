@@ -197,11 +197,11 @@ class DashboardFragment : Fragment() {
             if (!goneflag){
                 binding.moodgroup.gone()
                 goneflag = true
-                binding.screentext.text = "筛选（点击展开）："
+//                binding.screentext.text = "筛选（点击展开）："
             }else{
                 binding.moodgroup.visible()
                 goneflag = false
-                binding.screentext.text = "筛选（点击收起）："
+//                binding.screentext.text = "筛选（点击收起）："
 
             }
 

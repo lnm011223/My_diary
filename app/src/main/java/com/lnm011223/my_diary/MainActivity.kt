@@ -36,6 +36,8 @@ import com.lnm011223.my_diary.util.DensityUtil
 import com.lnm011223.my_diary.base.BaseActivity.Companion.CLICK_X
 import com.lnm011223.my_diary.base.BaseActivity.Companion.CLICK_Y
 import com.lnm011223.my_diary.base.MyApplication
+import com.lnm011223.my_diary.util.BaseUtil.px
+import com.lnm011223.my_diary.util.BaseUtil.shorttoast
 import com.permissionx.guolindev.PermissionX
 import java.util.*
 
@@ -189,8 +191,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showFab(window: Window, binding: ActivityMainBinding) {
         window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
-        binding.navView.updatePadding(right = DensityUtil.dip2px(context, 50f))
-        binding.navView2.updatePadding(left = DensityUtil.dip2px(context, 50f))
+        binding.navView.updatePadding(right = 50.px)
+        binding.navView2.updatePadding(left = 50.px)
         binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER
         binding.navView2.menu.findItem(R.id.uncheckedItem).isChecked = true
 

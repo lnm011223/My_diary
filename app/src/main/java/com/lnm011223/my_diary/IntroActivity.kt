@@ -34,7 +34,7 @@ class IntroActivity : AppIntro2() {
             AppIntroFragment.createInstance(
                 title = "The title of your slide",
                 description = "A description that will be shown on the bottom",
-                imageDrawable = R.drawable.todo1,
+                imageDrawable = R.drawable.mood_1,
                 titleColorRes = R.color.titletextcolor,
                 descriptionColorRes = R.color.red,
                 backgroundColorRes = R.color.backgroundcolor,

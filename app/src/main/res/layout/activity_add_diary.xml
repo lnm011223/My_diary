@@ -25,7 +25,7 @@
                 android:id="@+id/day_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginVertical="50dp"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,6 @@
                     android:id="@+id/date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="30dp"
                     android:textColor="@color/cardtext"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -48,26 +47,33 @@
                     android:src="@drawable/baseline_unfold_more_24"
                     android:tint="@color/titletextcolor" />
             </LinearLayout>
-
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_mood"
+                android:id="@+id/materialCardView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="10dp"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/cardcolor"
-                android:elevation="0dp"
-                app:cardCornerRadius="10dp"
+                android:backgroundTint="@color/hpcolorgreen"
+                app:cardCornerRadius="100dp"
                 app:cardElevation="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/card_mood"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/day_select">
+                app:layout_constraintTop_toTopOf="@+id/card_mood" />
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/card_mood"
+
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/shape_todo_bg"
+                    android:backgroundTint="@color/cardcolor"
+                    android:padding="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/day_select">
 
                     <TextView
                         android:id="@+id/textView"
@@ -164,13 +170,11 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </com.google.android.material.card.MaterialCardView>
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/photo_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/cardcolor"
@@ -232,7 +236,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
-                android:layout_marginHorizontal="15dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/cardcolor"
@@ -284,7 +288,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/main"
+        android:backgroundTint="@color/hpcolorgreen"
         android:elevation="0dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"

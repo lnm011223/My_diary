@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
 
                 android:layout_height="wrap_content"
-                android:text="筛选（点击展开）："
+                android:text="筛选："
                 android:textColor="@color/cardtext"
                 android:textSize="14sp"
                 android:textStyle="bold"
