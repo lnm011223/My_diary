@@ -91,6 +91,7 @@ class MainViewModel() : ViewModel() {
     fun addDiary(diary: Diary) {
         _diaryList.value?.add(diary)
         addPosition.value = -1
+        _diaryList.value?.sortByDescending { it.date_text }
     }
 
     fun clearAll() {

@@ -108,8 +108,11 @@ class DashboardFragment : Fragment() {
                                 )
                             if (flag) {
                                 mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
-                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                                val index = mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
+                                adapter.notifyItemInserted(index)
+                                binding.diaryRecycle.smoothScrollToPosition(index)
+//                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+//                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
                             }
                         }
                         //当前没筛选才添加
@@ -122,8 +125,11 @@ class DashboardFragment : Fragment() {
                                 )
                             if (flag) {
                                 mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
-                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
+                                val index = mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
+                                adapter.notifyItemInserted(index)
+                                binding.diaryRecycle.smoothScrollToPosition(index)
+//                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
+//                                binding.diaryRecycle.smoothScrollToPosition(adapter.itemCount - 1)
                             }
                         }
                         //重置flag值
@@ -360,10 +366,9 @@ class DashboardFragment : Fragment() {
                 } while (cursor.moveToNext())
             }
             cursor.close()
-            diaryList.sortBy { it.date_text }
+            diaryList.sortByDescending { it.date_text }
             mainViewModel.diaryList.value?.clear()
             mainViewModel.setAll(diaryList)
-            mainViewModel.diaryList.value?.reverse()
             activity?.runOnUiThread {
                 binding.diaryRecycle.adapter?.notifyDataSetChanged()
                 binding.diaryRecycle.smoothScrollToPosition(0)

@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="01"
         android:fontFamily="monospace"
+        android:text="01"
         android:textColor="@color/titletextcolor"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:text="周五"
         android:fontFamily="monospace"
+        android:text="周五"
         android:textColor="@color/titletextcolor"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -56,7 +56,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/titletextcolor" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_rounded_corner"
+        android:translationX="5dp"
+        android:translationY="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/diary_card"
+        app:layout_constraintEnd_toEndOf="@+id/diary_card"
+        app:layout_constraintStart_toStartOf="@+id/diary_card"
+        app:layout_constraintTop_toTopOf="@+id/diary_card" />
+
+
     <com.google.android.material.card.MaterialCardView
+        android:layout_marginBottom="5dp"
         android:id="@+id/diary_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,9 +81,12 @@
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/diarycard_date"
+        app:strokeColor="@color/titletextcolor"
+        app:strokeWidth="1dp"
         tools:layout_editor_absoluteX="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp">

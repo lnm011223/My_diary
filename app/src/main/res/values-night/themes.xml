@@ -24,6 +24,7 @@
     <color name="diverLinecolor">#414141</color>
     <color name="cardtext">#e2e2e2</color>
     <color name="titletextcolor">#b9b9b9</color>
+    <color name="strokecolor">#ffffff</color>
     <color name="smallcardtext">#202020</color>
     <color name="linecolor">#292929</color>
     <color name="greenbg">#262D22</color>

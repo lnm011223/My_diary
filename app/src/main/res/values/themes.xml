@@ -31,6 +31,7 @@
     <color name="backgroundcolor">#F6F6F6</color>
     <color name="cardtext">#707070</color>
     <color name="titletextcolor">#707070</color>
+    <color name="strokecolor">#000000</color>
     <color name="smallcardtext">#707070</color>
     <color name="linecolor">#eeeeee</color>
     <color name="greenbg">#8BB868</color>
