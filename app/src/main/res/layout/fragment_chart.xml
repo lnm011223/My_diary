@@ -6,81 +6,114 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundcolor"
     tools:context=".ui.charts.ChartFragment">
+    <LinearLayout
+        android:id="@+id/month_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ScrollView
+        <TextView
+            android:id="@+id/month_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/cardtext"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_unfold_more_24"
+            android:tint="@color/titletextcolor" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerLine"
+        android:layout_width="200dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_drawable"
+        android:backgroundTint="@color/hpcolorpurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/month_select" />
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:overScrollMode="never"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="57dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toTopOf="@id/dividerLine"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/month_select"
+            <TextView
+                android:id="@+id/fenxi_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="分析"
+                android:textColor="@color/cardtext"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/chartcard2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:backgroundTint="@color/cardcolor"
+                android:elevation="0dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fenxi_text">
 
                 <TextView
-                    android:id="@+id/month_text"
+                    android:id="@+id/showText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="15dp" />
 
-                    android:textColor="@color/cardtext"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_unfold_more_24"
-                    android:tint="@color/titletextcolor" />
-            </LinearLayout>
-
-            <View
-                android:id="@+id/dividerLine"
-                android:layout_width="200dp"
-                android:layout_height="5dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/button_drawable"
-                android:backgroundTint="@color/hpcolorpurple"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/month_select" />
             <TextView
                 android:id="@+id/qushi_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:text="心情趋势"
                 android:textColor="@color/cardtext"
                 android:textSize="16sp"
-                android:text="心情趋势"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dividerLine" />
+                app:layout_constraintTop_toBottomOf="@id/chartcard2" />
+
             <com.google.android.material.card.MaterialCardView
-                android:layout_marginTop="15dp"
+                android:id="@+id/chartcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/cardcolor"
                 android:elevation="0dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/qushi_text"
-                android:id="@+id/chartcard">
+                app:layout_constraintTop_toBottomOf="@+id/qushi_text">
 
                 <com.patrykandpatrick.vico.views.chart.ChartView
                     android:id="@+id/chart_view"
@@ -93,27 +126,29 @@
                     app:showBottomAxis="true"
                     app:showStartAxis="true" />
             </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/fenbu_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:text="心情分布"
                 android:textColor="@color/cardtext"
                 android:textSize="16sp"
-                android:text="心情分布"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chartcard" />
+
             <com.google.android.material.card.MaterialCardView
-                android:layout_marginTop="15dp"
+                android:id="@+id/chartcard1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
                 android:backgroundTint="@color/cardcolor"
                 android:elevation="0dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
-                android:id="@+id/chartcard1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fenbu_text">
@@ -129,48 +164,11 @@
                     app:showBottomAxis="true"
                     app:showStartAxis="true" />
             </com.google.android.material.card.MaterialCardView>
-            <TextView
-                android:id="@+id/fenxi_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/cardtext"
-                android:textSize="16sp"
-                android:text="分析"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chartcard1" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:backgroundTint="@color/cardcolor"
-                android:elevation="0dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="0dp"
-                android:id="@+id/chartcard2"
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fenxi_text">
-                <TextView
-                    android:id="@+id/showText"
-                    android:layout_margin="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
 
-            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-
-
-
-
-
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

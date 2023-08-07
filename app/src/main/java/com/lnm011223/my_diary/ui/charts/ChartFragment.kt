@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.github.aachartmodel.aainfographics.aachartcreator.*
 import com.github.aachartmodel.aainfographics.aaoptionsmodel.*
@@ -182,8 +183,11 @@ class ChartFragment : Fragment() {
                 val start = it.range.first
                 val end = it.range.last + 1
 
+                // 获取实际颜色值
+                val color = ContextCompat.getColor(requireContext(), R.color.hpcolorpurple)
+
                 // 将数字部分的文本颜色设置为绿色并添加下划线和加粗
-                val colorSpan = ForegroundColorSpan(R.color.hpcolorpurple)
+                val colorSpan = ForegroundColorSpan(color)
                 val underlineSpan = UnderlineSpan()
                 val boldSpan = StyleSpan(Typeface.BOLD)
                 spannableString.setSpan(colorSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
