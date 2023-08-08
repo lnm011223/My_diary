@@ -15,6 +15,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+
         // apply dynamic color
         DynamicColors.applyToActivitiesIfAvailable(this)
         // 打开darkmode

@@ -139,7 +139,7 @@ class DashboardFragment : Fragment() {
         // 设置 Fragment 的菜单项可见
         setHasOptionsMenu(true)
         val adapter = DiaryAdapter(mainViewModel.diaryList.value!!, requireActivity())
-        val mDividerItemDecoration = DiaryDividerItemDecoration()
+        val mDividerItemDecoration = DiaryDividerItemDecoration(requireActivity())
         binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
         binding.diaryRecycle.adapter = adapter
 

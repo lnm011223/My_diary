@@ -1,6 +1,7 @@
 package com.lnm011223.my_diary.ui.dashboard
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -25,7 +26,7 @@ import com.lnm011223.my_diary.util.DensityUtil
  */
 
 @SuppressLint("ResourceAsColor")
-class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
+class DiaryDividerItemDecoration(activity:Activity) : RecyclerView.ItemDecoration() {
 
     private var mPaint: Paint = Paint()
     private var rectPaint: Paint = Paint()
@@ -34,7 +35,7 @@ class DiaryDividerItemDecoration : RecyclerView.ItemDecoration() {
 
     init {
         mPaint.color = Color.parseColor("#87b99f")
-        if (BaseUtil.isDarkTheme(MyApplication.context)) {
+        if (BaseUtil.isDarkTheme(activity)) {
             rectPaint.color = Color.parseColor("#292929")
             mPaint1.color = Color.parseColor("#010101")
         } else {
