@@ -65,7 +65,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/background_rounded_corner"
+                android:backgroundTint="@color/hpcolorpurple"
+                android:translationX="5dp"
+                android:translationY="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/chartcard"
+                app:layout_constraintEnd_toEndOf="@+id/chartcard"
+                app:layout_constraintStart_toStartOf="@+id/chartcard"
+                app:layout_constraintTop_toTopOf="@+id/chartcard" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/background_rounded_corner"
+                android:backgroundTint="@color/hpcolorpurple"
+                android:translationX="5dp"
+                android:translationY="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/chartcard2"
+                app:layout_constraintEnd_toEndOf="@+id/chartcard2"
+                app:layout_constraintStart_toStartOf="@+id/chartcard2"
+                app:layout_constraintTop_toTopOf="@+id/chartcard2" />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chartcard2"
                 android:layout_width="match_parent"
@@ -76,7 +97,8 @@
                 android:elevation="0dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
-
+                app:strokeColor="@color/titletextcolor"
+                app:strokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fenxi_text">
@@ -111,6 +133,8 @@
                 android:elevation="0dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="0dp"
+                app:strokeColor="@color/titletextcolor"
+                app:strokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qushi_text">
@@ -138,7 +162,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chartcard" />
-
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/background_rounded_corner"
+                android:backgroundTint="@color/hpcolorpurple"
+                android:translationX="5dp"
+                android:translationY="5dp"
+                app:layout_constraintBottom_toBottomOf="@id/chartcard1"
+                app:layout_constraintEnd_toEndOf="@+id/chartcard1"
+                app:layout_constraintStart_toStartOf="@+id/chartcard1"
+                app:layout_constraintTop_toTopOf="@+id/chartcard1" />
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/chartcard1"
                 android:layout_width="match_parent"
@@ -148,10 +182,14 @@
                 android:backgroundTint="@color/cardcolor"
                 android:elevation="0dp"
                 app:cardCornerRadius="10dp"
+                android:layout_marginBottom="15dp"
                 app:cardElevation="0dp"
+                app:strokeColor="@color/titletextcolor"
+                app:strokeWidth="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fenbu_text">
+                app:layout_constraintTop_toBottomOf="@+id/fenbu_text"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.patrykandpatrick.vico.views.chart.ChartView
                     android:id="@+id/chart_view1"

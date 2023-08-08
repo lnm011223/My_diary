@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_rounded_corner"
+        android:backgroundTint="@color/hpcolororange"
+        android:translationX="5dp"
+        android:translationY="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/todoCard"
+        app:layout_constraintEnd_toEndOf="@+id/todoCard"
+        app:layout_constraintStart_toStartOf="@+id/todoCard"
+        app:layout_constraintTop_toTopOf="@+id/todoCard" />
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/todoCard"
         android:layout_width="match_parent"
@@ -14,6 +24,8 @@
         app:cardCornerRadius="10dp"
         android:elevation="0dp"
         app:cardElevation="0dp"
+        app:strokeColor="@color/titletextcolor"
+        app:strokeWidth="1dp"
         android:backgroundTint="@color/cardcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

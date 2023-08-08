@@ -98,6 +98,8 @@
         <item name="cornerSizeTopRight">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
-
+    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/main</item> <!-- 设置单选按钮的颜色 -->
+    </style>
 
 </resources>

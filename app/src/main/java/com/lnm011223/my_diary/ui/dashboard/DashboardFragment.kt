@@ -5,12 +5,16 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lnm011223.my_diary.*
 import com.lnm011223.my_diary.base.MyApplication
 import com.lnm011223.my_diary.base.MyDatabaseHelper
@@ -27,6 +31,7 @@ import kotlin.concurrent.thread
 // TODO: 优化recyclerview的滑动卡顿
 class DashboardFragment : Fragment() {
     var goneflag = true
+    private var isVisible = true
     private lateinit var mainViewModel: MainViewModel
     private var _binding: FragmentDashboardBinding? = null
     val dbHelper = MyDatabaseHelper(MyApplication.context, "DiaryData.db", 1)
@@ -38,6 +43,7 @@ class DashboardFragment : Fragment() {
         R.drawable.mood_4 to 4,
         R.drawable.mood_5 to 5,
     )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -60,20 +66,65 @@ class DashboardFragment : Fragment() {
                 mainViewModel.flag1 -> {
                     binding.selectMood1.setImageResource(R.drawable.mood_1)
                 }
+
                 mainViewModel.flag2 -> {
                     binding.selectMood2.setImageResource(R.drawable.mood_2)
                 }
+
                 mainViewModel.flag3 -> {
                     binding.selectMood3.setImageResource(R.drawable.mood_3)
                 }
+
                 mainViewModel.flag4 -> {
                     binding.selectMood4.setImageResource(R.drawable.mood_4)
                 }
+
                 mainViewModel.flag5 -> {
                     binding.selectMood5.setImageResource(R.drawable.mood_5)
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 在 Fragment 中处理菜单项的选择事件
+        when (item.itemId) {
+            R.id.diary_edit -> {
+                // 获取 RecyclerView 实例
+                val recyclerView: RecyclerView = requireView().findViewById(R.id.diary_recycle)
+
+                // 获取 Adapter
+                val adapter: DiaryAdapter = recyclerView.adapter as DiaryAdapter
+
+                // 调用 Adapter 的函数
+                for (i in 0..adapter.diaryList.size) {
+                    adapter.setItemVisible(i, isVisible)
+                }
+                if (isVisible){
+                    item.title = "取消编辑"
+                }else{
+                    item.title = "编辑模式"
+                }
+
+                isVisible = !isVisible
+                return true
+            }
+            // 处理其他菜单项（如果有）
+            // ...
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // 在 Fragment 中创建菜单
+        inflater.inflate(R.menu.diary_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun invokeActivityOnOptionsItemSelected(itemId: Int) {
+        // 调用 Activity 的 onOptionsItemSelected
+        requireActivity().onOptionsItemSelected(requireActivity().findViewById(itemId))
     }
 
     @Deprecated("Deprecated in Java")
@@ -85,7 +136,8 @@ class DashboardFragment : Fragment() {
         initDiary(binding.monthText.text.toString())
         val layoutManager = LinearLayoutManager(context)
         binding.diaryRecycle.layoutManager = layoutManager
-
+        // 设置 Fragment 的菜单项可见
+        setHasOptionsMenu(true)
         val adapter = DiaryAdapter(mainViewModel.diaryList.value!!, requireActivity())
         val mDividerItemDecoration = DiaryDividerItemDecoration()
         binding.diaryRecycle.addItemDecoration(mDividerItemDecoration)
@@ -108,7 +160,8 @@ class DashboardFragment : Fragment() {
                                 )
                             if (flag) {
                                 mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                                val index = mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
+                                val index =
+                                    mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
                                 adapter.notifyItemInserted(index)
                                 binding.diaryRecycle.smoothScrollToPosition(index)
 //                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
@@ -125,7 +178,8 @@ class DashboardFragment : Fragment() {
                                 )
                             if (flag) {
                                 mainViewModel.addDiary(mainViewModel.addDiaryItem)
-                                val index = mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
+                                val index =
+                                    mainViewModel.diaryList.value!!.indexOf(mainViewModel.addDiaryItem)
                                 adapter.notifyItemInserted(index)
                                 binding.diaryRecycle.smoothScrollToPosition(index)
 //                                adapter.notifyItemInserted(mainViewModel.diaryList.value!!.size - 1)
@@ -140,6 +194,7 @@ class DashboardFragment : Fragment() {
                 }
             }
         }
+
         mainViewModel.revisePosition.observe(viewLifecycleOwner) { revisePosition ->
             when (revisePosition) {
                 -1 -> {}
@@ -200,11 +255,11 @@ class DashboardFragment : Fragment() {
             R.drawable.mood_5_last
         )
         binding.screentext.setOnClickListener {
-            if (!goneflag){
+            if (!goneflag) {
                 binding.moodgroup.gone()
                 goneflag = true
 //                binding.screentext.text = "筛选（点击展开）："
-            }else{
+            } else {
                 binding.moodgroup.visible()
                 goneflag = false
 //                binding.screentext.text = "筛选（点击收起）："
@@ -307,6 +362,8 @@ class DashboardFragment : Fragment() {
             }
             initDiary(binding.monthText.text.toString())
             adapter.notifyDataSetChanged()
+
+
         }
         binding.monthSelect.setOnClickListener { view ->
             CardDatePickerDialog.builder(view.context)

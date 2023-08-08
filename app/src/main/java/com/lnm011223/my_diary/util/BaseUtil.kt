@@ -23,6 +23,7 @@ import java.util.*
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -58,8 +59,12 @@ object BaseUtil {
 
 
     internal fun isDarkTheme(context: Context): Boolean {
-        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return flag == Configuration.UI_MODE_NIGHT_YES
+//        val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+//        return flag == Configuration.UI_MODE_NIGHT_YES
+        val nightMode = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        return nightMode == Configuration.UI_MODE_NIGHT_YES
+                || AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
+
     }
 
 
@@ -69,13 +74,13 @@ object BaseUtil {
             window, window.decorView
         )
         window.statusBarColor =
-            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
+            ContextCompat.getColor(activity, R.color.backgroundcolor)
         window.navigationBarColor =
-            ContextCompat.getColor(MyApplication.context, R.color.backgroundcolor)
+            ContextCompat.getColor(activity, R.color.backgroundcolor)
         insetsController.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
-        if (!BaseUtil.isDarkTheme(activity)) {
+//        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
+        if (!isDarkTheme(activity)) {
 
             //insetsController?.isAppearanceLightStatusBars = true
             //insetsController?.isAppearanceLightNavigationBars = true

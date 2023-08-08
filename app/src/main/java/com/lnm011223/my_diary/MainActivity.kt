@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.bottom_nav_menu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbarTitle.text = "图表分析"
                     binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg3)
 
-                    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+//                    window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundcolor)
                     hideFab(binding)
                 }
 
@@ -143,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                     binding.toolbarTitle.text = "个人设置"
                     binding.toolbarTitleBg.setImageResource(R.drawable.shape_toolbar_title_bg4)
 
-                    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+//                    window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
                     hideFab(binding)
                 }
             }
@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFab(window: Window, binding: ActivityMainBinding) {
-        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
+//        window.statusBarColor = ContextCompat.getColor(context, R.color.backgroundcolor)
         binding.navView.updatePadding(right = 50.px)
         binding.navView2.updatePadding(left = 50.px)
         binding.bottomAppBar.fabAlignmentMode = FAB_ALIGNMENT_MODE_CENTER

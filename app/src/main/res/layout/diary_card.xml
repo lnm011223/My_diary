@@ -16,7 +16,7 @@
         android:textColor="@color/titletextcolor"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@id/edit_image"
+
         app:layout_constraintStart_toStartOf="@+id/diary_card" />
 
     <TextView
@@ -34,6 +34,7 @@
         app:layout_constraintStart_toEndOf="@+id/diarycard_date" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/delete_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -47,7 +48,7 @@
         android:id="@+id/edit_image"
         android:layout_width="20dp"
         android:layout_height="20dp"
-
+        android:visibility="gone"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_twotone_edit_24"
         app:layout_constraintBottom_toTopOf="@+id/diary_card"

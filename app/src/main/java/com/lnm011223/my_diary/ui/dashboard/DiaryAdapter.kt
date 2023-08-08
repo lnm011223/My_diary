@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ import com.lnm011223.my_diary.util.BaseUtil
 
 class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
     RecyclerView.Adapter<DiaryAdapter.ViewHolder>() {
+    private val visibilityMap = SparseBooleanArray()
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val diarycard_mood: ImageView = view.findViewById(R.id.diarycard_mood)
         val diarycard_image: ImageView = view.findViewById(R.id.diarycard_image)
@@ -71,7 +73,10 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
         "周六"  to "SAT",
         "周日"  to "SUN"
     )
-
+    fun setItemVisible(position: Int, isVisible: Boolean) {
+        visibilityMap.put(position, isVisible)
+        notifyItemChanged(position)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.diary_card, parent, false)
@@ -140,6 +145,16 @@ class DiaryAdapter(val diaryList: List<Diary>, val activity: Activity) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val diary = diaryList[position]
+        val isVisible = visibilityMap.get(position)
+        if (isVisible) {
+            holder.delete_button.visibility = View.VISIBLE
+            holder.edit_button.visibility = View.VISIBLE
+
+        } else {
+            holder.delete_button.visibility = View.GONE
+            holder.edit_button.visibility = View.GONE
+
+        }
         holder.itemView.animation =
             AnimationUtils.loadAnimation(holder.itemView.context, R.anim.recyclerviewshow)
         holder.diarycard_mood.setImageResource(moodMap[diary.moon]!!)

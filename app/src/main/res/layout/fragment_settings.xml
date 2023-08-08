@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundcolor"
     tools:context=".ui.settings.SettingsFragment">
-
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_rounded_corner"
+        android:backgroundTint="@color/main"
+        android:translationX="5dp"
+        android:translationY="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/materialCardView6"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView6"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView6"
+        app:layout_constraintTop_toTopOf="@+id/materialCardView6" />
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView6"
         android:layout_width="match_parent"
@@ -15,6 +25,8 @@
         android:backgroundTint="@color/cardcolor"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
+        app:strokeColor="@color/titletextcolor"
+        app:strokeWidth="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -67,7 +79,7 @@
         android:layout_marginTop="50dp"
         android:background="@drawable/shape_sheet_dialog_bg"
         android:backgroundTint="@color/backgroundcolor"
-        android:padding="15dp"
+
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -79,22 +91,36 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             android:text="个人"
             android:textColor="@color/cardtext"
             android:textSize="14sp"
             android:textStyle="bold"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_rounded_corner"
+            android:backgroundTint="@color/main"
+            android:translationX="5dp"
+            android:translationY="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/materialCardView5"
+            app:layout_constraintEnd_toEndOf="@+id/materialCardView5"
+            app:layout_constraintStart_toStartOf="@+id/materialCardView5"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView5" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="15dp"
             android:backgroundTint="@color/cardcolor"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
+            app:strokeColor="@color/titletextcolor"
+            app:strokeWidth="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6">
@@ -167,6 +193,36 @@
                     android:layout_marginTop="15dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view1" />
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="15dp"
+                    android:background="@color/cardinlinecolor"
+                    app:layout_constraintTop_toBottomOf="@+id/changeUsername_Btn"
+                    tools:layout_editor_absoluteX="15dp" />
+                <TextView
+                    android:id="@+id/changeTheme_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="应用主题"
+                    android:textColor="@color/cardtext"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
+                <TextView
+                    android:id="@+id/changeTheme_Btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="跟随系统"
+                    android:textColor="@color/cardtext"
+                    android:textSize="14sp"
+
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
