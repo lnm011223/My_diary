@@ -49,6 +49,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="0dp"
+                    android:src="@drawable/mood_1"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/toolbar_title"
+                    app:shapeAppearance="@style/CircleStyle" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

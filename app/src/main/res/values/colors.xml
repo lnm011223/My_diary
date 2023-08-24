@@ -8,8 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#61AE72</color>
-    <color name="main">#64a4db</color>
+    <color name="main2">#0085ff</color>
     <color name="main1">#3EB06A</color>
+    <color name="main">#64a4db</color>
+
     <color name="red">#F44336</color>
     <color name="newcolorblue">#285dc2</color>
     <color name="newcolorindigo">#7e6be8</color>
@@ -17,7 +19,7 @@
     <color name="newcolorred">#e7647f</color>
     <color name="newcoloryellow">#f9cf67</color>
     <color name="newcolororange">#f39970</color>
-    <color name="hpcolorgreen">#90bbbd</color>
+    <color name="hpcolorgreen">#8FBF9F</color>
     <color name="hpcolorpurple">#a184e8</color>
     <color name="hpcolororange">#f0b669</color>
     <color name="hpcolorred">#fa124f</color>

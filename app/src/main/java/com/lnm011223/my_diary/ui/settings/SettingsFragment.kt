@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.lnm011223.my_diary.MainViewModel
 import com.lnm011223.my_diary.R
 import com.lnm011223.my_diary.databinding.FragmentSettingsBinding
@@ -63,6 +64,8 @@ class SettingsFragment : Fragment() {
         val prefs = activity?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val isNotice = prefs?.getBoolean("isNotice", false)
         val welcometext = prefs?.getString("welcometext", "天天开心！")
+        val qqtext = prefs?.getString("qqtext", "")
+        binding.changeQQBtn.text = qqtext
         var themeid = prefs?.getInt("themeid", 2)
         binding.isNoticeButton.isChecked = isNotice!!
         binding.welcomeText.text = welcometext
@@ -86,7 +89,11 @@ class SettingsFragment : Fragment() {
                 binding.timecard.isVisible = false
             }
         }
-
+        if (qqtext != "") {
+            Glide.with(this)
+                .load("https://q1.qlogo.cn/g?b=qq&nk=$qqtext&s=640")
+                .into(binding.avatar)
+        }
         binding.avatar.setOnClickListener {
             val moodMap = mapOf(
                 1 to R.drawable.mood_1,
@@ -148,6 +155,36 @@ class SettingsFragment : Fragment() {
             }
 
         }
+        binding.changeQQBtn.setOnClickListener {
+            // 设置布局
+            val view = layoutInflater.inflate(R.layout.welcometext_dialog_layout, null)
+            val input = view.findViewById<EditText>(R.id.input_text)
+
+            AlertDialog.Builder(requireActivity()).apply {
+
+                setTitle("请输入QQ号，头像会设置成QQ头像：")
+                setView(view)
+                input.setText(qqtext)
+                setPositiveButton("确认") { dialog, which ->
+                    val text = input.text.toString()
+                    // 处理文本输入
+                    binding.changeQQBtn.text = text
+                    val editor =
+                        activity?.getSharedPreferences("data", Context.MODE_PRIVATE)?.edit()
+                    editor?.putString("qqtext", text)
+                    editor?.apply()
+                    Glide.with(requireActivity())
+                        .load("https://q1.qlogo.cn/g?b=qq&nk=$text&s=640")
+                        .into(binding.avatar)
+                }
+                setNegativeButton("取消") { dialog, which ->
+                    dialog.cancel()
+                }
+                create()
+                show()
+            }
+
+        }
         binding.changeThemeBtn.setOnClickListener {
 
             val options = arrayOf("浅色模式", "深色模式", "跟随系统") // 选项列表
@@ -173,7 +210,8 @@ class SettingsFragment : Fragment() {
                 }
 //                Toast.makeText(requireContext(), "Selected: ${options[which]}", Toast.LENGTH_SHORT)
 //                    .show()
-                val intent = requireContext().packageManager.getLaunchIntentForPackage(requireContext().packageName)
+                val intent =
+                    requireContext().packageManager.getLaunchIntentForPackage(requireContext().packageName)
                 intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 requireContext().startActivity(intent)
 

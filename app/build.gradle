@@ -16,7 +16,7 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName "1.0.6.6"
+        versionName "1.0.6.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,7 +61,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     debugImplementation 'com.guolindev.glance:glance:1.1.0'
     implementation 'com.haibin:calendarview:3.7.1'
-
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'com.github.loperSeven:DateTimePicker:0.6.2'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -75,6 +75,6 @@ dependencies {
     implementation 'androidx.work:work-runtime:2.8.1'
     implementation 'com.guolindev.permissionx:permissionx:1.7.1'
     implementation 'com.github.st235:swipetoactionlayout:1.1.1'
-    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.6'
-    implementation  'io.github.scwang90:refresh-header-radar:2.0.6'       //雷达刷新头
+    implementation 'io.github.scwang90:refresh-layout-kernel:2.0.6'
+    implementation 'io.github.scwang90:refresh-header-radar:2.0.6'       //雷达刷新头
 }

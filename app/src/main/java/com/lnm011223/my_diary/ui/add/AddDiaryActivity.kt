@@ -68,6 +68,8 @@ class AddDiaryActivity : BaseActivity() {
             val intent = Intent(Intent.ACTION_PICK) // 打开相册
             intent.setDataAndType(MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*")
             startActivityForResult(intent, formAlbum)
+//            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//            startActivityForResult(intent, formAlbum)
         }
 
         var imageViewList = listOf(

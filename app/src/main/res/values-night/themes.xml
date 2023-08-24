@@ -17,10 +17,10 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-    <color name="cardcolor">#1c1c1c</color>
+    <color name="cardcolor">#2d2d2d</color>
     <color name="cardinlinecolor">#282828</color>
-    <color name="smallcardcolor">#707070</color>
-    <color name="backgroundcolor">#010101</color>
+    <color name="smallcardcolor">#454545</color>
+    <color name="backgroundcolor">#1E1E1E</color>
     <color name="diverLinecolor">#414141</color>
     <color name="cardtext">#e2e2e2</color>
     <color name="titletextcolor">#b9b9b9</color>

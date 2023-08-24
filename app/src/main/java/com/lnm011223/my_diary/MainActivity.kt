@@ -24,6 +24,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomappbar.BottomAppBar.FAB_ALIGNMENT_MODE_CENTER
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.lnm011223.my_diary.base.MyApplication.Companion.context
@@ -112,6 +113,9 @@ class MainActivity : AppCompatActivity() {
         if (intent.getStringExtra("yiyan").toString() != "null") {
             mainViewModel.yiyan = intent.getStringExtra("yiyan").toString()
         }
+//        Glide.with(this)
+//            .load("http://q.qlogo.cn/headimg_dl?dst_uin=2969827073&spec=640&img_type=jpg")
+//            .into(binding.avatar)
         //控制BottomNavigationView和fab的效果
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

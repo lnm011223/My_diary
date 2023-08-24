@@ -63,6 +63,7 @@
         android:background="@drawable/background_rounded_corner"
         android:translationX="5dp"
         android:translationY="5dp"
+        android:backgroundTint="@color/hpcolorgreen"
         app:layout_constraintBottom_toBottomOf="@id/diary_card"
         app:layout_constraintEnd_toEndOf="@+id/diary_card"
         app:layout_constraintStart_toStartOf="@+id/diary_card"
