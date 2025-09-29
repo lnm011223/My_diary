@@ -65,7 +65,6 @@ class SettingsFragment : Fragment() {
         val isNotice = prefs?.getBoolean("isNotice", false)
         val welcometext = prefs?.getString("welcometext", "天天开心！")
         val qqtext = prefs?.getString("qqtext", "")
-        binding.changeQQBtn.text = qqtext
         var themeid = prefs?.getInt("themeid", 2)
         binding.isNoticeButton.isChecked = isNotice!!
         binding.welcomeText.text = welcometext
@@ -90,6 +89,8 @@ class SettingsFragment : Fragment() {
             }
         }
         if (qqtext != "") {
+            binding.changeQQBtn.text = qqtext
+
             Glide.with(this)
                 .load("https://q1.qlogo.cn/g?b=qq&nk=$qqtext&s=640")
                 .into(binding.avatar)

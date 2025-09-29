@@ -78,3 +78,4 @@ class IntroActivity : AppIntro2() {
         finish()
     }
 }
+
